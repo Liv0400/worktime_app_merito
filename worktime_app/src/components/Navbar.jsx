@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 
 import "./Navbar.css";
 import { Link, NavLink } from "react-router-dom";
 
 export const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = React.useState(false);
 
   return (
-    <nav>
+    <>
       <Link to="/" className="title">
-        Worktime
+        <h1>Worktime</h1>
       </Link>
+    <nav>
       <div className="menu" onClick={() => setMenuOpen(!menuOpen)}>
         <span></span>
         <span></span>
@@ -31,5 +32,6 @@ export const Navbar = () => {
         </li>
       </ul>
     </nav>
+    </>
   );
 };
