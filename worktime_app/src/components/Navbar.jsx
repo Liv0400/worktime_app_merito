@@ -8,30 +8,31 @@ export const Navbar = () => {
 
   return (
     <>
-      <Link to="/" className="title">
+      {/* <Link to="/" className="title">
         <h1>Worktime</h1>
-      </Link>
-    <nav>
-      <div className="menu" onClick={() => setMenuOpen(!menuOpen)}>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <ul className={menuOpen ? "open" : ""}>
-        <li>
-          <NavLink to="/grafik">Grafik</NavLink>
-        </li>
-        <li>
-          <NavLink to="/dyspozycja">Dyspozycja</NavLink>
-        </li>
-        <li>
-          <NavLink to="/wnioski">Wnioski</NavLink>
-        </li>
-        <li>
-          <NavLink to="/pracownicy">Pracownicy</NavLink>
-        </li>
-      </ul>
-    </nav>
+      </Link> */}
+      <nav>
+        <div className="menu" onClick={() => setMenuOpen(!menuOpen)}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul className={menuOpen ? "open" : ""}>
+          <li>
+            <NavLink to="/grafik">Grafik</NavLink>
+          </li>
+          <li>
+            <NavLink to="/dyspozycja">Dyspozycja</NavLink>
+          </li>
+          <li>
+            <NavLink to="/wnioski">Wnioski</NavLink>
+          </li>
+          <li>
+            <NavLink to="/pracownicy">Pracownicy</NavLink>
+          </li>
+        </ul>
+      </nav>
+
     </>
   );
 };
