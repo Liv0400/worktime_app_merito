@@ -1,16 +1,13 @@
 import React from "react";
 
 import "./Navbar.css";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = React.useState(false);
 
   return (
     <>
-      {/* <Link to="/" className="title">
-        <h1>Worktime</h1>
-      </Link> */}
       <nav>
         <div className="menu" onClick={() => setMenuOpen(!menuOpen)}>
           <span></span>

@@ -1,0 +1,39 @@
+.pracownicy{
+    padding: 5rem 2rem 0 5rem;
+}
+
+.pracownicy ul{
+  margin: 2rem 0 0 5rem;
+  padding: 2rem;  
+  list-style: none;
+}
+.pracownicy li {
+  position: relative;
+  margin-bottom: .5rem;
+  margin: 2rem;
+  min-width: 30rem;
+  height: 50px;
+  /* background-color: #eee; */
+}
+.pracownicy a {
+  font-size: 18px;
+  line-height: 50px;
+  text-decoration: none;
+  color: #000;
+  transition: .3s;
+}
+.pracownicy a:hover{
+  font-size: 16px;
+}
+.minPhoto{
+  position: absolute;
+  top: 0;
+  left: -5rem;
+  display: inline-block;
+  background-color: #999;
+  width: 3rem;
+  height: 3rem;
+  margin-right: 2rem;
+  padding: .5rem;
+  border-radius: 50%;
+}
