@@ -54,6 +54,14 @@ function App() {
             </BaseLayout>
           }
         />
+        <Route
+          path="/pracownicy/profil"
+          element={
+            <BaseLayout>
+              <Profil />
+            </BaseLayout>
+          }
+        />
       </Routes>
     </div>
   );
