@@ -6,6 +6,7 @@ import {
   Dyspozycja,
   Wnioski,
   Pracownicy,
+  Profil
 } from "./components/pages";
 import BaseLayout from "./components/BaseLayout";
 
