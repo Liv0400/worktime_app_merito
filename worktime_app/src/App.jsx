@@ -7,6 +7,7 @@ import {
   Dyspozycja,
   Wnioski,
   Pracownicy,
+  Profil
 } from "./components/pages";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/dyspozycja" element={<Dyspozycja />} />
         <Route path="/wnioski" element={<Wnioski />} />
         <Route path="/pracownicy" element={<Pracownicy />} />
+        <Route path="/pracownicy/profil" element={<Profil />} />
       </Routes>
     </div>
   );

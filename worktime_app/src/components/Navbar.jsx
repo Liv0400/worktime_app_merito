@@ -8,9 +8,9 @@ export const Navbar = () => {
 
   return (
     <>
-      <Link to="/" className="title">
+      {/* <Link to="/" className="title">
         <h1>Worktime</h1>
-      </Link>
+      </Link> */}
     <nav>
       <div className="menu" onClick={() => setMenuOpen(!menuOpen)}>
         <span></span>
