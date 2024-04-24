@@ -6,6 +6,7 @@ import {
   Dyspozycja,
   Wnioski,
   Pracownicy,
+  Profil
 } from "./components/pages";
 import BaseLayout from "./components/BaseLayout";
 
@@ -50,6 +51,14 @@ function App() {
           element={
             <BaseLayout>
               <Pracownicy />
+            </BaseLayout>
+          }
+        />
+        <Route
+          path="/pracownicy/profil"
+          element={
+            <BaseLayout>
+              <Profil />
             </BaseLayout>
           }
         />
