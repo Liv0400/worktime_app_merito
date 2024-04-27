@@ -6,7 +6,9 @@ import {
   Dyspozycja,
   Wnioski,
   Pracownicy,
-  Profil
+  Profil, 
+  Administrator, 
+  Formularz,
 } from "./components/pages";
 import BaseLayout from "./components/BaseLayout";
 
@@ -46,6 +48,23 @@ function App() {
             </BaseLayout>
           }
         />
+        <Route
+          path="/administrator"
+          element={
+            <BaseLayout>
+              <Administrator />
+            </BaseLayout>
+          }
+        />
+        <Route
+          path="/administrator/formularz"
+          element={
+            <BaseLayout>
+              <Formularz />
+            </BaseLayout>
+          }
+        />
+        
         <Route
           path="/pracownicy"
           element={

@@ -1,0 +1,21 @@
+.PrzyciskDodaj{
+    display: flex;
+    padding: 1rem;
+  margin: 10 auto;
+  margin-right: 33px;
+  padding-right: "200px";
+    float: right;
+    font-size: 15px;
+    border: 2px solid #333;
+    border-radius: 30px;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  .tytul
+  {
+ 
+  margin-left: 33px;
+  margin-top: 33px;
+  color:black;
+  border:none;
+  }

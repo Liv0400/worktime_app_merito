@@ -27,6 +27,9 @@ export const Navbar = () => {
           <li>
             <NavLink to="/pracownicy">Pracownicy</NavLink>
           </li>
+          <li>
+            <NavLink to="/administrator">Administrator</NavLink>
+          </li>
         </ul>
       </nav>
 
