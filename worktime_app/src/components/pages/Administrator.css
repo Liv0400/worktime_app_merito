@@ -19,3 +19,82 @@
   color:black;
   border:none;
   }
+
+  .tabela{
+    text-align: center;
+    width: 40%;
+    background-color: #999;
+    padding: 2rem;
+    margin: 0 auto;
+    border-radius: 30px;
+  }
+
+  .formularz{
+color:white;
+  border-radius: 30px;
+  } 
+
+  
+input {
+  border: 2px solid #eeeeee;
+  height: 46px;
+  margin: 10px 0 0 0;
+  padding: 1%;
+  font-size: 1.2em;
+  line-height: 1.5em;
+  color: #333333;
+  letter-spacing: .01em;
+  font-style: normal;
+  font-weight: 300;
+  font-family: source-sans-pro;
+  sans-serif;
+}
+
+#imie {
+  width: 100%;
+}
+
+#nazwisko {
+  width: 100%;
+}
+
+#email {
+  width: 100%;
+}
+
+
+
+
+#submit {
+  display: block;
+  border: 0;
+  width: 25%;
+  height: 60px;
+  margin: 30px auto 0;
+  background: #eee;
+  color: #333;
+  text-align: center;
+  transition: background, color, .5s ease 0;
+  border: 0;
+  font-size: 1.2em;
+  line-height: 1.5em;
+  color: #333333;
+  letter-spacing: .01em;
+  font-style: normal;
+  font-weight: 300;
+  font-family: source-sans-pro;
+  sans-serif;
+}
+
+#submit:hover {
+  background: #DADADA;
+  border: 1px #DADADA;
+  color: #C43C3E;
+}
+
+#p {
+  display: inline-block;
+  font-size: 18px;
+  margin: .2rem;
+  padding: .4rem;
+}

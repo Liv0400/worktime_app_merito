@@ -2,41 +2,40 @@
 import './Administrator.css';
 import React from 'react';
 //import { Link } from "react-router-dom";
+//import Textinput from '../Textinput';
 
 
 export const Formularz = () => {
-
+const [email, setEmail] = useState("")
+const [password, setPassword] = useState("")
+const onEmailChanged = (e) =>{
+  setEmail(e.target.value)
+}
+const onPasswordChanged = (e) =>{
+  setPassword(e.target.value)
+}
+const handleSubmitForm= (e) =>{
+    e.preventDefault()
+const errors={
+email: !/^[A-Z0-9._%+-]+[A-Z0-9.-]+[A-Z]{2,}$/i.test(email)
+}}
+  
     return (
-    <main>
-        <h1 className="tytul">Nowy pracownik</h1>
-   
-      </main>
+        <>
+        <div>
+          <h1 className='tytul'>Nowy pracownik</h1>
+        <form onSubmit={handleSubmitForm}>
+         <TextInput title="imię" name ="firstname"/>
+            <TextInput title="Nazwisko" name ="lastname"/>
+          <TextInput onChange ={onEmailChanged} value = {email} title="Email" name ="email"/>
+          <TextInput onChange ={onPasswordChanged} value = {password} title="Hasło" name ="password"/>
+          <TextInput title="Data urodzenia" name ="birthdate"/>
+          <TextInput title="Typ umowy" name ="Type_deal"/>
+          <TextInput title="Wymiar czasu pracy" name ="time_job"/>
+          <TextInput title="Id pracownika" name ="ID"/>
+          <Textinput title="Uprawnienia" name ="uprawnienia"/> 
+         <Link to ="/administrator"><button type = "submit" className='dodaj'>Dodaj</button></Link> 
+        </form></div>
+        </>
     )
   };
-  
-/*
-        return (
-            <div>
-                <h1>Nowy pracownik</h1>
-                <form>
-                <p><input name="Imię/Imiona" type="text">Imiona </p>
-                <p><input name="Naziwsko " type="text">Naziwsko </p>
-                <p><input name="Data urodzenia" type="date">01.01.1990</p>
-                <p><input name="umowa" type="text">Umowa</p>
-                <p><input name="Wymiar etatu" type="text">Wymiar etatu<p>
-                <p><input name="Idpracownika" type="text">ID pracownika</p>
-                <p><input name="email" type="text">email</p>
-                <p><input name="haslo" type="text">Hasło</p>
-                <p><input name="uprawnienia" type="text">Uprawnienia</p>
-                <button type="submit" >Dodaj</button>
-               </form>
-            </div>
-        );
-    }
-
-*/
-
-   
-  
-
-  

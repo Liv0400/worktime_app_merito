@@ -8,7 +8,7 @@ import {
   Pracownicy,
   Profil, 
   Administrator, 
-  Formularz,
+   Formularz,
 } from "./components/pages";
 import BaseLayout from "./components/BaseLayout";
 
@@ -56,14 +56,14 @@ function App() {
             </BaseLayout>
           }
         />
-        <Route
-          path="/administrator/formularz"
+         <Route
+          path="/formularz"
           element={
             <BaseLayout>
               <Formularz />
             </BaseLayout>
           }
-        />
+        /> 
         
         <Route
           path="/pracownicy"
