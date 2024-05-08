@@ -11,7 +11,9 @@ import {
   Profil,
   PokazWnioski,
   PrzeslaneWnioski,
-  NowyWniosek
+  NowyWniosek,
+  Administrator,
+  Formularz
 } from "./components/pages";
 import BaseLayout from "./components/BaseLayout";
 
@@ -58,6 +60,22 @@ function App() {
             </BaseLayout>
           }
         />
+        <Route
+          path="/administrator"
+          element={
+            <BaseLayout>
+              <Administrator />
+            </BaseLayout>
+          }
+        />
+        <Route
+          path="/formularz"
+          element={
+            <BaseLayout>
+              <Formularz />
+            </BaseLayout>
+          }
+        /> 
         <Route
           path="/wnioskiPracownik"
           element={
