@@ -1,4 +1,5 @@
-import './Profil.css';
+import '../style/Profil.css';
+// import {Pracownicy} from "./Pracownicy"
 import { Link } from "react-router-dom";
 // import { Pracownicy } from './Pracownicy';
 

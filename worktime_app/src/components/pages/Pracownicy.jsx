@@ -1,6 +1,6 @@
 // import React from "react";
 import { NavLink } from "react-router-dom";
-import './Pracownicy.css'
+import '../style/Pracownicy.css'
 const pracownicy = [
     {
     id:0,
@@ -8,7 +8,8 @@ const pracownicy = [
     lastName:'Jeden',
     birthDate:'12.12.2012',
     contract: 'umowa o pracę',
-    timeEmployment: 'cały etat'
+    timeEmployment: 'cały etat',
+    manager: true
   },
     {
     id:1,
@@ -16,7 +17,8 @@ const pracownicy = [
     lastName:'Druga',
     birthDate:'30.03.2003',
     contract:'umowa o pracę',
-    timeEmployment:'3/4 etatu'
+    timeEmployment:'3/4 etatu',
+    manager: false
   },
     {
     id:2,
@@ -24,21 +26,24 @@ const pracownicy = [
     lastName:'Trzecia',
     birthDate:'15.05.1995',
     contract:'umowa zlecenie',
-    timeEmployment:'-'
+    timeEmployment:'-',
+    manager: false
   },  {
     id:3,
     name:'Ewa',
     lastName:'Czwarta',
     birthDate:'5.05.2005',
     contract:'umowa o pracę',
-    timeEmployment:'1/4 etatu'
+    timeEmployment:'1/4 etatu',
+    manager: false
   },  {
     id:4,
     name:'Piotr',
     lastName:'Piąty',
     birthDate:'7.08.1999',
     contract:"umowa o pracę",
-    timeEmployment:'cały etat'
+    timeEmployment:'cały etat',
+    manager: true
   }
 ];
 

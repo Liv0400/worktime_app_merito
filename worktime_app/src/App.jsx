@@ -1,23 +1,35 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import { Logowanie } from "./components/Logowanie";
 import {
   Home,
   Grafik,
   Dyspozycja,
   Wnioski,
+  WnioskiPracownik,
   Pracownicy,
-  Profil, 
-  Administrator, 
-   Formularz,
+  Profil,
+  PokazWnioski,
+  PrzeslaneWnioski,
+  NowyWniosek,
+  Administrator,
+  Formularz
 } from "./components/pages";
 import BaseLayout from "./components/BaseLayout";
 
+
 function App() {
   return (
-    <div className="App">
+    <div className="App"> 
       <Routes>
         <Route
           path="/"
+          element={
+           <Logowanie/>
+          }
+      />
+        <Route
+          path="/home"
           element={
             <BaseLayout>
               <Home />
@@ -56,7 +68,7 @@ function App() {
             </BaseLayout>
           }
         />
-         <Route
+        <Route
           path="/formularz"
           element={
             <BaseLayout>
@@ -64,7 +76,14 @@ function App() {
             </BaseLayout>
           }
         /> 
-        
+        <Route
+          path="/wnioskiPracownik"
+          element={
+            <BaseLayout>
+              <WnioskiPracownik />
+            </BaseLayout>
+          }
+        />
         <Route
           path="/pracownicy"
           element={
@@ -81,6 +100,31 @@ function App() {
             </BaseLayout>
           }
         />
+        <Route
+          path="/wnioski/pokazWnioski"
+          element={
+            <BaseLayout>
+              <PokazWnioski />
+            </BaseLayout>
+          }
+        />
+        <Route
+          path="/wnioski/przeslaneWnioski"
+          element={
+            <BaseLayout>
+              <PrzeslaneWnioski />
+            </BaseLayout>
+          }
+        />
+        <Route
+          path="/wnioski/nowyWniosek"
+          element={
+            <BaseLayout>
+              <NowyWniosek />
+            </BaseLayout>
+          }
+        />
+        
       </Routes>
     </div>
   );

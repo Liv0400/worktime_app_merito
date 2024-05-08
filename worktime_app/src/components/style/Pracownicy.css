@@ -2,24 +2,30 @@
     padding: 5rem 2rem 0 5rem;
 }
 
+.pracownicy h1 {
+  color: #eee;
+  /* text-shadow: 1px 1px #333; */
+}
+
 .pracownicy ul{
+  display: block;
   margin: 2rem 0 0 5rem;
   padding: 2rem;  
   list-style: none;
+  width: 60%;
 }
 .pracownicy li {
   position: relative;
   margin-bottom: .5rem;
   margin: 2rem;
-  min-width: 30rem;
+  min-width: 20rem;
   height: 50px;
-  /* background-color: #eee; */
 }
 .pracownicy a {
   font-size: 18px;
   line-height: 50px;
   text-decoration: none;
-  color: #000;
+  color: #eee;
   transition: .3s;
 }
 .pracownicy a:hover{
@@ -37,3 +43,4 @@
   padding: .5rem;
   border-radius: 50%;
 }
+

@@ -1,0 +1,52 @@
+body {
+  background-image: url(../img/bg_projekt.png);
+}
+.logoName {
+  display: block;
+  width: 100%;
+  padding: 2rem 2rem 0 2rem;
+}
+
+.logowanie{
+  background-color: rgba(255,255,255, .5);
+  width: 35vw;
+  min-height: 80vh;
+  margin: 5rem auto;
+  border-radius: 15px;
+}
+.logowanie form  {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  text-align: center;
+}
+.logowanie form label.login,
+.logowanie form label.haslo{
+  display: block;
+  width: 100%;
+  margin-bottom:1.5rem;
+  color: rgb(193, 27, 135);
+}
+.logowanie form label.login input,
+.logowanie form label.haslo input{
+  min-width: 40%;
+  margin-left: .4rem;
+  padding: .4rem;
+  background-color: transparent;
+  border: 2px solid #fff;
+  border-radius: 20px;
+  color: rgb(193, 27, 135);
+}
+.buttonLogowanie {
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  font-size: 14px;
+  background-color: #f164aa;
+  color: #fff;
+  border: 2px solid #f164aa;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.buttonLogowanie:hover {
+  background: rgba(255, 255, 255, .3);
+  color: #f164aa;
+}

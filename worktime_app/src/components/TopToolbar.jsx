@@ -7,12 +7,12 @@ export default function TopToolbar() {
       style={{
         width: "100px",
         height: "56px",
-        background: "#333",
+        background: "transparent",
         float: "right",
         paddingRight: "200px",
       }}
     >
-      <Link to="/" className="title">
+      <Link to="/home" className="title">
         <h1>Worktime</h1>
       </Link>
     </div>
