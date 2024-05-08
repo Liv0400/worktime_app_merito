@@ -9,7 +9,7 @@ export default function BaseLayout(props) {
         <Navbar />
       </div>
       <div style={{ width: "100%", height: "100%" }}>
-        <div style={{ width: "100%", height: "56px", background: "#333" }}>
+        <div style={{ width: "100%", height: "56px",border:"0px solid transparent",borderRadius:"30px", background: "rgba(255,255,255,.4)" }}>
           <TopToolbar />
         </div>
         <div>{props.children}</div>

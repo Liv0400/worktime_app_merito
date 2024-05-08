@@ -1,10 +1,10 @@
 .profil{
-  /* display: block; */
+  display: block;
   text-align: center;
   width: 40%;
-  background-color: #999;
+  background-color: rgba(255,255,255,.4);
   padding: 2rem;
-  margin: 0 auto;
+  margin: 0 auto 2rem;
   border-radius: 30px;
 }
 .profil .photo{
@@ -32,16 +32,17 @@
 }
 
 .profilButton{
-  margin: 2rem;
+  margin: 2rem 0 0 2rem;
   padding: .8rem 1.2rem .8rem 1.2rem;
-  font-size: 15px;
-  border: 2px solid #333;
-  border-radius: 30px;
-  background-color: #fff;
+  font-size: 14px;
+  border: 2px solid #f27fdd;
+  border-radius: 25px;
+  background-color: #f27fdd;
+  color:#eee;
   cursor: pointer;
 }
 
 .profilButton:hover {
-  background-color: #333;
-  color: #fff;
+  background-color: #f0e4f3;
+  color: #f27fdd;
 }
