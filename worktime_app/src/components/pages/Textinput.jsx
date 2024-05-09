@@ -1,4 +1,6 @@
-export const TextInput =({title, name, type = "text", value, onChange}) =>{
+import React from "react"
+
+const TextInput =({title, name, type = "text", value, onChange}) =>{
     return(
         <div>
 
@@ -7,4 +9,4 @@ export const TextInput =({title, name, type = "text", value, onChange}) =>{
             </div>
     )
 }
-
+export default TextInput ;

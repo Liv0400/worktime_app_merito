@@ -1,13 +1,16 @@
 
 import './Administrator.css';
 import React from 'react';
-//import { Link } from "react-router-dom";
-//import Textinput from '../Textinput';
+import { Link } from "react-router-dom";
+import { useState } from 'react';
+import TextInput from './Textinput';
 
 
 export const Formularz = () => {
 const [email, setEmail] = useState("")
 const [password, setPassword] = useState("")
+const [errors, setErrors] = useState("")
+
 const onEmailChanged = (e) =>{
   setEmail(e.target.value)
 }
@@ -16,26 +19,42 @@ const onPasswordChanged = (e) =>{
 }
 const handleSubmitForm= (e) =>{
     e.preventDefault()
-const errors={
+const errorsObj={
 email: !/^[A-Z0-9._%+-]+[A-Z0-9.-]+[A-Z]{2,}$/i.test(email)
-}}
+} 
+setErrors (errorsObj)
+}
   
-    return (
-        <>
+    return (<>
+        
         <div>
-          <h1 className='tytul'>Nowy pracownik</h1>
-        <form onSubmit={handleSubmitForm}>
-         <TextInput title="imię" name ="firstname"/>
-            <TextInput title="Nazwisko" name ="lastname"/>
-          <TextInput onChange ={onEmailChanged} value = {email} title="Email" name ="email"/>
-          <TextInput onChange ={onPasswordChanged} value = {password} title="Hasło" name ="password"/>
-          <TextInput title="Data urodzenia" name ="birthdate"/>
-          <TextInput title="Typ umowy" name ="Type_deal"/>
-          <TextInput title="Wymiar czasu pracy" name ="time_job"/>
-          <TextInput title="Id pracownika" name ="ID"/>
-          <Textinput title="Uprawnienia" name ="uprawnienia"/> 
-         <Link to ="/administrator"><button type = "submit" className='dodaj'>Dodaj</button></Link> 
-        </form></div>
+          <h1 className='tytul'>Nowy pracownik</h1></div>
+          <div><form onSubmit={handleSubmitForm}
+          >
+         <TextInput  title="Imię" name ="firstname"/>
+         <TextInput title="Nazwisko" name ="lastname"/>
+         <TextInput onChange ={onEmailChanged} value = {email} 
+         title="Email" name ="email"/>
+        <TextInput onChange ={onPasswordChanged} value = {password} 
+        title="Hasło" name ="password"/>
+        <TextInput title="Data urodzenia" name ="birthdate" type="date"/>
+        <TextInput  title="Typ umowy" name ="Type_deal"/>
+        <select > <option>Umowa na czas nieokreślony</option>
+        <option>Umowa na pół etatu</option>
+        
+        </select>
+        <TextInput title="Id pracownika" name ="ID"/>
+         <TextInput title="Uprawnienia" name ="uprawnienia"/> <select><option>Manager</option>
+        <option>Pracownik</option>
+        <option>Administrator</option>
+        </select>
+         <Link to ="/administrator">
+            <button type = "submit" className='dodaj'>
+                Dodaj
+         </button>
+         </Link> 
+    </form>
+        </div> 
         </>
     )
   };
