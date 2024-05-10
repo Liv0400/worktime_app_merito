@@ -8,6 +8,7 @@ import {
   Pracownicy,
 } from "./components/pages";
 import BaseLayout from "./components/BaseLayout";
+import Calendar from "./components/Calendar/Calendar";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           element={
             <BaseLayout>
               <Home />
+              <Calendar />
             </BaseLayout>
           }
         />
