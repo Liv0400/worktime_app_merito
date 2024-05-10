@@ -1,0 +1,99 @@
+.pokazWnioski h1 {
+  padding: 1.5rem;
+  margin-bottom: 3rem;
+  color: #eee;
+}
+
+.pokazWnioski ul{
+  list-style: none;
+
+}
+ .pokazWnioski li {
+  margin: 0 auto;
+  padding: 1.5rem;
+  font-size: 17px;
+  width: 70%;
+  background-color: #999;
+  color: #eee;
+ }
+ .pokazWnioski li:nth-child(odd){
+  background-color: rgba(255,255,255,.2);
+ }
+.pokazWnioski li:nth-child(even) {
+   background-color: rgba(255, 255, 255, .5);
+  }
+.pokazWnioski li span {
+  display: inline-block;
+  min-width: 25%;
+ }
+ .pokazWnioski span.type{
+  cursor: pointer;
+ }
+
+
+ .pokazWnioski .lista {
+  margin: 0 auto;
+ }
+
+ .pokazWnioski .lista .rozwin {
+  background-color: transparent;
+  border: none;
+  color: rgb(103, 7, 42);
+  float: right;
+  font-size: 18px;
+ }
+ 
+
+ .pokazWnioski .zaakceptuj{
+  width: 70%;
+  background-color: rgba(255, 255, 255, .5);
+  color: #eee;
+  display: block;
+  margin: 0 auto;
+ }
+
+ .pokazWnioski table {
+  margin-bottom: 1rem;
+ }
+ .pokazWnioski tr {
+  text-align: center;
+ }
+  .pokazWnioski .zaakceptuj th {
+  text-transform: uppercase;
+  padding-top: 1rem;
+  width: 25%;
+ }
+  .pokazWnioski .zaakceptuj td{
+  padding-top: .5rem;
+  width: 25%;
+ }
+ .pokazWnioski .zaakceptuj td p {
+  margin: 0 auto;
+  width: 70%;
+  line-height: 4rem;
+  background-color: #fff;
+  color: #333;
+ }
+ .pokazWnioski td .btn
+ {
+  background-color: transparent;
+  font-size: 18px;
+  padding: .5rem;
+  margin: .1rem .8rem .1rem 0;
+  border: none;
+  cursor: pointer;
+ }
+
+
+
+ .pokazWnioski .zaakceptuj .lastTd{
+  text-align: right;
+ }
+ .pokazWnioski .zaakceptuj .lastTd button {
+  padding: .5rem;
+  margin-bottom: .5rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+ }
+

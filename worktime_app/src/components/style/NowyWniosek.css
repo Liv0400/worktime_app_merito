@@ -1,0 +1,45 @@
+.nowyWniosekh1 {
+  padding: 1.5rem;
+  color: #eee;
+}
+.nowyWniosek{
+display: grid;
+width: 70%;
+margin: 5rem auto;
+padding: 1.5rem;
+grid-template-columns: repeat(3, 1fr) 10% 10%;
+grid-template-rows: 40vh;
+grid-template-areas: "typWniosku dataWniosku godzinyWniosku zatwierdzWniosek anulujWniosek";
+gap: .5rem 1.5rem;
+background-color: rgba(255, 255, 255, .4);
+border-radius: 20px;
+
+}
+.nowyWniosek *{
+  display: block;
+  width: 100%;
+  align-self: center;
+
+}
+.typWniosku {
+grid-area: typWniosku;
+}
+.dataWniosku {
+  grid-area: dataWniosku;
+}
+.godzinyWniosku{
+  grid-area: godzinyWniosku;
+}
+.zatwierdzWniosek {
+  grid-area: zatwierdzWniosek;
+  padding: .3rem;
+}
+.anulujWniosek {
+  grid-area: anulujWniosek;
+  padding: .3rem;
+}
+.nowyWniosek label span {
+  display: inline;
+  font-size: 12px;
+  color: #ddd;
+}
