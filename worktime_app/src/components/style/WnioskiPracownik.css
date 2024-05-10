@@ -1,0 +1,23 @@
+.pokazWnioski{
+  position: relative;
+}
+.pokazWnioski .dodajWniosek{
+  position: absolute;
+  top: 2rem;
+  right: 8rem;
+  padding: .6rem;
+  background-color: #ea6dbc;
+  border: 2px solid #ea6dbc;
+  border-radius: 25px;
+  color: #eee;
+  cursor: pointer;
+}
+.pokazWnioski .dodajWniosek:hover{
+  color:#ea6dbc;
+  background-color: rgba(255,255,255,.8);
+}
+.pokazWnioski .zaakceptowane {
+  float: right;
+  text-align: right;
+  width: 10%;
+}
