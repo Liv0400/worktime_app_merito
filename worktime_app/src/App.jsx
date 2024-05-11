@@ -16,6 +16,7 @@ import {
   Formularz
 } from "./components/pages";
 import BaseLayout from "./components/BaseLayout";
+import Calendar from "./components/Calendar/Calendar";
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           element={
             <BaseLayout>
               <Home />
+              <Calendar />
             </BaseLayout>
           }
         />
