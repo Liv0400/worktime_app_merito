@@ -7,5 +7,5 @@
 
 
 export const Home = () => {
-  return <h1>Główna</h1>;
+  return <h1></h1>;
 };
