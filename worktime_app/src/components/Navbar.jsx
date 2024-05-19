@@ -1,5 +1,6 @@
 import React from "react";
-
+import { logout } from "../services/auth";
+import "./pages/Administrator.css";
 import "./Navbar.css";
 import { NavLink } from "react-router-dom";
 
@@ -30,6 +31,7 @@ export const Navbar = () => {
           <li>
             <NavLink to="/administrator">Administrator</NavLink>
           </li>
+          <li>  <div><button className = "PrzyciskDodaj" onClick={logout}>Wyloguj</button></div></li>
         </ul>
       </nav>
 
