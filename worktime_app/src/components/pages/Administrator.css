@@ -1,92 +1,71 @@
-.PrzyciskDodaj {
-  display: flex;
-  padding: 1rem;
+.PrzyciskDodaj{
+    display: flex;
+    padding: 1rem;
   margin: 10 auto;
   margin-right: 33px;
   padding-right: "200px";
-  float: right;
-  font-size: 15px;
-  border: 2px solid #333;
+    float: right;
+    font-size: 15px;
+    border: 2px solid azure;
+    border-radius: 30px;
+    background-color:transparent;
+    color:azure;
+    cursor: pointer;
+  }
+  .tytul
+  {
+ 
+    padding: 5rem 2rem 0 5rem;
+    color: #eee;}
+
+    .Dodaj{display: flex;
+      justify-content: center;
+      color:azure;
+      border: 2px solid azure;
+      border-radius: 30px;
+      background-color:transparent;
+      width: 150px;
+      height: 25px;
+  margin-left: 450px;
+  margin-top: -75px;
+    }
+    
+    .tytulform{
+      display:flex;
+      justify-content: center;
+      margin-top: 50px;
+      margin-bottom: -40px;
+      color: #eee;}
+     
+
+.formularz{
+ display: grid;
+  background-color: rgba(255,255,255, .5);
+  width: 400px;
+  height: 500px;
+  margin: 5rem auto;
+  border-radius: 15px;
+  
+}
+
+.label{display: block;
+  width: 100px;
+
+ 
+  margin-left: 150px;
+  color:white;
+}
+.pole{
+ 
+  color:black;
+  font-size: 15px ;
+  font-weight: bold;
+  background-color: rgba(249, 248, 248, 0.781);
+  border:white;
   border-radius: 30px;
-  background-color: #fff;
-  cursor: pointer;
-}
-.tytul {
-  margin-left: 33px;
-  margin-top: 33px;
-  color: black;
-  border: none;
-}
-
-.tabela {
-  text-align: center;
-  width: 40%;
-  background-color: #999;
-  padding: 2rem;
-  margin: 0 auto;
-  border-radius: 30px;
-}
-
-.formularz {
-  color: white;
-  border-radius: 30px;
-}
-
-input {
-  border: 2px solid #eeeeee;
-  height: 46px;
-  margin: 10px 0 0 0;
-  padding: 1%;
-  font-size: 1.2em;
-  line-height: 1.5em;
-  color: #333333;
-  letter-spacing: 0.01em;
-  font-style: normal;
-  font-weight: 300;
-  font-family: source-sans-pro, sans-serif;
-}
-
-#imie {
-  width: 100%;
-}
-
-#nazwisko {
-  width: 100%;
-}
-
-#email {
-  width: 100%;
-}
-
-#submit {
-  display: block;
-  border: 0;
-  width: 25%;
-  height: 60px;
-  margin: 30px auto 0;
-  background: #eee;
-  color: #333;
-  text-align: center;
-  transition: background, color, 0.5s ease 0;
-  border: 0;
-  font-size: 1.2em;
-  line-height: 1.5em;
-  color: #333333;
-  letter-spacing: 0.01em;
-  font-style: normal;
-  font-weight: 300;
-  font-family: source-sans-pro, sans-serif;
-}
-
-#submit:hover {
-  background: #dadada;
-  border: 1px #dadada;
-  color: #c43c3e;
-}
-
-#p {
-  display: inline-block;
-  font-size: 18px;
-  margin: 0.2rem;
-  padding: 0.4rem;
+  width: 150px;
+  height: 30px;
+  
+ 
+  margin-left: 120px;
 }

@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import { Logowanie } from "./components/Logowanie";
-import {
+//import { Logowanie } from "./components/pages/Logowanie";
+import {Logowanie,
   Home,
   Grafik,
   Dyspozycja,
@@ -19,12 +19,21 @@ import {
 } from "./components/pages";
 import BaseLayout from "./components/BaseLayout";
 import Calendar from "./components/Calendar/Calendar";
+import { loader as homeLoader} from "./components/pages";
+
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Logowanie />} />
+        <Route
+          path="/zaloguj"   
+          loader={homeLoader}
+          element={
+           <Logowanie/>
+          
+          }
+      />
         <Route
           path="/home"
           element={
