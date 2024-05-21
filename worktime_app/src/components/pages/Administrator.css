@@ -1,40 +1,37 @@
-.PrzyciskDodaj{
-    display: flex;
-    padding: 1rem;
+.PrzyciskDodaj {
+  display: flex;
+  padding: 1rem;
   margin: 10 auto;
   margin-right: 33px;
   padding-right: "200px";
-    float: right;
-    font-size: 15px;
-    border: 2px solid #333;
-    border-radius: 30px;
-    background-color: #fff;
-    cursor: pointer;
-  }
-  .tytul
-  {
- 
+  float: right;
+  font-size: 15px;
+  border: 2px solid #333;
+  border-radius: 30px;
+  background-color: #fff;
+  cursor: pointer;
+}
+.tytul {
   margin-left: 33px;
   margin-top: 33px;
-  color:black;
-  border:none;
-  }
+  color: black;
+  border: none;
+}
 
-  .tabela{
-    text-align: center;
-    width: 40%;
-    background-color: #999;
-    padding: 2rem;
-    margin: 0 auto;
-    border-radius: 30px;
-  }
-
-  .formularz{
-color:white;
+.tabela {
+  text-align: center;
+  width: 40%;
+  background-color: #999;
+  padding: 2rem;
+  margin: 0 auto;
   border-radius: 30px;
-  } 
+}
 
-  
+.formularz {
+  color: white;
+  border-radius: 30px;
+}
+
 input {
   border: 2px solid #eeeeee;
   height: 46px;
@@ -43,11 +40,10 @@ input {
   font-size: 1.2em;
   line-height: 1.5em;
   color: #333333;
-  letter-spacing: .01em;
+  letter-spacing: 0.01em;
   font-style: normal;
   font-weight: 300;
-  font-family: source-sans-pro;
-  sans-serif;
+  font-family: source-sans-pro, sans-serif;
 }
 
 #imie {
@@ -62,9 +58,6 @@ input {
   width: 100%;
 }
 
-
-
-
 #submit {
   display: block;
   border: 0;
@@ -74,27 +67,26 @@ input {
   background: #eee;
   color: #333;
   text-align: center;
-  transition: background, color, .5s ease 0;
+  transition: background, color, 0.5s ease 0;
   border: 0;
   font-size: 1.2em;
   line-height: 1.5em;
   color: #333333;
-  letter-spacing: .01em;
+  letter-spacing: 0.01em;
   font-style: normal;
   font-weight: 300;
-  font-family: source-sans-pro;
-  sans-serif;
+  font-family: source-sans-pro, sans-serif;
 }
 
 #submit:hover {
-  background: #DADADA;
-  border: 1px #DADADA;
-  color: #C43C3E;
+  background: #dadada;
+  border: 1px #dadada;
+  color: #c43c3e;
 }
 
 #p {
   display: inline-block;
   font-size: 18px;
-  margin: .2rem;
-  padding: .4rem;
+  margin: 0.2rem;
+  padding: 0.4rem;
 }

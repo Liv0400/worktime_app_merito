@@ -13,22 +13,18 @@ import {
   PrzeslaneWnioski,
   NowyWniosek,
   Administrator,
-  Formularz
+  Formularz,
+  Grafik_formularz,
+  Stworz_grafik,
 } from "./components/pages";
 import BaseLayout from "./components/BaseLayout";
 import Calendar from "./components/Calendar/Calendar";
 
-
 function App() {
   return (
-    <div className="App"> 
+    <div className="App">
       <Routes>
-        <Route
-          path="/"
-          element={
-           <Logowanie/>
-          }
-      />
+        <Route path="/" element={<Logowanie />} />
         <Route
           path="/home"
           element={
@@ -43,6 +39,17 @@ function App() {
           element={
             <BaseLayout>
               <Grafik />
+              <Calendar />
+            </BaseLayout>
+          }
+        />
+        <Route
+          path="/Stworz_grafik"
+          element={
+            <BaseLayout>
+              <Stworz_grafik />
+              <Grafik_formularz />
+              <Calendar />
             </BaseLayout>
           }
         />
@@ -77,7 +84,7 @@ function App() {
               <Formularz />
             </BaseLayout>
           }
-        /> 
+        />
         <Route
           path="/wnioskiPracownik"
           element={
@@ -126,7 +133,6 @@ function App() {
             </BaseLayout>
           }
         />
-        
       </Routes>
     </div>
   );
