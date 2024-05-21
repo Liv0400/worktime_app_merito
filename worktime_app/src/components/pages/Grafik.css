@@ -1,0 +1,22 @@
+.Utwórz_grafik {
+  display: flex;
+  padding: 1rem;
+  margin: 5 auto;
+  margin-right: 33px;
+  padding-right: "200px";
+  float: right;
+  font-size: 15px;
+  border: 2px solid #333;
+  border-radius: 30px;
+  background-color: #fff;
+  cursor: pointer;
+}
+.Grafik {
+  margin: 10px;
+  text-align: center;
+  color: #fff;
+}
+
+.Kalendarz {
+  margin: 10px;
+}
