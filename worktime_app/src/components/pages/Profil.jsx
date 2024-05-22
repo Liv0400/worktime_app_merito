@@ -1,22 +1,36 @@
 import '../style/Profil.css';
-// import {Pracownicy} from "./Pracownicy"
-import { Link } from "react-router-dom";
-// import { Pracownicy } from './Pracownicy';
+import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from 'react';
 
 export const Profil = ()=>{
+
+  const location = useLocation();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    if (location.state && location.state.user) {
+      setUser(location.state.user);
+    }
+  }, [location.state]);
+
+  if (!user) {
+    return <div>Brak danych użytkownika</div>;
+  }
   return(
 <div>
-  <Link to="/pracownicy"><button className='profilButton'>Powrót</button></Link>
+  <Link to="/pracownicy">
+    <button className='profilButton'>Powrót</button>
+    </Link>
   <div className="profil">
     <div className="photo"></div>
     <p>Imię/imiona:</p>
-    <span>Janina</span>
+    <span>{user.fullname.firstname}</span>
     <p>Nazwisko:</p>
-    <span >Przykład</span>
+    <span >{user.fullname.lastname}</span>
     <p>Data urodzenia:</p>
-    <span>30.12.1980</span>
+    <span>{user.fullname.birthdate}</span>
     <p>Rodzaj umowy:</p>
-    <span>o pracę</span>
+    <span>{user.fullname.rightapp}</span>
     <p>Wymiar etatu:</p> 
     <span>cały etat</span> 
   </div>

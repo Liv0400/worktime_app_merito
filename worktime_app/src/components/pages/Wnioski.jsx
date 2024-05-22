@@ -1,65 +1,68 @@
-// import React from "react";
-import { NavLink } from "react-router-dom";
-import "../style/Pracownicy.css";
+import {useState, useEffect} from "react";
+import { db } from "../../services/firebase";
+import { collection, getDocs } from "firebase/firestore";
+import {ListaWnioskow} from './ListaWnioskow';
 import "../style/Wnioski.css"
 
-const pracownicy = [
-    {
-    id:0,
-    name:'Jan',
-    lastName:'Jeden',
-    birthDate:'12.12.2012',
-    contract: 'umowa o pracę',
-    timeEmployment: 'cały etat'
-  },
-    {
-    id:1,
-    name:'Edyta',
-    lastName:'Druga',
-    birthDate:'30.03.2003',
-    contract:'umowa o pracę',
-    timeEmployment:'3/4 etatu'
-  },
-    {
-    id:2,
-    name:'Janina',
-    lastName:'Trzecia',
-    birthDate:'15.05.1995',
-    contract:'umowa zlecenie',
-    timeEmployment:'-'
-  },  {
-    id:3,
-    name:'Ewa',
-    lastName:'Czwarta',
-    birthDate:'5.05.2005',
-    contract:'umowa o pracę',
-    timeEmployment:'1/4 etatu'
-  },  {
-    id:4,
-    name:'Piotr',
-    lastName:'Piąty',
-    birthDate:'7.08.1999',
-    contract:"umowa o pracę",
-    timeEmployment:'cały etat'
-  }
-];
-
-const newApply = <span className="newApply">!</span> 
 export const Wnioski = () => {
-  const listaPracowników = pracownicy.map(pracownik =>
-  <li key={pracownik.id} >
-    <span className="minPhoto"></span>
-    <NavLink to= "/wnioski/pokazWnioski">
-    {pracownik.name} {pracownik.lastName}
-    </NavLink>
-    {newApply}
-    </li>
-  )
+
+  const [applications, setApplications] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(()=>{
+    const fetchApplications = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'applications'));
+        const applicationsList = querySnapshot.docs.map(doc =>({
+          id:doc.id,
+          ...doc.data()
+        }));
+        setApplications(applicationsList);
+        setLoading(false);
+      }catch (error) {
+        console.error('Błąd podczas pobierania wniosków:', error);
+        setLoading(false);
+      }
+    };
+    fetchApplications();
+  }, []);
+
+  if(loading){
+    return <div>Pobieranie wniosków...</div>;
+  }
+
+        // <li key={application.id}>
+        //   <div className="wniosek">
+        //     {application.name}
+        //     {application.status == 'oczekujący' ? <span className="newApply">!</span> : null}
+        //     </div>
+        //     <div className="wniosekAkceptuj">
+        //   <strong>Typ:</strong> {application.type} <br />
+        //   <strong>Początek:</strong> {application.beginningDate} {application.beginningHour} <br />
+        //   <strong>Koniec:</strong> {application.endingDate} {application.endingHour} <br />
+        //   <strong>Status:</strong> {application.status} <br />
+        //   <strong>Utworzono:</strong> {application.createdAt.toDate().toLocaleString()}
+        //   </div>
+        // </li>
+      
+
   return (
     <div className= "pracownicy wnioski">
       <h1>Lista wniosków:</h1>
       <ul>
-      {listaPracowników}
+      {applications.map(application =>(
+    <ListaWnioskow
+    key = {application.id}
+    name = {application.name}
+    status = {application.status}
+    type = {application.type}
+    beginningDate = {application.beginningDate}
+    beginningHour = {application.beginningHour}
+    endingDate = {application.endingDate}
+    endingHour = {application.endingHour}
+    createdAt = {application.createdAt}
+    />
+      ))}
       </ul>
     </div>
   );

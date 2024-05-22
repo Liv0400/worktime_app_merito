@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import {UserProvider} from './services/UserContext'
 //import { Logowanie } from "./components/pages/Logowanie";
 import {Logowanie,
   Home,
@@ -18,12 +19,16 @@ import BaseLayout from "./components/BaseLayout";
 import Calendar from "./components/Calendar/Calendar";
 import { loader as homeLoader} from "./components/pages";
 
-function App() {
+const App = () => {
+
+
+
   return (
+    <UserProvider>
     <div className="App"> 
       <Routes>
         <Route
-          path="/zaloguj"   
+          path="/"   
           loader={homeLoader}
           element={
            <Logowanie/>
@@ -130,6 +135,7 @@ function App() {
         
       </Routes>
     </div>
+    </UserProvider>
   );
 }
 

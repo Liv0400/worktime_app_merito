@@ -11,4 +11,15 @@ import { db } from "./firebase"
         
     }
     await setDoc(userRef, data)
+
+  //     try {
+  //   await setDoc(doc(db, "users", uid), {
+  //     fullname,
+  //   });
+  // } catch (error) {
+  //   console.error("Error creating user data:", error);
+  //   throw error;
+  // }
 }
+
+
