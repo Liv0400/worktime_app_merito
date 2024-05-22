@@ -14,7 +14,10 @@ import {Logowanie,
   PrzeslaneWnioski,
   NowyWniosek,
   Administrator,
-  Formularz} from "./components/pages";
+  Formularz,
+  Grafik_formularz,
+  Stworz_grafik,
+} from "./components/pages";
 import BaseLayout from "./components/BaseLayout";
 import Calendar from "./components/Calendar/Calendar";
 import { loader as homeLoader} from "./components/pages";
@@ -28,7 +31,7 @@ const App = () => {
     <div className="App"> 
       <Routes>
         <Route
-          path="/"   
+          path="/zaloguj"   
           loader={homeLoader}
           element={
            <Logowanie/>
@@ -49,6 +52,17 @@ const App = () => {
           element={
             <BaseLayout>
               <Grafik />
+              <Calendar />
+            </BaseLayout>
+          }
+        />
+        <Route
+          path="/Stworz_grafik"
+          element={
+            <BaseLayout>
+              <Stworz_grafik />
+              <Grafik_formularz />
+              <Calendar />
             </BaseLayout>
           }
         />
@@ -83,7 +97,7 @@ const App = () => {
               <Formularz />
             </BaseLayout>
           }
-        /> 
+        />
         <Route
           path="/wnioskiPracownik"
           element={
@@ -132,7 +146,6 @@ const App = () => {
             </BaseLayout>
           }
         />
-        
       </Routes>
     </div>
     </UserProvider>

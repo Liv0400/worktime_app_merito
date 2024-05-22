@@ -106,12 +106,53 @@ const onIdWorkerChanged =(e) => setIdWorker(e.target.value)
           value={rightapp}
           onChange={onRightAppChanged}/> 
            <div> 
+    <TextInput
+      title="Imię" 
+      name ="firstname"
+      value = {firstname}
+      onChange={onFirstNameChanged}
+      
+      />
+    <TextInput 
+    title="Nazwisko" 
+    name ="lastname"
+    value = {lastname}
+    onChange={onLastNameChanged}
+   
+    />
+    <TextInput 
+    title="Data urodzenia" 
+    name ="birthdate" 
+    type="date"
+    //isError={errors.birthDate}
+    value={birthdate}
+    onChange={onBirthDateChanged}
+    />
+    <TextInput  
+    title="Typ umowy" 
+    name ="Type_deal"
+    value={typedeal}
+    onChange={onTypeDealChanged}
+    />
+        <TextInput 
+        title="Id pracownika" 
+        name ="ID"
+        value ={idworker}
+        onChange={onIdWorkerChanged}
+        />
+         <TextInput
+          title="Uprawnienia" 
+          name ="uprawnienia"
+          value={rightapp}
+          onChange={onRightAppChanged}/> 
+           <div> 
         <TextInput 
          onChange ={onEmailChanged} 
          value = {email} 
          title="Email"
          name ="email"
          type="email"
+
 
          />
         <TextInput 
@@ -124,6 +165,7 @@ const onIdWorkerChanged =(e) => setIdWorker(e.target.value)
          <button type = "submit" className="Dodaj">Dodaj</button> </div> 
         
     </form>
+    </>    
     </>    
     )
   };
