@@ -105,7 +105,7 @@ const onIdWorkerChanged =(e) => setIdWorker(e.target.value)
           name ="uprawnienia"
           value={rightapp}
           onChange={onRightAppChanged}/> 
-           <div> 
+           
     <TextInput
       title="Imię" 
       name ="firstname"
@@ -166,6 +166,6 @@ const onIdWorkerChanged =(e) => setIdWorker(e.target.value)
         
     </form>
     </>    
-    </>    
+    
     )
   };
