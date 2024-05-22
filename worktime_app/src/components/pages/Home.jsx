@@ -1,9 +1,4 @@
-
 // import React from "react";
-// import FullCalendar from "@fullcalendar/react";
-// import dayGridPlugin from "@fullcalendar/daygrid";
-// import timeGridPlugin from "@fullcalendar/timegrid";
-// import interactionPlugin from "@fullcalendar/interaction";
 
 import { redirect } from "react-router-dom";
 import { getCurrentUser } from "../../services/auth";
@@ -14,7 +9,7 @@ import { getCurrentUser } from "../../services/auth";
 export const loader = async() =>{
 const user = await getCurrentUser()
 if (user == null) {
-  return redirect("/") //zapytac Justyny o dobra sciezke do Logowania 
+  return redirect("/zaloguj") //zapytac Justyny o dobra sciezke do Logowania 
 }
 return{
   user: user

@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-export const Formularz = () => {
+export  const Formularz = () => {
   const [firstname, setFirstName] = useState("")
   const [lastname, setLastName] = useState("")
  const [birthdate, setBirthDate] = useState("")

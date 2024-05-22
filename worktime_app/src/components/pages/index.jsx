@@ -10,4 +10,6 @@ export * from "./PokazWnioski";
 export * from "./PrzeslaneWnioski";
 export * from "./WnioskiPracownik";
 export * from "./NowyWniosek";
-export * from "../Logowanie"
+export * from "../../components/Logowanie";
+export * from "./Grafik_formularz";
+export * from "./Stworz_grafik";
