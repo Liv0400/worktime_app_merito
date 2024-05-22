@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 //import "../style/Grafik_formularz.css";
+=======
+import "../style/Grafik_formularz.css";
+>>>>>>> 1295d69a54f40f696e83b6771d51f12ebcc775ba
 export const Grafik_formularz = () => {
   function handleSubmit(e) {
     return e.preventDefault(), console.log("wniosek");
