@@ -54,6 +54,17 @@ try {
 }
 }
 
+export const updateUser = async (userId, userData) => {
+    try {
+      await firestore.collection('users').doc(userId).set(userData, { merge: true });
+      return true;
+    } catch (error) {
+      console.error("Error updating user:", error);
+      throw error;
+    }
+  };
+
+  
 export const logout = async () =>{
     await signOut (auth)
 }

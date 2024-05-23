@@ -66,45 +66,6 @@ const onIdWorkerChanged =(e) => setIdWorker(e.target.value)
         </div>
           <form className="formularz" onSubmit={handleSubmitForm} 
           >
-    <TextInput
-      title="Imię" 
-      name ="firstname"
-      value = {firstname}
-      onChange={onFirstNameChanged}
-      
-      />
-    <TextInput 
-    title="Nazwisko" 
-    name ="lastname"
-    value = {lastname}
-    onChange={onLastNameChanged}
-   
-    />
-    <TextInput 
-    title="Data urodzenia" 
-    name ="birthdate" 
-    type="date"
-    //isError={errors.birthDate}
-    value={birthdate}
-    onChange={onBirthDateChanged}
-    />
-    <TextInput  
-    title="Typ umowy" 
-    name ="Type_deal"
-    value={typedeal}
-    onChange={onTypeDealChanged}
-    />
-        <TextInput 
-        title="Id pracownika" 
-        name ="ID"
-        value ={idworker}
-        onChange={onIdWorkerChanged}
-        />
-         <TextInput
-          title="Uprawnienia" 
-          name ="uprawnienia"
-          value={rightapp}
-          onChange={onRightAppChanged}/> 
            
     <TextInput
       title="Imię" 
