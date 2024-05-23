@@ -16,6 +16,8 @@ import {Logowanie,
   Formularz,
   Grafik_formularz,
   Stworz_grafik,
+   UsersList, 
+   EdycjaFormularz,
 } from "./components/pages";
 import BaseLayout from "./components/BaseLayout";
 import Calendar from "./components/Calendar/Calendar";
@@ -94,6 +96,11 @@ function App() {
             </BaseLayout>
           }
         />
+        //
+        <Route path="/" element={<UsersList />} />
+        <Route path="/formularz" element={<Formularz />} />
+        <Route path="/edycja/:userId" element={<EdycjaFormularz />} />
+
         <Route
           path="/wnioskiPracownik"
           element={
