@@ -1,4 +1,3 @@
-import React from "react"
 //import "./Administrator.css"
 //import { isError } from "./Formularz";
 

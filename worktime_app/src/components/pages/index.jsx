@@ -14,7 +14,5 @@ export * from "../../components/Logowanie";
 export * from "./Grafik_formularz";
 export * from "./Stworz_grafik";
 export * from "../Logowanie";
-export * from "./Grafik_formularz";
-export * from "./Stworz_grafik";
 export * from "./EdycjaFormularz"
 export * from "./UserList"
