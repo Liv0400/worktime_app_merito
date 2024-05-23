@@ -16,7 +16,6 @@ export const UsersList = () => {
 
   return (
     <div className="users-list">
-      <h1 className="tytulform">Lista Pracowników</h1>
       <ul>
         {users.map(user => (
           <li key={user.id}>

@@ -1,6 +1,7 @@
 import './Administrator.css';
 import React, { useEffect, useState } from 'react';
 import { updateUser } from '../../services/auth';
+import { getUserById } from '../../services/firestore'; 
 import TextInput from './Textinput';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -21,6 +22,7 @@ export const EdycjaFormularz = () => {
     if (userId) {
       // Pobierz dane użytkownika z Firestore i ustaw je w stanie
       getUserById(userId).then(userData => {
+        console.log("Fetched user data:", userData); // Dodaj log do debugowania
         setFirstName(userData.firstname);
         setLastName(userData.lastname);
         setBirthDate(userData.birthdate);
@@ -28,6 +30,8 @@ export const EdycjaFormularz = () => {
         setIdWorker(userData.idworker);
         setRightApp(userData.rightapp);
         setEmail(userData.email);
+      }).catch(error => {
+        console.error("Error fetching user data:", error);
       });
     }
   }, [userId]);
@@ -79,4 +83,3 @@ export const EdycjaFormularz = () => {
     </>
   );
 };
-

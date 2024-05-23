@@ -1,17 +1,27 @@
-import { doc, setDoc, collection, getDocs} from "firebase/firestore"
+import { doc, setDoc, collection, getDocs, getFirestore,  getDoc} from "firebase/firestore"
 import { db } from "./firebase"
 
- export const createUserData = async ({uid, fullname //, typedeal
+ export const createUserData = async ({uid, fullname 
 
  }) =>{
     const userRef = doc(db, "users", uid )
     const data = {
-        fullname: fullname//, typedeal
+        fullname: fullname
 
         
     }
     await setDoc(userRef, data)
 }
+const firestore = getFirestore();
+
+export const getUserById = async (userId) => {
+  const userDoc = await getDoc(doc(firestore, "users", userId));
+  if (userDoc.exists()) {
+    return userDoc.data();
+  } else {
+    throw new Error("User not found");
+  }
+};
 
 export const getUsers = async () => {
     const usersCollection = collection(db, 'users');

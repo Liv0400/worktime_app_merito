@@ -15,7 +15,7 @@ export const Administrator = () => {
       <h1 className="tytul">Administrator</h1>
  <div>
    <Link to="/formularz"><button className="PrzyciskDodaj">Dodaj pracownika</button></Link>
-   <Link to="/edycja"><button className="PrzyciskDodaj">Edytuj</button></Link>
+  
     </div>  
    
     <UsersList />
