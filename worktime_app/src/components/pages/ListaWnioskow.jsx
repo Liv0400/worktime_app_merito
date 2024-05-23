@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState} from "react";
 import '../style/PokazWnioski.css'
 
 export const ListaWnioskow = (props) => {
+
+
   let stateArray = useState(false);
   let isExpanded = stateArray[0];
   let setIsExpanded = stateArray[1]
@@ -26,9 +28,9 @@ export const ListaWnioskow = (props) => {
   return(
   <div className='lista'>
     <li>
-    <span className="type">{props.type}</span>
-    <span className="date">{props.beginingDate} - {props.endDate}</span>
-    <span className="comment">{props.comment}</span> 
+    <span className="name">{props.name}</span>
+    <span className='createdAt'>{'Przesłano: ' + props.createdAt.toDate().toLocaleDateString()}</span>
+    {props.status == 'oczekujący' ? <span className="newApply">!</span> : null}
     {rozwin}
   </li>
    <div  className='zaakceptuj'>
@@ -37,15 +39,15 @@ export const ListaWnioskow = (props) => {
      <table>
         <tbody>
         <tr>
-          <th>wniosek</th>
-          <th>początek</th>
-          <th>koniec</th>
-          <th>komentarz</th>
+          <th>Typ wniosku</th>
+          <th>Początek</th>
+          <th>Koniec</th>
+          <th>Dodaj komentarz</th>
         </tr>
         <tr>
           <td><p>{props.type}</p></td>
-          <td><p>{props.beginingDate}</p></td>
-          <td><p>{props.endDate}</p></td>
+          <td><p>{props.beginningDate}</p></td>
+          <td><p>{props.endingDate}</p></td>
           <td><textarea name="com" cols="24" rows="5"></textarea></td>
           <td><button className='btn'>✔️</button><button className='btn'>❌</button></td>
         </tr>

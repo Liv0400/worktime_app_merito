@@ -1,7 +1,6 @@
 
 import './Administrator.css';
-import React from 'react';
-import { useState } from 'react';
+import {useState} from 'react';
 import { signUpUser } from '../../services/auth';
 import TextInput from './Textinput';
 
@@ -10,47 +9,32 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-export  const Formularz = () => {
+export const Formularz = () => {
   const [firstname, setFirstName] = useState("")
   const [lastname, setLastName] = useState("")
  const [birthdate, setBirthDate] = useState("")
   const [typedeal, setTypeDeal] = useState("")
   const [idworker, setIdWorker] = useState("")
   const [rightapp, setRightApp] = useState("")
-
-  const navigate = useNavigate()
 const [email, setEmail] = useState("")
 const [password, setPassword] = useState("")
 const [errors, setErrors] = useState({})
 
-const onEmailChanged = (e) =>{
-  setEmail(e.target.value)
-}
-const onPasswordChanged = (e) =>{
-  setPassword(e.target.value)
-}
-const onFirstNameChanged =(e) =>{
-  setFirstName(e.target.value)
-}
-const onLastNameChanged =(e) =>{
-  setLastName(e.target.value)
-}
-const onBirthDateChanged =(e) =>{
-  setBirthDate(e.target.value)
-}
-const onTypeDealChanged =(e) =>{
-  setTypeDeal(e.target.value)
-}
-const onRightAppChanged =(e) =>{
-  setRightApp(e.target.value)
-}
-const onIdWorkerChanged =(e) =>{
-  setIdWorker(e.target.value)
-}
+  const navigate = useNavigate()
+
+
+const onEmailChanged = (e) => setEmail(e.target.value)
+const onPasswordChanged = (e) => setPassword(e.target.value)
+const onFirstNameChanged =(e) => setFirstName(e.target.value)
+const onLastNameChanged =(e) => setLastName(e.target.value)
+const onBirthDateChanged =(e) => setBirthDate(e.target.value)
+const onTypeDealChanged =(e) =>setTypeDeal(e.target.value)
+const onRightAppChanged =(e) => setRightApp(e.target.value)
+const onIdWorkerChanged =(e) => setIdWorker(e.target.value)
 
 
 
-  async function handleSubmitForm(e) {
+  const handleSubmitForm = async (e) => {
     e.preventDefault(); //strona nie bedzie sie odswiezac
     const errorsObj = {
      // firstname: firstname.length < 3 || firstname.length > 25,
@@ -62,18 +46,27 @@ const onIdWorkerChanged =(e) =>{
     };
     setErrors(errorsObj);
     if (errorsObj.email || errorsObj.password) return;
-    const result = await signUpUser({fullname: [{firstname}, {lastname}, {birthdate}, {typedeal},{rightapp}, {idworker}], email: email, password: password });
+    
+    const result = await signUpUser({
+      fullname: {firstname, lastname, birthdate, typedeal,rightapp, idworker}, 
+      email, 
+      password,
+      firstName: firstname,
+      lastName: lastname
+    });
     if (result) {
-     navigate("/zaloguj");
+     navigate("/");
      }        //nawigacja do strony logowania dla niezalogowanych
   }
   
     return (<>
         
         <div>
-          <h1 className="tytulform">Nowy pracownik</h1></div>
+          <h1 className="tytulform">Nowy pracownik</h1>
+        </div>
           <form className="formularz" onSubmit={handleSubmitForm} 
           >
+           
     <TextInput
       title="Imię" 
       name ="firstname"
@@ -121,6 +114,7 @@ const onIdWorkerChanged =(e) =>{
          name ="email"
          type="email"
 
+
          />
         <TextInput 
         onChange ={onPasswordChanged} 
@@ -129,10 +123,10 @@ const onIdWorkerChanged =(e) =>{
         name ="password"
         type="password"/>
          
-         <button type = "submit" className="Dodaj" >
-                Dodaj         </button> </div> 
+         <button type = "submit" className="Dodaj">Dodaj</button> </div> 
         
     </form>
     </>    
+    
     )
   };

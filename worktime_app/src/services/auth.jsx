@@ -18,7 +18,11 @@ return new Promise((resolve, reject)=>{
 }
 
 
+<<<<<<< HEAD
 export const signUpUser = async ( { fullname, email, password, firstName, lastName 
+=======
+export const signUpUser = async ( { fullname, email, password, firstName, lastName //,typedeal
+>>>>>>> f836a97539fecca55a1a2c5f8238bea6bd50df8d
 
 }) => {
     try {
@@ -31,7 +35,11 @@ export const signUpUser = async ( { fullname, email, password, firstName, lastNa
         });
             await createUserData({
              uid: result.user.uid,
+<<<<<<< HEAD
              fullname, 
+=======
+             fullname, //, typedeal
+>>>>>>> f836a97539fecca55a1a2c5f8238bea6bd50df8d
          });
          return user;
         } else {

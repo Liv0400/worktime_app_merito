@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import {useState, useEffect} from 'react';
+import {auth} from '../services/firebase';
+import { getCurrentUser } from "../services/auth";
 import { useNavigate } from 'react-router-dom'; 
 import LogoName from "../img/projekt_krzak.png";
 import TextInput from "./pages/Textinput";
@@ -19,6 +21,20 @@ export const Logowanie = () => {
     setPassword(e.target.value);
   };
 
+    const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(()=>{
+    const unsubscribe = auth.onAuthStateChanged(async (user)=>{
+      if (user) {
+        const currentUserData = await getCurrentUser();
+        setCurrentUser(currentUserData);
+      }else{
+        setCurrentUser(null);
+      }
+    });
+    return ()=>unsubscribe();
+  })
+
   const zaloguj = async (e) => {
     e.preventDefault(); // Zapobiega odświeżaniu strony
 
@@ -38,7 +54,7 @@ export const Logowanie = () => {
 
     try {
       const result = await signInUser({ email, password });
-      if (result) {
+      if (result && currentUser) {
         console.log("Login successful"); // Debug: sprawdź czy logowanie jest udane
         navigate("/home");
       } else {
@@ -50,6 +66,8 @@ export const Logowanie = () => {
       setErrors({ email: false, password: false, loginFailed: true });
     }
   };
+
+
 
   return (
     <>
