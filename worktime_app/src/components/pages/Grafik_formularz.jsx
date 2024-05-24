@@ -4,6 +4,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../services/firebase";
 
 const Grafik_formularz = () => {
+  const [showForm, setShowForm] = useState(false);
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [startTime, setStartTime] = useState("");
@@ -36,47 +37,53 @@ const Grafik_formularz = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="dGrafik_formularz">
-        <label>Pracownik</label>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Event Title"
-          required
-        />
-      </div>
-      <div>
-        <label>Dzień</label>
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          required
-        />
-      </div>
-      <div>
-        <label>Początek zmiany</label>
-        <input
-          type="time"
-          value={startTime}
-          onChange={(e) => setStartTime(e.target.value)}
-          required
-        />
-      </div>
-      <div>
-        <label>Koniec zmiany</label>
-        <input
-          type="time"
-          value={endTime}
-          onChange={(e) => setEndTime(e.target.value)}
-          required
-        />
-      </div>
-      <button type="submit">Dodaj zmianę</button>
-    </form>
+    <div>
+      <button onClick={() => setShowForm(true)}>Nowa zmiana</button>
+      {showForm && (
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>Pracownik</label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Event Title"
+              required
+            />
+          </div>
+          <div>
+            <label>Dzień</label>
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>Początek zmiany</label>
+            <input
+              type="time"
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>Koniec zmiany</label>
+            <input
+              type="time"
+              value={endTime}
+              onChange={(e) => setEndTime(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit">Dodaj zmianę</button>
+          <button onClick={() => setShowForm(false)}>Anuluj</button>
+        </form>
+      )}
+      ;
+    </div>
   );
 };
-
 export default Grafik_formularz;
