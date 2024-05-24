@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import {UserProvider} from './services/UserContext'
 //import { Logowanie } from "./components/pages/Logowanie";
 import {
   Logowanie,
@@ -16,15 +17,21 @@ import {
   Administrator,
   Formularz,
   Stworz_grafik,
+   UsersList, 
+   EdycjaFormularz,
 } from "./components/pages";
 import BaseLayout from "./components/BaseLayout";
 import Calendar from "./components/Calendar/Calendar";
 import { loader as homeLoader } from "./components/pages";
 import Grafik_formularz from "./components/pages/Grafik_formularz";
 
-function App() {
+
+const App = () => {
+
+
   return (
-    <div className="App">
+    <UserProvider>
+    <div className="App"> 
       <Routes>
         <Route path="/zaloguj" loader={homeLoader} element={<Logowanie />} />
         <Route
@@ -87,6 +94,11 @@ function App() {
             </BaseLayout>
           }
         />
+        //
+        <Route path="/" element={<UsersList />} />
+        <Route path="/formularz" element={<Formularz />} />
+        <Route path="/edycja/:userId" element={<EdycjaFormularz />} />
+
         <Route
           path="/wnioskiPracownik"
           element={
@@ -137,6 +149,7 @@ function App() {
         />
       </Routes>
     </div>
+    </UserProvider>
   );
 }
 

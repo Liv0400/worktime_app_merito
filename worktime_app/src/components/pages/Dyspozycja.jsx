@@ -1,5 +1,16 @@
-import React from "react";
+ import React from "react";
+import WeekView from "./weeklist";
+import "./Administrator.css"
 
 export const Dyspozycja = () => {
-  return <h1>Dyspozycja</h1>;
-};
+  
+    return (    <div className="App">
+       <h1 className="tytul">Dyspozycja</h1>
+       <WeekView />
+     </div>
+     
+    
+    
+    )};
+
+

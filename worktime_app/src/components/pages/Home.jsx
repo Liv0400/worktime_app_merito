@@ -9,7 +9,7 @@ import { getCurrentUser } from "../../services/auth";
 export const loader = async() =>{
 const user = await getCurrentUser()
 if (user == null) {
-  return redirect("/") //zapytac Justyny o dobra sciezke do Logowania 
+  return redirect("/zaloguj") //zapytac Justyny o dobra sciezke do Logowania 
 }
 return{
   user: user
