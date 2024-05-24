@@ -2,7 +2,8 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import {UserProvider} from './services/UserContext'
 //import { Logowanie } from "./components/pages/Logowanie";
-import {Logowanie,
+import {
+  Logowanie,
   Home,
   Grafik,
   Dyspozycja,
@@ -15,31 +16,24 @@ import {Logowanie,
   NowyWniosek,
   Administrator,
   Formularz,
-  Grafik_formularz,
   Stworz_grafik,
    UsersList, 
    EdycjaFormularz,
 } from "./components/pages";
 import BaseLayout from "./components/BaseLayout";
 import Calendar from "./components/Calendar/Calendar";
-import { loader as homeLoader} from "./components/pages";
+import { loader as homeLoader } from "./components/pages";
+import Grafik_formularz from "./components/pages/Grafik_formularz";
+
 
 const App = () => {
-
 
 
   return (
     <UserProvider>
     <div className="App"> 
       <Routes>
-        <Route
-          path="/zaloguj"   
-          loader={homeLoader}
-          element={
-           <Logowanie/>
-          
-          }
-      />
+        <Route path="/zaloguj" loader={homeLoader} element={<Logowanie />} />
         <Route
           path="/home"
           element={
