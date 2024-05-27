@@ -1,6 +1,7 @@
-import { auth } from "./firebase";
+import { auth, db } from "./firebase";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
-import { createUserData } from "./firestore";
+import { createUserData , } from "./firestore";
+import { updateDoc, doc } from "firebase/firestore";
 
 export const getCurrentUser =() => {
 return new Promise((resolve, reject)=>{
@@ -18,13 +19,8 @@ return new Promise((resolve, reject)=>{
 }
 
 
-<<<<<<< HEAD
-export const signUpUser = async ( { fullname, email, password, firstName, lastName 
-=======
-export const signUpUser = async ( { fullname, email, password, firstName, lastName //,typedeal
->>>>>>> f836a97539fecca55a1a2c5f8238bea6bd50df8d
 
-}) => {
+export const signUpUser = async ( { fullname, email, password, firstName, lastName }) => {
     try {
         const result = await createUserWithEmailAndPassword(auth, email, password );
         const user = result.user;
@@ -35,11 +31,9 @@ export const signUpUser = async ( { fullname, email, password, firstName, lastNa
         });
             await createUserData({
              uid: result.user.uid,
-<<<<<<< HEAD
+
              fullname, 
-=======
-             fullname, //, typedeal
->>>>>>> f836a97539fecca55a1a2c5f8238bea6bd50df8d
+
          });
          return user;
         } else {
@@ -64,11 +58,11 @@ try {
 
 export const updateUser = async (userId, userData) => {
     try {
-      await firestore.collection('users').doc(userId).set(userData, { merge: true });
-      return true;
+      const userRef = doc(db, 'users', userId); // Tutaj używamy 'db' z 'firebaseConfig'
+      await updateDoc(userRef, userData);
+      console.log("User updated successfully");
     } catch (error) {
       console.error("Error updating user:", error);
-      throw error;
     }
   };
 
