@@ -1,4 +1,4 @@
-import { auth } from "./firebase";
+import { auth, db } from "./firebase";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -7,9 +7,9 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { createUserData } from "./firestore";
-import { getFirestore } from "firebase/firestore";
+import { updateDoc, doc } from "firebase/firestore";
 
-const firestore = getFirestore();
+//const firestore = getFirestore();
 
 export const getCurrentUser = () => {
   return new Promise((resolve, reject) => {
@@ -33,7 +33,7 @@ export const signUpUser = async ({
   email,
   password,
   firstName,
-  lastName, //,typedeal
+  lastName,
 }) => {
   try {
     const result = await createUserWithEmailAndPassword(auth, email, password);
@@ -46,7 +46,7 @@ export const signUpUser = async ({
       await createUserData({
         uid: result.user.uid,
 
-        fullname, //, typedeal
+        fullname,
       });
       return user;
     } else {
@@ -57,7 +57,6 @@ export const signUpUser = async ({
     return null;
   }
 };
-
 export const signInUser = async ({ email, password }) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
@@ -68,16 +67,20 @@ export const signInUser = async ({ email, password }) => {
 };
 
 export const updateUser = async (userId, userData) => {
-  try {
-    await firestore
-      .collection("users")
-      .doc(userId)
-      .set(userData, { merge: true });
-    return true;
-  } catch (error) {
-    console.error("Error updating user:", error);
-    throw error;
-  }
+  // try {
+  const userRef = doc(db, "users", userId); // Tutaj używamy 'db' z 'firebaseConfig'
+  await updateDoc(userRef, userData);
+  console.log("User updated successfully");
+  //     } catch (error) {
+  //       console.error("Error updating user:", error);
+  //     }
+  //   };
+  //   try {
+  //     await firestore
+  //       .collection("users")
+  //       .doc(userId)
+  //       .set(userData, { merge: true });
+  return true;
 };
 
 export const logout = async () => {

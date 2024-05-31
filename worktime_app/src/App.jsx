@@ -21,9 +21,9 @@ import {
   EdycjaFormularz,
 } from "./components/pages";
 import BaseLayout from "./components/BaseLayout";
-import Calendar from "./components/Calendar/Calendar";
+import CalendarWithManagement from "./components/Calendar/CalendarWithManagement";
+import CalendarViewOnly from "./components/Calendar/CalendarViewOnly";
 import { loader as homeLoader } from "./components/pages";
-import Grafik_formularz from "./components/pages/Grafik_formularz";
 
 const App = () => {
   return (
@@ -36,7 +36,7 @@ const App = () => {
             element={
               <BaseLayout>
                 <Home />
-                <Calendar />
+                <CalendarViewOnly />
               </BaseLayout>
             }
           />
@@ -45,7 +45,7 @@ const App = () => {
             element={
               <BaseLayout>
                 <Grafik />
-                <Calendar />
+                <CalendarViewOnly />
               </BaseLayout>
             }
           />
@@ -54,8 +54,7 @@ const App = () => {
             element={
               <BaseLayout>
                 <Stworz_grafik />
-                <Grafik_formularz />
-                <Calendar />
+                <CalendarWithManagement />
               </BaseLayout>
             }
           />
