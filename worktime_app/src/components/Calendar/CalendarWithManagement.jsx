@@ -55,7 +55,7 @@ const CalendarWithManagement = () => {
       const addedEvent = { id: docRef.id, ...newEvent };
       setEvents([...events, addedEvent]);
     } catch (error) {
-      console.error("Error adding event: ", error);
+      console.error("Wystąpił błąd podczas dodawania zmiany: ", error);
     }
   };
 
