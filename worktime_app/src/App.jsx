@@ -21,13 +21,14 @@ import {
   EdycjaFormularz,
 } from "./components/pages";
 import BaseLayout from "./components/BaseLayout";
-import Calendar from "./components/Calendar/Calendar";
+import CalendarWithManagement from "./components/Calendar/CalendarWithManagement";
+import CalendarViewOnly from "./components/Calendar/CalendarViewOnly";
 import { loader as homeLoader } from "./components/pages";
-import Grafik_formularz from "./components/pages/Grafik_formularz";
 
 const App = () => {
   return (
     <UserProvider>
+
     <div className="App"> 
       <Routes>
         <Route
@@ -43,28 +44,27 @@ const App = () => {
           element={
             <BaseLayout>
               <Home />
-              <Calendar />
+              <CalendarViewOnly />
             </BaseLayout>
           }
         />
         <Route
-          path="/grafik"
-          element={
-            <BaseLayout>
-              <Grafik />
-              <Calendar />
-            </BaseLayout>
-          }
+            path="/grafik"
+            element={
+              <BaseLayout>
+                <Grafik />
+                <CalendarViewOnly />
+              </BaseLayout>
+            }
         />
-        <Route
-          path="/Stworz_grafik"
-          element={
-            <BaseLayout>
-              <Stworz_grafik />
-              <Grafik_formularz />
-              <Calendar />
-            </BaseLayout>
-          }
+         <Route
+            path="/Stworz_grafik"
+            element={
+              <BaseLayout>
+                <Stworz_grafik />
+                <CalendarWithManagement />
+              </BaseLayout>
+            }
         />
         <Route
           path="/dyspozycja"
