@@ -1,26 +1,54 @@
+import { useEffect, useState} from "react";
+import {getAuth} from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../services/firebase";
 import '../style/Profil.css';
-import { Link, useLocation } from "react-router-dom";
-import { useState, useEffect } from 'react';
 
 export const Profil = ()=>{
 
-  const location = useLocation();
-  const [user, setUser] = useState(null);
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const auth = getAuth();
+  const user = auth.currentUser;
 
-  useEffect(() => {
-    if (location.state && location.state.user) {
-      setUser(location.state.user);
+    
+useEffect(()=>{
+  const fetchUserData = async () => {
+    if(user){
+      try{
+      console.log("Fetching data for user:", user.uid)
+      const userDoc = doc(db, "users", user.uid);
+      const docSnap = await getDoc(userDoc);
+      if(docSnap.exists()){
+        console.log("User data:", docSnap.data());
+        setUserData(docSnap.data());
+      }else{
+        console.log("No such document!")
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }finally {
+      setLoading(false);
     }
-  }, [location.state]);
+  }else {
+     console.log("No user is logged in");
+    setLoading(false);
+  }
+};
+  fetchUserData();
+},[user]);
 
-  if (!user) {
+ if (loading) {
+    return <div>Ładowanie...</div>; // Wyświetlenie komunikatu ładowania
+  }
+
+  if (!userData) {
     return <div>Brak danych użytkownika</div>;
   }
+
+
   return(
 <div>
-  <Link to="/pracownicy">
-    <button className='profilButton'>Powrót</button>
-    </Link>
   <div className="profil">
     <div className="photo"></div>
     <p>Imię/imiona:</p>

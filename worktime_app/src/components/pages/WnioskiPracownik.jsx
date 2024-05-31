@@ -1,61 +1,95 @@
+import {getAuth, onAuthStateChanged} from "firebase/auth";
+import { useState, useEffect } from "react";
+import {collection, query, orderBy, where, getDocs, doc, getDoc} from "firebase/firestore";
+import { db } from "../../services/firebase";
 import { NavLink } from "react-router-dom";
 import '../style/WnioskiPracownik.css'
-import { ListaWnioskowPracownika } from "./ListaWnioskowPracownika";
+// import { ListaWnioskowPracownika } from "./ListaWnioskowPracownika";
 
-const listaWnioskow = [
-  {
-    id: 0,
-    type: 'Urlop wypoczynkowy',
-    beginingDate: '22/05/24' ,
-    endDate: '30/05/24',
-    new: true, 
-    accepted: false,
-    comment: ''
-  },
-    {
-    id: 1,
-    type: 'Urlop na żadanie',
-    beginingDate: '3/03/24',
-    endDate: '3/03/24',
-    new: false,
-    accepted: true,
-    comment:''
-  }, {
-    id: 2,
-    type: 'Zwolnienie lekarskie',
-    beginingDate:'27/02/24',
-    endDate:'28/02/24',
-    new: false,
-    accepted: true,
-    comment:''
-  }, {
-    id: 3,
-    type: 'Urlop wypoczynkowy',
-    beginingDate: '23/12/24',
-    endDate:'27/12/24',
-    new: false,
-    accepted: false,
-    comment: 'W okresie świątecznym nie udzielamy urlopów'
-  },
-];
-
-   const WyswietlWnioski = listaWnioskow.map(wniosek=>
-<ListaWnioskowPracownika 
-key={wniosek.id}
-type={wniosek.type}
-beginingDate = {wniosek.beginingDate}
-endDate={wniosek.endDate}
-comment={wniosek.comment}
-accepted={wniosek.accepted}
-new={wniosek.new}
- />
-  )
 
 export const WnioskiPracownik = () => {
 
+  const [requests, setRequests] = useState([]);
+  const [userInfo, setUserInfo] = useState({name:"", surname:""});
+
+
+  useEffect(()=>{
+    const fetchRequests = async (user) => {
+      try {
+
+        const q = query(
+          collection(db, "applications"), 
+          where("userId", "==", user.uid),
+          orderBy('createdAt', 'desc')
+        );
+        const querySnapshot = await getDocs(q);
+      const requestsList = querySnapshot.docs.map(doc => ({id:doc.id, ...doc.data()}));
+      setRequests(requestsList);
+      } catch (error) {
+          console.error("Error fetching documents: ", error);
+      }
+    };
+
+   const fetchUserInfo = async (user) => {
+      try {
+        if (user.displayName) {
+          const [name, surname] = user.displayName.split(" ");
+          setUserInfo({ name, surname });
+        } else {
+          const userDoc = doc(db, "users", user.uid);
+          const docSnap = await getDoc(userDoc);
+          if (docSnap.exists()) {
+            const userData = docSnap.data();
+            setUserInfo({ name: userData.name, surname: userData.surname });
+          } else {
+            console.error("No such document!");
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching user info: ", error);
+      }
+    };
+
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        fetchUserInfo(user);
+        fetchRequests(user);
+      } else {
+        console.error("No user is logged in.");
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const getStatusLabel = (status) => {
+    switch (status) {
+      case 'zaakceptowany':
+        return 'Zaakceptowany';
+        case 'odrzucony':
+          return 'Odrzucony';
+          default:
+            return 'Oczekujący';
+    }
+  }
+
+
+const WyswietlWnioski = requests.map(wniosek => (
+  <li key={wniosek.id}>
+    <span className="name">{wniosek.type}</span>
+    <span className="dates">{`Początek: ${wniosek.beginningDate}, Koniec:${wniosek.endingDate}`}</span>
+    <span className="comment">{wniosek.comment}</span>
+    <span className="status">{getStatusLabel(wniosek.status)}</span>
+  </li>
+));
+
+
+
+
   return(
   <div className="pokazWnioski">
-    <h1>Pracownik Nazwisko</h1>
+    <h1>{userInfo.name} {userInfo.surname}</h1>
     <NavLink to='/wnioski/nowyWniosek'><button className="dodajWniosek">Nowy wniosek</button></NavLink>
     <ul>
       {WyswietlWnioski}
