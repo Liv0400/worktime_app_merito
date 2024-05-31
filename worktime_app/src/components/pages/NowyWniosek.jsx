@@ -67,6 +67,7 @@ export const NowyWniosek = () => {
         onChange={(e)=>setType(e.target.value)}
         required
         >
+          <option></option>
           <option value="Urlop wypoczynkowy">Urlop wypoczynkowy</option>
           <option value="Na żądanie">Urlop na żądanie</option>
           <option value="Urlop macierzynski/tacierzynski">Urlop macierzyński/tacierzyński</option>

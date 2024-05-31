@@ -100,7 +100,7 @@ const App = () => {
             </BaseLayout>
           }
         />
-        //
+        
         <Route path="/" element={<UsersList />} />
         <Route path="/formularz" element={<Formularz />} />
         <Route path="/edycja/:userId" element={<EdycjaFormularz />} />
@@ -122,7 +122,7 @@ const App = () => {
           }
         />
         <Route
-          path="/pracownicy/profil"
+          path="/profil"
           element={
             <BaseLayout>
               <Profil />

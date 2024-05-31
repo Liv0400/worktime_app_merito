@@ -1,6 +1,8 @@
 import { auth } from "./firebase";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { createUserData } from "./firestore";
+import { getFirestore } from "firebase/firestore"; 
+const firestore = getFirestore();
 
 export const getCurrentUser =() => {
 return new Promise((resolve, reject)=>{
