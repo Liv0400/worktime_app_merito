@@ -1,5 +1,8 @@
-import { doc, setDoc, collection, getDocs, getFirestore,  getDoc} from "firebase/firestore"
+import { doc, setDoc, collection, getDocs, getDoc, } from "firebase/firestore"
 import { db } from "./firebase"
+import { getFirestore } from "firebase/firestore"; 
+
+
 
  export const createUserData = async ({uid, fullname 
 

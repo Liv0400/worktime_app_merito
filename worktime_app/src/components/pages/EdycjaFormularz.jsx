@@ -1,9 +1,10 @@
 import './Administrator.css';
 import React, { useEffect, useState } from 'react';
 import { updateUser } from '../../services/auth';
-import { getUserById } from '../../services/firestore'; 
 import TextInput from './Textinput';
 import { useNavigate, useParams } from 'react-router-dom';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../services/firebase';
 
 export const EdycjaFormularz = () => {
   const [firstname, setFirstName] = useState("");
@@ -12,31 +13,44 @@ export const EdycjaFormularz = () => {
   const [typedeal, setTypeDeal] = useState("");
   const [idworker, setIdWorker] = useState("");
   const [rightapp, setRightApp] = useState("");
-  const [email, setEmail] = useState("");
   const [errors, setErrors] = useState({});
-
   const navigate = useNavigate();
   const { userId } = useParams();
 
   useEffect(() => {
+    const getUserById = async (id) => {
+      try {
+        const userDoc = await getDoc(doc(db, 'users', id));
+        if (userDoc.exists()) {
+          console.log('User data fetched:', userDoc.data());
+          return userDoc.data();
+        } else {
+          console.log('No such document!');
+          return null;
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        return null;
+      }
+    };
+
     if (userId) {
-      // Pobierz dane użytkownika z Firestore i ustaw je w stanie
       getUserById(userId).then(userData => {
-        console.log("Fetched user data:", userData); // Dodaj log do debugowania
-        setFirstName(userData.firstname);
-        setLastName(userData.lastname);
-        setBirthDate(userData.birthdate);
-        setTypeDeal(userData.typedeal);
-        setIdWorker(userData.idworker);
-        setRightApp(userData.rightapp);
-        setEmail(userData.email);
-      }).catch(error => {
-        console.error("Error fetching user data:", error);
+        if (userData) {
+          console.log('Setting user data:', userData);
+          setFirstName(userData.fullname.firstname || "");
+          setLastName(userData.fullname.lastname || "");
+          setBirthDate(userData.fullname.birthdate || "");
+          setTypeDeal(userData.fullname.typedeal || "");
+          setIdWorker(userData.fullname.idworker || "");
+          setRightApp(userData.fullname.rightapp || "");
+          
+        }
       });
     }
   }, [userId]);
 
-  const onEmailChanged = (e) => setEmail(e.target.value);
+
   const onFirstNameChanged = (e) => setFirstName(e.target.value);
   const onLastNameChanged = (e) => setLastName(e.target.value);
   const onBirthDateChanged = (e) => setBirthDate(e.target.value);
@@ -45,12 +59,8 @@ export const EdycjaFormularz = () => {
   const onIdWorkerChanged = (e) => setIdWorker(e.target.value);
 
   async function handleSubmitForm(e) {
-    e.preventDefault(); //strona nie bedzie się odswiezac
-    const errorsObj = {
-      email: !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email),
-    };
-    setErrors(errorsObj);
-    if (errorsObj.email) return;
+    e.preventDefault();
+   
 
     await updateUser(userId, {
       firstname,
@@ -59,10 +69,10 @@ export const EdycjaFormularz = () => {
       typedeal,
       rightapp,
       idworker,
-      email,
+      
     });
 
-    navigate("/zaloguj");
+    navigate("/administrator");
   }
 
   return (
@@ -77,7 +87,7 @@ export const EdycjaFormularz = () => {
         <TextInput title="Typ umowy" name="Type_deal" value={typedeal} onChange={onTypeDealChanged} />
         <TextInput title="Id pracownika" name="ID" value={idworker} onChange={onIdWorkerChanged} />
         <TextInput title="Uprawnienia" name="uprawnienia" value={rightapp} onChange={onRightAppChanged} />
-        <TextInput title="Email" name="email" type="email" value={email} onChange={onEmailChanged} />
+
         <button type="submit" className="Dodaj">Zapisz</button>
       </form>
     </>
