@@ -28,19 +28,27 @@ import { loader as homeLoader } from "./components/pages";
 const App = () => {
   return (
     <UserProvider>
-      <div className="App">
-        <Routes>
-          <Route path="/zaloguj" loader={homeLoader} element={<Logowanie />} />
-          <Route
-            path="/home"
-            element={
-              <BaseLayout>
-                <Home />
-                <CalendarViewOnly />
-              </BaseLayout>
-            }
-          />
-          <Route
+
+    <div className="App"> 
+      <Routes>
+        <Route
+          path="/zaloguj"   
+          loader={homeLoader}
+          element={
+           <Logowanie/>
+          
+          }
+      />
+        <Route
+          path="/home"
+          element={
+            <BaseLayout>
+              <Home />
+              <CalendarViewOnly />
+            </BaseLayout>
+          }
+        />
+        <Route
             path="/grafik"
             element={
               <BaseLayout>
@@ -48,8 +56,8 @@ const App = () => {
                 <CalendarViewOnly />
               </BaseLayout>
             }
-          />
-          <Route
+        />
+         <Route
             path="/Stworz_grafik"
             element={
               <BaseLayout>
@@ -57,93 +65,94 @@ const App = () => {
                 <CalendarWithManagement />
               </BaseLayout>
             }
-          />
-          <Route
-            path="/dyspozycja"
-            element={
-              <BaseLayout>
-                <Dyspozycja />
-              </BaseLayout>
-            }
-          />
-          <Route
-            path="/wnioski"
-            element={
-              <BaseLayout>
-                <Wnioski />
-              </BaseLayout>
-            }
-          />
-          <Route
-            path="/administrator"
-            element={
-              <BaseLayout>
-                <Administrator />
-              </BaseLayout>
-            }
-          />
-          <Route
-            path="/formularz"
-            element={
-              <BaseLayout>
-                <Formularz />
-              </BaseLayout>
-            }
-          />
-          //
-          <Route path="/" element={<UsersList />} />
-          <Route path="/formularz" element={<Formularz />} />
-          <Route path="/edycja/:userId" element={<EdycjaFormularz />} />
-          <Route
-            path="/wnioskiPracownik"
-            element={
-              <BaseLayout>
-                <WnioskiPracownik />
-              </BaseLayout>
-            }
-          />
-          <Route
-            path="/pracownicy"
-            element={
-              <BaseLayout>
-                <Pracownicy />
-              </BaseLayout>
-            }
-          />
-          <Route
-            path="/pracownicy/profil"
-            element={
-              <BaseLayout>
-                <Profil />
-              </BaseLayout>
-            }
-          />
-          <Route
-            path="/wnioski/pokazWnioski"
-            element={
-              <BaseLayout>
-                <PokazWnioski />
-              </BaseLayout>
-            }
-          />
-          <Route
-            path="/wnioski/przeslaneWnioski"
-            element={
-              <BaseLayout>
-                <PrzeslaneWnioski />
-              </BaseLayout>
-            }
-          />
-          <Route
-            path="/wnioski/nowyWniosek"
-            element={
-              <BaseLayout>
-                <NowyWniosek />
-              </BaseLayout>
-            }
-          />
-        </Routes>
-      </div>
+        />
+        <Route
+          path="/dyspozycja"
+          element={
+            <BaseLayout>
+              <Dyspozycja />
+            </BaseLayout>
+          }
+        />
+        <Route
+          path="/wnioski"
+          element={
+            <BaseLayout>
+              <Wnioski />
+            </BaseLayout>
+          }
+        />
+        <Route
+          path="/administrator"
+          element={
+            <BaseLayout>
+              <Administrator />
+            </BaseLayout>
+          }
+        />
+        <Route
+          path="/formularz"
+          element={
+            <BaseLayout>
+              <Formularz />
+            </BaseLayout>
+          }
+        />
+        
+        <Route path="/" element={<UsersList />} />
+        <Route path="/formularz" element={<Formularz />} />
+        <Route path="/edycja/:userId" element={<EdycjaFormularz />} />
+
+        <Route
+          path="/wnioskiPracownik"
+          element={
+            <BaseLayout>
+              <WnioskiPracownik />
+            </BaseLayout>
+          }
+        />
+        <Route
+          path="/pracownicy"
+          element={
+            <BaseLayout>
+              <Pracownicy />
+            </BaseLayout>
+          }
+        />
+        <Route
+          path="/profil"
+          element={
+            <BaseLayout>
+              <Profil />
+            </BaseLayout>
+          }
+        />
+        <Route
+          path="/wnioski/pokazWnioski"
+          element={
+            <BaseLayout>
+              <PokazWnioski />
+            </BaseLayout>
+          }
+        />
+        <Route
+          path="/wnioski/przeslaneWnioski"
+          element={
+            <BaseLayout>
+              <PrzeslaneWnioski />
+            </BaseLayout>
+          }
+        />
+        <Route
+          path="/wnioski/nowyWniosek"
+          element={
+            <BaseLayout>
+              <NowyWniosek />
+            </BaseLayout>
+          }
+        />
+      </Routes>
+    </div>
     </UserProvider>
   );
 };

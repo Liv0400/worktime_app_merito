@@ -20,27 +20,51 @@
   margin: 2rem;
   min-width: 20rem;
   height: 50px;
-}
-.pracownicy a {
   font-size: 18px;
-  line-height: 50px;
-  text-decoration: none;
   color: #eee;
-  transition: .3s;
-}
-.pracownicy a:hover{
-  font-size: 16px;
-}
-.minPhoto{
-  position: absolute;
-  top: 0;
-  left: -5rem;
-  display: inline-block;
-  background-color: #999;
-  width: 3rem;
-  height: 3rem;
-  margin-right: 2rem;
-  padding: .5rem;
-  border-radius: 50%;
+  cursor: pointer;
 }
 
+.pracownicy .popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pracownicy .popup-content {
+  background-color: rgb(214, 129, 188);
+  padding: 20px;
+  border-radius: 5px;
+  position: relative;
+  width: 300px;
+}
+
+.pracownicy .popup-content p {
+  display: inline-block;
+    font-size: 18px;
+    margin: .2rem;
+    padding: .4rem;
+}
+.pracownicy .popup-content span {
+display: block;
+  width: 70%;
+  margin: 0 auto;
+  padding: .5rem;
+  line-height: 1rem;
+  background-color: #eee;
+  border-radius: 10px;
+}
+
+.pracownicy .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 20px;
+}

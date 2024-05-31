@@ -1,14 +1,14 @@
 import {useState, useEffect} from "react";
 import {db} from "../../services/firebase"
 import { collection, getDocs } from "firebase/firestore";
-import { NavLink } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import '../style/Pracownicy.css';
 
 export const Pracownicy = () => {
 
   const [users, setUsers] = useState([]);
   const[loading, setLoading] = useState(true);
-  // const [selectedUser, setSelectedUser] = useState(null)
+  const [selectedUser, setSelectedUser] = useState(null)
 
   useEffect(()=>{
     const fetchUsers = async () => {
@@ -27,8 +27,17 @@ export const Pracownicy = () => {
     };
     fetchUsers();
   }, []);
+
   if (loading) {
     return <div>Pobieranie listy pracowników...</div>;
+  }
+
+  const showMore = (user) => {
+    setSelectedUser(user);
+  }
+
+  const closePopup = () => {
+    setSelectedUser(null)
   }
 
   return (
@@ -36,21 +45,33 @@ export const Pracownicy = () => {
       <h1>Lista pracowników:</h1>
       <ul>
         {users.map((user) => (
-  
-    <li key={user.id}>
-    {/* <span className="minPhoto"></span> */}
-    <NavLink 
-    to={{
-      pathname: "/pracownicy/profil",
-      state: {user}
-    }}
-    // onClick={()=>setSelectedUser(user)}
-    >
-    {user.fullname.firstname} {user.fullname.lastname}
-    </NavLink>
+           <li key={user.id}>
+           <span className="fullName" onClick={()=>showMore(user)}>
+            {user.fullname.firstname} {user.fullname.lastname}
+      </span>
     </li>
-  ))}
-      </ul>
+    ))}
+    </ul>
+
+    {selectedUser && (
+      <div className="popup">
+        <div className="popup-content">
+          <div className="close" onClick={closePopup}>&times;</div>
+          <p>Imię/imiona:</p>
+          <span>{selectedUser.fullname.firstname}</span>
+          <p>Nazwisko:</p>
+          <span >{selectedUser.fullname.lastname}</span>
+          <p>Data urodzenia:</p>
+          <span>{selectedUser.fullname.birthdate}</span>
+          <p>Rodzaj umowy:</p>
+          <span>{selectedUser.fullname.typedeal}</span>
+          <p>Uprawnienia:</p>
+          <span>{selectedUser.fullname.rightapp}</span>
+          {/* <p>Wymiar etatu:</p> 
+          <span>cały etat</span>  */}
+        </div>
+      </div>
+    )}
     </div>
   )
 };
