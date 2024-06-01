@@ -1,28 +1,74 @@
 import { useState} from "react";
+import {doc, updateDoc} from "firebase/firestore";
+import {db} from "../../services/firebase";
 import '../style/PokazWnioski.css'
 
 export const ListaWnioskow = (props) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [status, setStatus] = useState(props.status);
+  const [comment, setComment] = useState(props.comment || "");
+  // let stateArray = useState(false);
+  // let isExpanded = stateArray[0];
+  // let setIsExpanded = stateArray[1];
+  // const [status, setStatus] = useState(props.status);
+  // const [comment, setComment] = useState(props.comment || "");
 
-
-  let stateArray = useState(false);
-  let isExpanded = stateArray[0];
-  let setIsExpanded = stateArray[1]
-
-  const rozwin = <button 
-  className='rozwin'
-  onClick={()=>{
+  const toggleExpand = () => {
     setIsExpanded(!isExpanded);
-  }}>
-    {isExpanded ? "▲":"▼"}
-  </button>
+  };
 
-  const anuluj = <button
-  className='tbCancel'
-  onClick={()=>{
-    setIsExpanded(!isExpanded)
-  }}>
-    Anuluj
-  </button>
+  // const rozwin = 
+  // <button 
+  // className='rozwin'
+  // onClick={()=>{
+  //   setIsExpanded(!isExpanded);
+  // }}>
+  //   {isExpanded ? "▲":"▼"}
+  // </button>
+
+  // const anuluj = <button
+  // className='tbCancel'
+  // onClick={()=>{
+  //   setIsExpanded(!isExpanded)
+  // }}>
+  //   Anuluj
+  // </button>
+
+  const updateStatus = async (newStatus) => {
+    try {
+      const docRef = doc(db, "applications", props.id);
+      await updateDoc(docRef, {
+        status: newStatus,
+        comment: comment
+      });
+        setStatus(newStatus);
+        setIsExpanded(false)
+      }catch (error){
+        console.error("Error updating document:", error)
+      }
+    }
+
+
+  const zaakceptuj = async () => {
+    updateStatus('zaakceptowany')
+  }
+  const odrzuc = async () => {
+    updateStatus('odrzucony')
+  };
+
+
+
+  const applyStatus = () => {
+    if(status === 'oczekujący'){
+      return <span className="newApply">!</span>
+    } else if (status === 'zaakceptowany'){
+      return <span className="newApply">✔️</span>
+    }else if (status==="odrzucony"){
+      return <span className="newApply">❌</span>
+    }else{
+      return null
+    }
+  }
 
 
   return(
@@ -30,12 +76,14 @@ export const ListaWnioskow = (props) => {
     <li>
     <span className="name">{props.name}</span>
     <span className='createdAt'>{'Przesłano: ' + props.createdAt.toDate().toLocaleDateString()}</span>
-    {props.status == 'oczekujący' ? <span className="newApply">!</span> : null}
-    {rozwin}
+    {applyStatus()}
+    {/* {rozwin} */}
+    <button className="rozwin" onClick={toggleExpand}>
+          {isExpanded ? "▲" : "▼"}
+    </button>
   </li>
-   <div  className='zaakceptuj'>
-      
-     {isExpanded && 
+  {isExpanded && (
+ <div  className='zaakceptuj'> 
      <table>
         <tbody>
         <tr>
@@ -48,19 +96,29 @@ export const ListaWnioskow = (props) => {
           <td><p>{props.type}</p></td>
           <td><p>{props.beginningDate}</p></td>
           <td><p>{props.endingDate}</p></td>
-          <td><textarea name="com" cols="24" rows="5"></textarea></td>
-          <td><button className='btn'>✔️</button><button className='btn'>❌</button></td>
+          <td>
+            <textarea 
+            name="com" 
+            cols="24" 
+            rows="5" 
+            onChange={(e)=>setComment(e.target.value)}>
+              </textarea>
+              </td>
+          <td>
+            <button className='btn' onClick={zaakceptuj}>✔️</button>
+            <button className='btn' onClick={odrzuc}>❌</button>
+            </td>
         </tr>
        <tr>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td colSpan="3"></td>
         <td className='lastTd'>
-          {anuluj}
-        </td>
+          <button className='tbCancel' onClick={toggleExpand}>
+            Anuluj
+          </button></td>
       </tr>
         </tbody>
-      </table>}
+      </table>
     </div>
+  )}
   </div>
 )}

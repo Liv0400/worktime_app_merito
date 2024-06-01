@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import { db } from "../../services/firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import {ListaWnioskow} from './ListaWnioskow';
 import "../style/Wnioski.css"
 
@@ -12,7 +12,8 @@ export const Wnioski = () => {
   useEffect(()=>{
     const fetchApplications = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, 'applications'));
+        const q = query(collection(db, 'applications'), orderBy('createdAt', 'desc'));
+        const querySnapshot = await getDocs(q);
         const applicationsList = querySnapshot.docs.map(doc =>({
           id:doc.id,
           ...doc.data()
@@ -30,29 +31,16 @@ export const Wnioski = () => {
   if(loading){
     return <div>Pobieranie wniosków...</div>;
   }
-
-        // <li key={application.id}>
-        //   <div className="wniosek">
-        //     {application.name}
-        //     {application.status == 'oczekujący' ? <span className="newApply">!</span> : null}
-        //     </div>
-        //     <div className="wniosekAkceptuj">
-        //   <strong>Typ:</strong> {application.type} <br />
-        //   <strong>Początek:</strong> {application.beginningDate} {application.beginningHour} <br />
-        //   <strong>Koniec:</strong> {application.endingDate} {application.endingHour} <br />
-        //   <strong>Status:</strong> {application.status} <br />
-        //   <strong>Utworzono:</strong> {application.createdAt.toDate().toLocaleString()}
-        //   </div>
-        // </li>
       
 
   return (
-    <div className= "pracownicy wnioski">
+    <div className= "wnioski">
       <h1>Lista wniosków:</h1>
       <ul>
       {applications.map(application =>(
     <ListaWnioskow
     key = {application.id}
+    id = {application.id}
     name = {application.name}
     status = {application.status}
     type = {application.type}
@@ -60,6 +48,7 @@ export const Wnioski = () => {
     beginningHour = {application.beginningHour}
     endingDate = {application.endingDate}
     endingHour = {application.endingHour}
+    comment = {application.comment}
     createdAt = {application.createdAt}
     />
       ))}

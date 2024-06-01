@@ -1,9 +1,37 @@
 
-.newApply {
+/* .newApply {
   position: absolute;
   top: .8rem;
   left: 25rem;
   color: rgb(103, 7, 42);
   font-weight: bold;
   font-size: 20px;
+} */
+
+.pracownicy {
+  padding: 5rem 2rem 0 5rem;
+}
+
+.pracownicy h1 {
+  color: #eee;
+  /* text-shadow: 1px 1px #333; */
+}
+
+.pracownicy ul {
+  display: block;
+  margin: 2rem 0 0 5rem;
+  padding: 2rem;
+  list-style: none;
+  width: 60%;
+}
+
+.pracownicy li {
+  position: relative;
+  margin-bottom: .5rem;
+  margin: 2rem;
+  min-width: 20rem;
+  height: 50px;
+  font-size: 18px;
+  color: #eee;
+  cursor: pointer;
 }
