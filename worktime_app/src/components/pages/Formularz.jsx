@@ -61,7 +61,7 @@ const onIdWorkerChanged =(e) => setIdWorker(e.target.value)
   
     return (<>
         
-        <div>
+        <div className="form-background">
           <h1 className="tytulform">Nowy pracownik</h1>
         </div>
           <form className="formularz" onSubmit={handleSubmitForm} 

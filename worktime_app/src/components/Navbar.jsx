@@ -31,7 +31,8 @@ export const Navbar = () => {
           <li>
             <NavLink to="/administrator">Administrator</NavLink>
           </li>
-          <li>  <div><button className = "PrzyciskDodaj" onClick={logout}>Wyloguj</button></div></li>
+          <li>  <div><button className = "PrzyciskDodaj" onClick={logout}
+          >Wyloguj</button></div></li>
         </ul>
       </nav>
 

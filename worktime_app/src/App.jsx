@@ -18,7 +18,7 @@ import {
   Formularz,
   Stworz_grafik,
   UsersList,
-  EdycjaFormularz,
+  EdycjaFormularz, 
 } from "./components/pages";
 import BaseLayout from "./components/BaseLayout";
 import Calendar from "./components/Calendar/Calendar";
@@ -65,8 +65,8 @@ const App = () => {
               <BaseLayout>
                 <Dyspozycja />
               </BaseLayout>
-            }
-          />
+            }/>
+
           <Route
             path="/wnioski"
             element={
