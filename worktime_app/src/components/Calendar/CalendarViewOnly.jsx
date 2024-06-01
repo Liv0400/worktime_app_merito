@@ -103,6 +103,7 @@ const CalendarViewOnly = () => {
         hour: "2-digit",
         minute: "2-digit",
         meridiem: false,
+        hour12: false,
       }}
       allDaySlot={false}
       editable={false} // Disable event editing
