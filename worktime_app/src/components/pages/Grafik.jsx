@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./Grafik.css";
+import "../style/Grafik.css";
 export const Grafik = () => {
   return (
     <main>
@@ -11,4 +11,3 @@ export const Grafik = () => {
     </main>
   );
 };
-

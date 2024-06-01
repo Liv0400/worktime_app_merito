@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../services/firebase";
+import "./CalendarForms.css";
 
 const Grafik_formularz = ({ onEventAdded }) => {
   const [showForm, setShowForm] = useState(false);
@@ -53,17 +54,19 @@ const Grafik_formularz = ({ onEventAdded }) => {
 
   return (
     <div>
-      <button onClick={() => setShowForm(true)}>Nowa zmiana</button>
+      <button className="NowaZmiana" onClick={() => setShowForm(true)}>
+        Nowa zmiana
+      </button>
       {showForm && (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="Formularz">
           <div>
-            <label>Wybierz użytkownika:</label>
+            <label className="WybierzUzytkownika">Wybierz użytkownika:</label>
             <select
               value={selectedUser}
               onChange={(e) => setSelectedUser(e.target.value)}
               required
             >
-              <option value="">Wybierz użytkownika</option>
+              <option value="wybierzuzytkownika">Wybierz użytkownika</option>
               {users.map((user) => (
                 <option key={user.id} value={user.id}>
                   {user.fullname
@@ -74,7 +77,7 @@ const Grafik_formularz = ({ onEventAdded }) => {
             </select>
           </div>
           <div>
-            <label>Dzień:</label>
+            <label className="Dzien">Dzień:</label>
             <input
               type="date"
               value={date}
@@ -83,7 +86,7 @@ const Grafik_formularz = ({ onEventAdded }) => {
             />
           </div>
           <div>
-            <label>Początek zmiany:</label>
+            <label className="PoczatekZmiany">Początek zmiany:</label>
             <input
               type="time"
               value={startTime}
@@ -92,7 +95,7 @@ const Grafik_formularz = ({ onEventAdded }) => {
             />
           </div>
           <div>
-            <label>Koniec zmiany:</label>
+            <label className="KoniecZmiany">Koniec zmiany:</label>
             <input
               type="time"
               value={endTime}
@@ -100,8 +103,14 @@ const Grafik_formularz = ({ onEventAdded }) => {
               required
             />
           </div>
-          <button type="submit">Dodaj zmianę</button>
-          <button type="button" onClick={() => setShowForm(false)}>
+          <button className="DodajZmiane" type="submit">
+            Dodaj zmianę
+          </button>
+          <button
+            className="Anuluj"
+            type="button"
+            onClick={() => setShowForm(false)}
+          >
             Anuluj
           </button>
         </form>

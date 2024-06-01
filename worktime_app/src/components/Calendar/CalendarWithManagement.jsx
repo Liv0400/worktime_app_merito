@@ -104,6 +104,7 @@ const CalendarWithManagement = () => {
           hour: "2-digit",
           minute: "2-digit",
           meridiem: false,
+          hour12: false,
         }}
         events={events.map((event) => {
           const user = users.find((user) => user.id === event.user);

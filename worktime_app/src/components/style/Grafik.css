@@ -1,16 +1,20 @@
 .Utwórz_grafik {
-  display: flex;
-  padding: 1rem;
-  margin: 5 auto;
-  margin-right: 33px;
-  padding-right: "200px";
-  float: right;
-  font-size: 15px;
-  border: 2px solid #333;
-  border-radius: 30px;
-  background-color: #fff;
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  margin-left: 10px;
+  margin-top: 10px;
+  font-size: 14px;
+  background-color: #eb95c0;
+  color: #fff;
+  border: 1px solid #f3f3f3;
+  border-radius: 15px;
   cursor: pointer;
+  line-height: 14px;
 }
+.Utwórz_grafik:hover {
+  background: rgba(248, 248, 248, 0.685);
+  color: #eb95c0;
+}
+
 .Grafik {
   margin: 10px;
   text-align: center;
