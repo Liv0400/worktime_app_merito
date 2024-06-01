@@ -3,6 +3,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import plLocale from "@fullcalendar/core/locales/pl";
 import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import { db } from "../../services/firebase";
 
@@ -44,8 +45,39 @@ const CalendarViewOnly = () => {
 
     fetchUsers();
   }, []);
+
+  const handleEventMouseEnter = (info) => {
+    const tooltip = document.createElement("div");
+    tooltip.className = "tooltip top";
+    tooltip.innerHTML = `
+      <strong>Title:</strong> ${info.event.title}<br>
+      <strong>Start:</strong> ${info.event.start}<br>
+      <strong>End:</strong> ${info.event.end}
+    `;
+    document.body.appendChild(tooltip);
+
+    const updateTooltipPosition = (event) => {
+      tooltip.style.left = `${event.pageX + 10}px`;
+      tooltip.style.top = `${event.pageY + 10}px`;
+    };
+
+    updateTooltipPosition(info.jsEvent);
+    info.el.addEventListener("mousemove", updateTooltipPosition);
+
+    info.el.tooltip = tooltip;
+  };
+
+  const handleEventMouseLeave = (info) => {
+    if (info.el.tooltip) {
+      document.body.removeChild(info.el.tooltip);
+      info.el.removeEventListener("mousemove", updateTooltipPosition);
+      info.el.tooltip = null;
+    }
+  };
+
   return (
     <FullCalendar
+      locale={plLocale}
       plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
       initialView={"dayGridMonth"}
       headerToolbar={{
@@ -63,8 +95,16 @@ const CalendarViewOnly = () => {
             : "Unknown Employee",
         };
       })}
+      eventMouseEnter={handleEventMouseEnter}
+      eventMouseLeave={handleEventMouseLeave}
       weekNumbers={true}
       firstDay={1}
+      eventTimeFormat={{
+        hour: "2-digit",
+        minute: "2-digit",
+        meridiem: false,
+      }}
+      allDaySlot={false}
       editable={false} // Disable event editing
       selectable={false} // Disable event selection
     />
