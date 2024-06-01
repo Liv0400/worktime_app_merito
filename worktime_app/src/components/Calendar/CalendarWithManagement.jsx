@@ -3,6 +3,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import plLocale from "@fullcalendar/core/locales/pl";
 import { collection, getDocs, onSnapshot, addDoc } from "firebase/firestore";
 import { db } from "../../services/firebase";
 import AddEventForm from "./AddEventForm";
@@ -90,6 +91,7 @@ const CalendarWithManagement = () => {
         />
       )}
       <FullCalendar
+        locale={plLocale}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         initialView={"dayGridMonth"}
         headerToolbar={{
@@ -98,6 +100,11 @@ const CalendarWithManagement = () => {
           end: "dayGridMonth,timeGridWeek,timeGridDay",
         }}
         contentHeight={790}
+        eventTimeFormat={{
+          hour: "2-digit",
+          minute: "2-digit",
+          meridiem: false,
+        }}
         events={events.map((event) => {
           const user = users.find((user) => user.id === event.user);
           return {
@@ -108,6 +115,7 @@ const CalendarWithManagement = () => {
           };
         })}
         eventClick={handleEventClick}
+        allDaySlot={false}
         weekNumbers={true}
         firstDay={1}
       />
