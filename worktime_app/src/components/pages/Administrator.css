@@ -1,71 +1,140 @@
-.PrzyciskDodaj{
-    display: flex;
-    padding: 1rem;
-  margin: 10 auto;
-  margin-right: 33px;
-  padding-right: "200px";
-    float: right;
-    font-size: 15px;
-    border: 2px solid azure;
-    border-radius: 30px;
-    background-color:transparent;
-    color:azure;
-    cursor: pointer;
-  }
-  .tytul
-  {
- 
-    padding: 5rem 2rem 0 5rem;
-    color: #eee;}
-
-    .Dodaj{display: flex;
-      justify-content: center;
-      color:azure;
-      border: 2px solid azure;
-      border-radius: 30px;
-      background-color:transparent;
-      width: 150px;
-      height: 25px;
-  margin-left: 450px;
-  margin-top: -75px;
-    }
-    
-    .tytulform{
-      display:flex;
-      justify-content: center;
-      margin-top: 50px;
-      margin-bottom: -40px;
-      color: #eee;}
-     
-
-.formularz{
- display: grid;
-  background-color: rgba(255,255,255, .5);
-  width: 400px;
-  height: 500px;
-  margin: 5rem auto;
-  border-radius: 15px;
-  
-}
-
-.label{display: block;
-  width: 100px;
-
- 
-  margin-left: 150px;
-  color:white;
-}
-.pole{
- 
-  color:black;
-  font-size: 15px ;
-  font-weight: bold;
-  background-color: rgba(249, 248, 248, 0.781);
-  border:white;
+/* Przycisk dodawania */
+.PrzyciskDodaj {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-right: 110px;
+  float: right;
+  font-size: 15px;
+  border: 2px solid azure;
   border-radius: 30px;
-  width: 150px;
-  height: 30px;
-  
- 
-  margin-left: 120px;
+  background-color: transparent;
+  color: azure;
+  cursor: pointer;
 }
+
+/* Tytuł */
+.tytul {
+  padding: 1rem 2rem;
+  color: #eee;
+  text-align: center;
+}
+
+/* Przycisk "Dodaj" */
+.Dodaj {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 15px;
+  border: 2px solid azure;
+  border-radius: 30px;
+  background-color: transparent;
+  color: azure;
+  cursor: pointer;
+}
+
+/* Tytuł formularza */
+.tytulform {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  color: #eee;
+}
+   /*formularz*/
+
+   .formularz {
+    display: grid;
+    grid-template-columns: auto 1fr; /* Pierwsza kolumna dla etykiet, druga dla pól wejściowych */
+    gap: 10px; /* Odstęp między wierszami */
+    background-color:  rgba(255,255,255, .5); /* Lekko przezroczyste tło */
+    width: 700px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 15px;
+  }
+  
+  /* Nowe style dla etykiet */
+  .label {
+    font-weight: bold;
+  }
+  
+  /* Nowe style dla pól wejściowych */
+  .pole {
+    font-size: 15px;
+    font-weight: bold;
+    background-color: #f9f8f8;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%; /* Szerokość 100% */
+  }
+  
+  /* Styl dla przycisku */
+  button {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    background-color: rgb(146, 60, 118); /* Kolor tła przycisku */
+    color: white; /* Kolor tekstu */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Efekt przejścia */
+  }
+  
+  button:hover {
+    background-color:  rgba(255,255,255, .5); /* Kolor tła przycisku po najechaniu myszką */
+  }
+
+/*lista pracownikow*/
+
+.users-list {
+  margin: 70px;
+  font-size: 20px;
+}
+
+.tytulform {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.user-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+
+}
+
+.user-item:last-child {
+  border-bottom: none;
+}
+
+.user-status {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-status.online {
+  background-color: #4CAF50; /* zielony */
+}
+
+.user-status.pending {
+  background-color: #FFC107; /* żółty */
+}
+
+.user-status.offline {
+  background-color: #F44336; /* czerwony */
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
