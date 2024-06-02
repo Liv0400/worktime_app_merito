@@ -1,3 +1,91 @@
 .Kalendarz {
   margin: 1rem auto;
 }
+.fc-toolbar .fc-button {
+  background-color: #e6368e;
+  border: none;
+  color: white;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.fc-toolbar .fc-button:hover {
+  background-color: rgba(202, 114, 158, 0.685);
+}
+.fc-button-DayGridMonth {
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  font-size: 14px;
+  background-color: #e6368e;
+  color: #fff;
+  border: 1px solid #e6368e;
+  border-radius: 4px;
+  cursor: pointer;
+  line-height: 14px;
+}
+.fc-toolbar-title {
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  font-size: 14px;
+  background-color: #e6368e;
+  color: #fff;
+  border: 1px solid #e6368e;
+  border-radius: 4px;
+  line-height: 14px;
+}
+.tooltip {
+  position: absolute;
+  z-index: 1000;
+  background: #e6e6fa;
+  color: #2b2828;
+  padding: 5px;
+  border-radius: 3px;
+  font-size: 12px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  border-width: 5px;
+  border-style: solid;
+}
+
+.tooltip.top::after {
+  bottom: 100%;
+  left: 50%;
+  border-color: transparent transparent #333 transparent;
+  margin-left: -5px;
+}
+
+.fc-timeGridWeek-view {
+  background-color: #d8bfd8;
+}
+/* Zmiana stylu nagłówka */
+.fc-timeGridWeek-view .fc-col-header-cell {
+  background-color: #d8bfd8;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Zmiana stylu zdarzeń */
+.fc-timeGridWeek-view .fc-event {
+  background-color: #00ced1;
+  border-color: #00ced1;
+  color: #fff;
+  border-radius: 4px;
+}
+.fc-timeGridDay-view {
+  background-color: #d8bfd8;
+}
+.fc-timeGridDay-view .fc-col-header-cell {
+  background-color: #d8bfd8;
+  color: #333;
+  font-weight: bold;
+}
+.fc-timeGridDay-view .fc-event {
+  background-color: #00ced1;
+  border-color: #00ced1;
+  color: #fff;
+  border-radius: 4px;
+}

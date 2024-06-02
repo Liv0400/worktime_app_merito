@@ -1,0 +1,186 @@
+.Formularz {
+  border-radius: 5px;
+  background-color: #d3c5db;
+  padding: 20px;
+  width: 20%;
+  height: 20%;
+  margin-top: 10px;
+}
+.NowaZmiana {
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  margin-left: 10px;
+  margin-top: 10px;
+  font-size: 14px;
+  background-color: #eb95c0;
+  color: #fff;
+  border: 1px solid #f3f3f3;
+  border-radius: 15px;
+  cursor: pointer;
+  line-height: 14px;
+}
+.NowaZmiana:hover {
+  background: rgba(248, 248, 248, 0.685);
+  color: #eb95c0;
+}
+
+.WybierzUzytkownika {
+  width: 100%;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.Dzien {
+  width: 100%;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+.PoczatekZmiany {
+  width: 100%;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+.KoniecZmiany {
+  width: 100%;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+.DodajZmiane {
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  margin-left: 10px;
+  margin-top: 10px;
+  font-size: 14px;
+  background-color: #eb95c0;
+  color: #fff;
+  border: 1px solid #f3f3f3;
+  border-radius: 15px;
+  cursor: pointer;
+  line-height: 14px;
+}
+.DodajZmiane:hover {
+  background: rgba(248, 248, 248, 0.281);
+  color: #eb95c0;
+}
+.Anuluj {
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  margin-left: 55px;
+  margin-top: 10px;
+  font-size: 14px;
+  background-color: #eb95c0;
+  color: #fff;
+  border: 1px solid #f3f3f3;
+  border-radius: 15px;
+  cursor: pointer;
+  line-height: 14px;
+}
+.Anuluj:hover {
+  background: rgba(248, 248, 248, 0.685);
+  color: #eb95c0;
+}
+select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+input[type="date"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+input[type="time"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.Naglowek {
+  font-size: 14px;
+  background-color: #eb95c0;
+  color: #fff;
+  border: 1px solid #f3f3f3;
+  border-radius: 15px;
+  line-height: 20px;
+}
+.EdytujZmiane {
+  border-radius: 5px;
+  background-color: #d3c5db;
+  padding: 20px;
+  width: 20%;
+  height: 20%;
+  margin-top: 10px;
+}
+
+.ZaktualizujZmiane {
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  margin-left: 70px;
+  margin-top: 10px;
+  font-size: 14px;
+  background-color: #eb95c0;
+  color: #fff;
+  border: 1px solid #f3f3f3;
+  border-radius: 15px;
+  cursor: pointer;
+  line-height: 14px;
+}
+.ZaktualizujZmiane:hover {
+  background: rgba(248, 248, 248, 0.685);
+  color: #eb95c0;
+}
+.UsunZmiane {
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  margin-left: 90px;
+  margin-top: 10px;
+  font-size: 14px;
+  background-color: #eb95c0;
+  color: #fff;
+  border: 1px solid #f3f3f3;
+  border-radius: 15px;
+  cursor: pointer;
+  line-height: 14px;
+}
+.UsunZmiane:hover {
+  background: rgba(248, 248, 248, 0.685);
+  color: #eb95c0;
+}
+.AnulujEdit {
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  margin-left: 112px;
+  margin-top: 10px;
+  font-size: 14px;
+  background-color: #eb95c0;
+  color: #fff;
+  border: 1px solid #f3f3f3;
+  border-radius: 15px;
+  cursor: pointer;
+  line-height: 14px;
+}
+.AnulujEdit:hover {
+  background: rgba(248, 248, 248, 0.685);
+  color: #eb95c0;
+}

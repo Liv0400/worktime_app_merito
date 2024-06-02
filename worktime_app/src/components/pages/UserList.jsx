@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getUsers } from '../../services/firestore'; // Dodaj tę funkcję do services/firestore
+import { getUsers } from '../../services/firestore'; 
 import './Administrator.css';
 
 export const UsersList = () => {
@@ -18,13 +18,14 @@ export const UsersList = () => {
     <div className="users-list">
       <ul>
         {users.map(user => (
-          <li key={user.id}>
-            <Link to={`/edycja/${user.id}`}>{user.fullname.firstname} {user.fullname.lastname}</Link>
+          <li key={user.id} className="user-item">
+            <div className={`user-status ${user.status}`}></div>
+            <Link to={`/edycja/${user.id}`}>
+              {user.fullname ? `${user.fullname.firstname} ${user.fullname.lastname}` : 'No Name'}
+            </Link>
           </li>
         ))}
       </ul>
-      
     </div>
   );
 };
-

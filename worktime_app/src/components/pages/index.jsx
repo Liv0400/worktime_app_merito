@@ -11,8 +11,7 @@ export * from "./PrzeslaneWnioski";
 export * from "./WnioskiPracownik";
 export * from "./NowyWniosek";
 export * from "../../components/Logowanie";
-export * from "./Grafik_formularz";
 export * from "./Stworz_grafik";
 export * from "../Logowanie";
-export * from "./EdycjaFormularz"
-export * from "./UserList"
+export * from "./EdycjaFormularz";
+export * from "./UserList";
