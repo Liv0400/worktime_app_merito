@@ -1,5 +1,5 @@
 import { useEffect, useState} from "react";
-import {getAuth} from "firebase/auth";
+import {getAuth, onAuthStateChanged} from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../services/firebase";
 import '../style/Profil.css';
@@ -7,11 +7,24 @@ import '../style/Profil.css';
 export const Profil = ()=>{
 
   const [userData, setUserData] = useState(null);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const auth = getAuth();
-  const user = auth.currentUser;
+  // const user = auth.currentUser;
 
     
+useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+      setUser(user);
+      } else{
+      setLoading(false);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [auth]);
+
 useEffect(()=>{
   const fetchUserData = async () => {
     if(user){
@@ -30,9 +43,6 @@ useEffect(()=>{
     }finally {
       setLoading(false);
     }
-  }else {
-     console.log("No user is logged in");
-    setLoading(false);
   }
 };
   fetchUserData();
@@ -46,21 +56,19 @@ useEffect(()=>{
     return <div>Brak danych użytkownika</div>;
   }
 
-
   return(
 <div>
   <div className="profil">
-    <div className="photo"></div>
     <p>Imię/imiona:</p>
-    <span>{user.fullname.firstname}</span>
+    <span>{userData.fullname.firstname}</span>
     <p>Nazwisko:</p>
-    <span >{user.fullname.lastname}</span>
+    <span >{userData.fullname.lastname}</span>
     <p>Data urodzenia:</p>
-    <span>{user.fullname.birthdate}</span>
+    <span>{userData.fullname.birthdate}</span>
     <p>Rodzaj umowy:</p>
-    <span>{user.fullname.rightapp}</span>
-    <p>Wymiar etatu:</p> 
-    <span>cały etat</span> 
+    <span>{userData.fullname.typedeal}</span>
+    <p>Uprawnienia:</p>
+    <span>{userData.fullname.rightapp}</span>
   </div>
 </div>
   )
