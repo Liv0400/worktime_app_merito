@@ -60,7 +60,7 @@ export const ListaWnioskow = (props) => {
 
   const applyStatus = () => {
     if(status === 'oczekujący'){
-      return <span className="newApply">!</span>
+      return <span className="newApply">⌛</span>
     } else if (status === 'zaakceptowany'){
       return <span className="newApply">✔️</span>
     }else if (status==="odrzucony"){
@@ -94,8 +94,8 @@ export const ListaWnioskow = (props) => {
         </tr>
         <tr>
           <td><p>{props.type}</p></td>
-          <td><p>{props.beginningDate}</p></td>
-          <td><p>{props.endingDate}</p></td>
+          <td><p>{props.beginningDate} {props.beginningHour}</p></td>
+          <td><p>{props.endingDate} {props.endingHour}</p></td>
           <td>
             <textarea 
             name="com" 
@@ -104,14 +104,12 @@ export const ListaWnioskow = (props) => {
             onChange={(e)=>setComment(e.target.value)}>
               </textarea>
               </td>
-          <td>
-            <button className='btn' onClick={zaakceptuj}>✔️</button>
-            <button className='btn' onClick={odrzuc}>❌</button>
-            </td>
         </tr>
        <tr>
-        <td colSpan="3"></td>
-        <td className='lastTd'>
+        <td colSpan="2"></td>
+        <td colSpan="2" className='lastTd'>
+          <button className='btn' onClick={zaakceptuj}>Zaakceptuj</button>
+          <button className='btn' onClick={odrzuc}>Odrzuć</button>
           <button className='tbCancel' onClick={toggleExpand}>
             Anuluj
           </button></td>
