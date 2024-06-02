@@ -14,6 +14,8 @@ const CalendarWithManagement = () => {
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [users, setUsers] = useState([]);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -58,6 +60,7 @@ const CalendarWithManagement = () => {
     } catch (error) {
       console.error("Wystąpił błąd podczas dodawania zmiany: ", error);
     }
+    setShowAddForm(false);
   };
 
   const handleEventClick = (clickInfo) => {
@@ -65,6 +68,8 @@ const CalendarWithManagement = () => {
       (event) => event.id === clickInfo.event.id
     );
     setSelectedEvent(clickedEvent);
+    setShowAddForm(false);
+    setShowEditForm(true);
   };
 
   const handleEventUpdated = (updatedEvent) => {
@@ -73,16 +78,18 @@ const CalendarWithManagement = () => {
         event.id === updatedEvent.id ? updatedEvent : event
       )
     );
+    setShowEditForm(false);
   };
 
   const handleEventDeleted = (deletedEventId) => {
     setEvents(events.filter((event) => event.id !== deletedEventId));
+    setShowEditForm(false);
   };
 
   return (
     <div>
-      <AddEventForm onEventAdded={handleEventAdded} />
-      {selectedEvent && (
+      <AddEventForm onEventAdded={handleEventAdded} closeForm={!showAddForm} />
+      {showEditForm && selectedEvent && (
         <EditEventForm
           event={selectedEvent}
           onClose={() => setSelectedEvent(null)}
