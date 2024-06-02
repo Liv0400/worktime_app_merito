@@ -52,3 +52,54 @@ body {
   background: rgba(255, 255, 255, 0.3);
   color: #f164aa;
 }
+
+.zaloguj .popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ed99c8;
+  /* Różowy kolor tła */
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.zaloguj .popup-content {
+  text-align: center;
+  color: #eee;
+}
+
+.zaloguj .popup h2 {
+  margin-bottom: 10px;
+  color: #ff337e;
+  /* Różowy kolor nagłówka */
+}
+
+.zaloguj .popup button {
+  background-color: #ff337e;
+  /* Różowy kolor przycisku */
+  color: white;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.zaloguj .popup button:hover {
+  background-color: #eee;
+  color: #ff337e;
+}
+
+.zaloguj .popup button:focus {
+  outline: none;
+  /* Usunięcie obramowania po kliknięciu */
+}
+
+.zaloguj .popup .error {
+  color: #ff337e;
+  /* Różowy kolor błędu */
+  font-size: 14px;
+}
