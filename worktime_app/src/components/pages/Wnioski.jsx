@@ -34,7 +34,7 @@ export const Wnioski = () => {
       
 
   return (
-    <div className= "wnioski">
+    <div className= "pokazWnioski">
       <h1>Lista wniosków:</h1>
       <ul>
       {applications.map(application =>(

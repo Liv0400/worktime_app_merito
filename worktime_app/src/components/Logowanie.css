@@ -20,15 +20,18 @@ body {
   margin-top: 3rem;
   padding: 1.5rem;
   text-align: center;
+  color:rgb(193, 27, 135);
 }
-.login,
-.haslo {
+.logowanie form .label {
+  display: inline-block;
+  /* margin-bottom: 1rem; */
+}
+.logowanie .pole {
   display: flex;
-  padding: 1rem 1.5rem 1rem 1.5rem;
-  width: 100%;
-  margin-bottom: 1.5rem;
+  padding: 1rem 1.5rem;
+  width: 60%;
+  margin: .5rem auto;
   min-width: 40%;
-  margin-left: 0.4rem;
   padding: 0.4rem;
   background-color: transparent;
   border: 2px solid #fff;
@@ -37,7 +40,6 @@ body {
 }
 .buttonLogowanie {
   padding: 1rem 1.5rem 1rem 1.5rem;
-  margin-left: 140px;
   margin-top: 10px;
   font-size: 14px;
   background-color: #f164aa;
