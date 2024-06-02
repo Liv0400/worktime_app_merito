@@ -8,6 +8,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../services/firebase";
 import "./CalendarForms.css";
+import UserAvailabilityTable from "./UserAvailabilityTable";
 
 const EditEventForm = ({ event, onClose, onEventUpdated, onEventDeleted }) => {
   const [date, setDate] = useState("");
@@ -85,10 +86,9 @@ const EditEventForm = ({ event, onClose, onEventUpdated, onEventDeleted }) => {
 
   return (
     <div className="EdytujZmiane">
-      <h2 className="Naglowek">Edytuj zmianę</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label className="WybierzUzytkownika">Wybierz użytkownika:</label>
+          <label className="WybierzUzytkownika">Edytuj zmianę:</label>
           <select
             value={selectedUser}
             onChange={(e) => setSelectedUser(e.target.value)}
@@ -141,6 +141,9 @@ const EditEventForm = ({ event, onClose, onEventUpdated, onEventDeleted }) => {
           Anuluj
         </button>
       </form>
+      <div className="UserAvailabilityTable">
+        <UserAvailabilityTable userId={selectedUser} />
+      </div>
     </div>
   );
 };
