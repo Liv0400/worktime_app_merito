@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { db } from "../../services/firebase";
 import { collection, getDocs } from "firebase/firestore";
-// import { Link } from "react-router-dom";
 import "../style/Pracownicy.css";
-
+ 
 export const Pracownicy = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -46,8 +45,8 @@ export const Pracownicy = () => {
         {users.map((user) => (
           <li key={user.id}>
             <span className="fullName" onClick={() => showMore(user)}>
-              {user.firstname} {user.lastname}
-            </span>
+              {user.fullname.firstname} {user.fullname.lastname}
+</span>
           </li>
         ))}
       </ul>

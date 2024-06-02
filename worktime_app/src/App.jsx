@@ -27,6 +27,7 @@ import CalendarLongTermEventView from "./components/Calendar/CalendarLongTermEve
 import { loader as homeLoader } from "./components/pages";
 
 const App = () => {
+  
   return (
     <UserProvider>
       <div className="App">

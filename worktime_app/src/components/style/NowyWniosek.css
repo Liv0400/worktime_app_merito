@@ -7,9 +7,9 @@ display: grid;
 width: 70%;
 margin: 5rem auto;
 padding: 1.5rem;
-grid-template-columns: repeat(3, 1fr) 10% 10%;
+grid-template-columns: repeat(3, 1fr) 10%;
 grid-template-rows: 40vh;
-grid-template-areas: "typWniosku dataWniosku godzinyWniosku zatwierdzWniosek anulujWniosek";
+grid-template-areas: "typWniosku dataWniosku godzinyWniosku zatwierdzWniosek";
 gap: .5rem 1.5rem;
 background-color: rgba(255, 255, 255, .4);
 border-radius: 20px;
@@ -32,14 +32,20 @@ grid-area: typWniosku;
 }
 .zatwierdzWniosek {
   grid-area: zatwierdzWniosek;
-  padding: .3rem;
+  padding: .4rem;
+  border-radius: 8px;
+  border: 2px solid #e889b9;
+  cursor: pointer;
+  background-color: #e889b9;
+  color: #fff;
+  transition: .3s;
 }
-.anulujWniosek {
-  grid-area: anulujWniosek;
-  padding: .3rem;
+.zatwierdzWniosek:hover {
+color: #e889b9;
+background-color: #eee;
 }
 .nowyWniosek label span {
   display: inline;
   font-size: 12px;
-  color: #ddd;
+  color: #999;
 }

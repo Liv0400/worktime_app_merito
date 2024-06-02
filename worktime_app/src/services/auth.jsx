@@ -21,9 +21,9 @@ export const getCurrentUser = async () => {
         unsub();
         if (user) {
           const userDoc = await getDoc(doc(firestore, "users", user.uid));
-          if (userDoc.exists()) {
-            resolve({ uid: user.uid, ...userDoc.data() });
-          } else {
+          if(userDoc.exists()){
+            resolve({uid: user.uid, ...userDoc.data()});
+          }else {
             resolve(null);
           }
         } else {
@@ -53,7 +53,7 @@ export const signUpUser = async ({
       await createUserData({
         uid: result.user.uid,
         fullname,
-        passwordChanged: false, //, typedeal
+        passwordChanged:false, //, typedeal
       });
       return user;
     } else {
@@ -76,10 +76,10 @@ export const signInUser = async ({ email, password }) => {
 
 export const updateUserPassword = async (newPassword) => {
   const user = auth.currentUser;
-  if (user) {
+  if(user) {
     await updatePassword(user, newPassword);
     const userDocRef = doc(firestore, "users", user.uid);
-    await updateDoc(userDocRef, { passwordChanged: true });
+    await updateDoc(userDocRef, {passwordChanged: true});
   }
 };
 

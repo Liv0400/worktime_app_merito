@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 import {db} from '../../services/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { getCurrentUser } from '../../services/auth';
+import { useLocation } from 'react-router-dom';
 import '../style/NowyWniosek.css';
 
 
@@ -14,6 +15,8 @@ export const NowyWniosek = () => {
   const [endingHour, setEndingHour] = useState('');
   const [message, setMessage] = useState('');
   const [currentUser, setCurrentUser] = useState(null);
+  const location = useLocation();
+  const {name, surname} = location.state || {name: '', surname:''};
 
   useEffect(()=>{
     const fetchCurrentUser = async () => {
@@ -23,20 +26,35 @@ export const NowyWniosek = () => {
     fetchCurrentUser();
   }, []);
 
+  const formatDate = (date) => {
+  const d = new Date(date);
+  const day = String(d.getDate()).padStart(2, '0');
+  const month = String(d.getMonth() + 1).padStart(2, '0'); // Miesiące są indeksowane od 0
+  const year = d.getFullYear();
+  return `${day}/${month}/${year}`;
+};
+
   const handleSubmit = async (e) => {
-    
       e.preventDefault();
-      console.log('Wysłano pomyślnie')
+      console.log('Wysłano pomyślnie');
+      console.log('Current user:', currentUser);
     
       try{
+        if (!currentUser) {
+        setMessage('Brak zalogowanego użytkownika.');
+        return;
+      }
+
         const currentUserData = currentUser;
+        const displayName = currentUserData.displayName || `${name} ${surname}`;
+
         // Dodawanie nowego wniosku do Firestore
         await addDoc(collection(db, 'applications'),{
           userId:currentUserData?.uid || 'ID pracownika',
-          name:currentUserData?.displayName || 'Imię Nazwisko',
+          name:displayName,
           type: type,
-          beginningDate: beginningDate,
-          endingDate: endingDate,
+          beginningDate: formatDate(beginningDate),
+          endingDate: formatDate(endingDate),
           beginningHour: beginningHour,
           endingHour: endingHour,
           status: 'oczekujący',
@@ -54,10 +72,12 @@ export const NowyWniosek = () => {
         setMessage('Wystąpił błąd podczas przesyłania wniosku.');
       }
     };
+
+
   
   return(
     <>
-    <h1 className='nowyWniosekh1'>{currentUser?.displayName || "Imię Nazwisko"}</h1>
+    <h1 className='nowyWniosekh1'>{currentUser?.displayName || `${name} ${surname}`}</h1>
     <form onSubmit={handleSubmit} className='nowyWniosek'>
       <label className='typWniosku'>
         Typ wniosku
@@ -80,7 +100,7 @@ export const NowyWniosek = () => {
         Początek
         <input 
         type="date" 
-        id="beginigDate"
+        id="beginnigDate"
         value={beginningDate}
         onChange={(e) => setBeginningDate(e.target.value)}
         required
@@ -112,7 +132,6 @@ export const NowyWniosek = () => {
         />
       </label>
       <input type="submit" value="Wyślij" className='zatwierdzWniosek'></input>
-      <input type="reset" value="Anuluj" className='anulujWniosek'></input>
     </form>
     {message && <div>{message}</div>}
     </>

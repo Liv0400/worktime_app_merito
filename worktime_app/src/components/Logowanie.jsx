@@ -1,16 +1,19 @@
 import {useState, useEffect} from 'react';
 import {auth} from '../services/firebase';
-import { getCurrentUser } from "../services/auth";
+import { getCurrentUser,signInUser, updateUserPassword } from "../services/auth";
 import { useNavigate } from 'react-router-dom'; 
 import LogoName from "../img/projekt_krzak.png";
 import TextInput from "./pages/Textinput";
-import { signInUser } from "../services/auth";
 import "./Logowanie.css";
 
 export const Logowanie = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [errors, setErrors] = useState({ email: false, password: false });
+  const [showChangePasswordPopup, setShowChangePasswordPopup] = useState(false);
+  const [changePasswordSuccess, setChangePasswordSuccess] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
 
   const onEmailChanged = (e) => {
@@ -21,19 +24,26 @@ export const Logowanie = () => {
     setPassword(e.target.value);
   };
 
-    const [currentUser, setCurrentUser] = useState(null);
+  const onNewPasswordChanged = (e) => {
+    setNewPassword(e.target.value);
+  };
+
+    
 
   useEffect(()=>{
     const unsubscribe = auth.onAuthStateChanged(async (user)=>{
       if (user) {
         const currentUserData = await getCurrentUser();
         setCurrentUser(currentUserData);
+        if(currentUser && currentUserData.passwordChanged === false){
+          setShowChangePasswordPopup(true);
+        }
       }else{
         setCurrentUser(null);
       }
     });
     return ()=>unsubscribe();
-  })
+  }, [currentUser]);
 
   const zaloguj = async (e) => {
     e.preventDefault(); // Zapobiega odświeżaniu strony
@@ -54,9 +64,14 @@ export const Logowanie = () => {
 
     try {
       const result = await signInUser({ email, password });
-      if (result && currentUser) {
+      if (result) {
         console.log("Login successful"); // Debug: sprawdź czy logowanie jest udane
-        navigate("/home");
+        const user = await getCurrentUser();
+        if (user.passwordChanged === false){
+          setShowChangePasswordPopup(true);
+        } else {
+          navigate("/home")
+        }
       } else {
         console.log("Login failed"); // Debug: sprawdź czy logowanie się nie powiodło
         setErrors({ email: false, password: false, loginFailed: true });
@@ -67,10 +82,29 @@ export const Logowanie = () => {
     }
   };
 
-
+  const handleChangePassword = async ()=>{
+    if (newPassword.length < 6 || newPassword.length > 24){
+      setErrors({newPassword:true});
+      return;
+    }
+    try {
+      await updateUserPassword(newPassword);
+      setShowChangePasswordPopup(false);
+      setChangePasswordSuccess(true);
+      await auth.signOut();
+      navigate("/zaloguj")
+    } catch (error) {
+      console.error("Failed to change password:", error);
+    }
+  };
+  useEffect(() => {
+  if (changePasswordSuccess) {
+    alert("Hasło zostało zmienione. Zaloguj się przy użyciu nowego hasła");
+  }
+}, [changePasswordSuccess]);
 
   return (
-    <>
+    <div className='zaloguj'>
       
        
       <div className="logowanie">
@@ -100,6 +134,25 @@ export const Logowanie = () => {
 
         </form>
       </div>
-    </>
+
+      {showChangePasswordPopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <h2>Zmień hasło</h2>
+            <TextInput
+            onChange={onNewPasswordChanged}
+            value={newPassword}
+            title="Nowe hasło"
+            name= "newPassword"
+            type='password'
+            className="newPassword"
+            />
+            {errors.newPassword && <span className="error">Hasło musi mieć od 6 do 24 znaków</span>}
+            <button onClick={handleChangePassword} className="buttonChangePassword">Zmień hasło</button>
+          </div>
+        </div>
+      )}
+
+    </div>
   );
 };
