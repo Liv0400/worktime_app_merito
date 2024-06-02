@@ -26,6 +26,7 @@ import { loader as homeLoader } from "./components/pages";
 import Grafik_formularz from "./components/pages/Grafik_formularz";
 
 const App = () => {
+  
   return (
     <UserProvider>
     <div className="App"> 

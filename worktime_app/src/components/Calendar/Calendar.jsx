@@ -3,7 +3,7 @@ import Fullcalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import Modal from "react-modal";
+// import Modal from "react-modal";
 import {
   collection,
   getDocs,
@@ -14,7 +14,7 @@ import {
 import { db } from "../../services/firebase";
 import "./Calendar.css";
 
-Modal.setAppElement("#root"); // Ustawienie głównego elementu aplikacji
+// Modal.setAppElement("#root"); // Ustawienie głównego elementu aplikacji
 
 const Calendar = () => {
   const [events, setEvents] = useState([]);
