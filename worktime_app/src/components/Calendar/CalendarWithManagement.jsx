@@ -141,6 +141,7 @@ const CalendarWithManagement = () => {
       <AddEventForm onEventAdded={handleEventAdded} />
       {selectedEvent && (
         <EditEventForm
+          events={events}
           event={selectedEvent}
           onClose={() => setSelectedEvent(null)}
           onEventUpdated={handleEventUpdated}
