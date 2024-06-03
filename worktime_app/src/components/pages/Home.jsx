@@ -8,7 +8,7 @@ import { getCurrentUser } from "../../services/auth";
 export const loader = async () => {
   const user = await getCurrentUser();
   if (user == null) {
-    return redirect("/zaloguj"); //zapytac Justyny o dobra sciezke do Logowania
+    return redirect("/"); 
   }
   return {
     user: user,

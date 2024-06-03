@@ -3,16 +3,18 @@ import { logout } from "../services/auth";
 import "./pages/Administrator.css";
 import "./Navbar.css";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useUser } from "../services/useUser";
 
 
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const navigate = useNavigate();
+  const { user } = useUser();
 
   const handleLogout = async () => {
     try {
       await logout(); // Wywołanie funkcji logout z modułu auth
-      navigate("/zaloguj");
+      navigate("/");
     } catch (error) {
       console.error("Error during logout:", error);
       
@@ -35,10 +37,28 @@ export const Navbar = () => {
             <NavLink to="/dyspozycja">Dyspozycja</NavLink>
           </li>
           <li>
-            <NavLink to="/wnioski">Wnioski</NavLink>
+            {user && user.rightapp === "Menadżer" ? (
+              <NavLink to="/wnioski">Wnioski</NavLink>
+            ) : user && user.rightapp === "Pracownik" ? (
+              <NavLink to="/wnioskiPracownik">Wnioski</NavLink>
+            ) : user && user.rightapp === "Administrator" ? (
+              <>
+                <NavLink to="/wnioskiPracownik">Wnioski Pracownik</NavLink>
+                <NavLink to="/wnioski">Wnioski Menadżer</NavLink>
+              </>
+            ) : null}
           </li>
           <li>
-            <NavLink to="/pracownicy">Pracownicy</NavLink>
+            {user && user.rightapp === "Menadżer" ? (
+              <NavLink to="/pracownicy">Pracownicy</NavLink>
+            ) : user && user.rightapp === "Pracownik" ? (
+              <NavLink to="/profil">Profil</NavLink>
+            ) : user && user.rightapp === "Administrator" ? (
+              <>
+                <NavLink to="/pracownicy">Pracownicy</NavLink>
+                <NavLink to="/profil">Profil</NavLink>
+              </>
+            ) : null}
           </li>
           {/* <li>
             <NavLink to="/profil">Profil</NavLink>

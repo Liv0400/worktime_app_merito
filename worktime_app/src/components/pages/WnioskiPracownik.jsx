@@ -87,7 +87,7 @@ const WyswietlWnioski = requests.map(wniosek => (
 ));
 
 const handleNewRequest = () => {
-  navigate('/wnioski/nowyWniosek', {state: {name: userInfo.name, surname:userInfo.surname}})
+  navigate('/wnioskiPracownik/nowyWniosek', {state: {name: userInfo.name, surname:userInfo.surname}})
 }
 
   return(
