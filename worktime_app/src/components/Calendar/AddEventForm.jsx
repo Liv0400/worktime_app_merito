@@ -50,7 +50,6 @@ const Grafik_formularz = ({ onEventAdded }) => {
     setEndTime("");
     setSelectedUser("");
     setShowForm(false);
-    alert("Wydarzenie zostało pomyślnie dodane!");
   };
 
   const filteredUsers = users.filter(

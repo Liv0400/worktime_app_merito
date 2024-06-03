@@ -7,10 +7,17 @@ import {
   collection,
 } from "firebase/firestore";
 import { db } from "../../services/firebase";
+import { differenceInHours, parseISO } from "date-fns";
 import "./CalendarForms.css";
 import UserAvailabilityTable from "./UserAvailabilityTable";
 
-const EditEventForm = ({ event, onClose, onEventUpdated, onEventDeleted }) => {
+const EditEventForm = ({
+  event,
+  onClose,
+  onEventUpdated,
+  onEventDeleted,
+  events,
+}) => {
   const [date, setDate] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
@@ -24,7 +31,7 @@ const EditEventForm = ({ event, onClose, onEventUpdated, onEventDeleted }) => {
       setDate(eventDate);
       setStartTime(eventStartTime);
       setEndTime(eventEndTime);
-      setSelectedUser(event.userId);
+      setSelectedUser(event.user);
     }
   }, [event]);
 
@@ -41,6 +48,26 @@ const EditEventForm = ({ event, onClose, onEventUpdated, onEventDeleted }) => {
     fetchUsers();
   }, []);
 
+  const checkUserAvailability = (updatedEvent) => {
+    const userEvents = events.filter(
+      (event) => event.user === updatedEvent.user
+    );
+    for (let event of userEvents) {
+      const start = parseISO(event.start);
+      const end = parseISO(event.end);
+      const newStart = parseISO(updatedEvent.start);
+      const newEnd = parseISO(updatedEvent.end);
+
+      if (
+        (differenceInHours(newStart, end) < 11 && newStart > end) ||
+        (differenceInHours(start, newEnd) < 11 && newEnd < start)
+      ) {
+        return false;
+      }
+    }
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!date || !startTime || !endTime || !selectedUser) {
@@ -54,6 +81,13 @@ const EditEventForm = ({ event, onClose, onEventUpdated, onEventDeleted }) => {
       end: `${date}T${endTime}`,
       user: selectedUser,
     };
+
+    if (!checkUserAvailability(updatedEvent)) {
+      alert(
+        "Pracownik musi mieć co najmniej 11 godzin przerwy między zmianami."
+      );
+      return;
+    }
 
     const eventDocRef = doc(db, "events", event.id);
 
@@ -83,6 +117,7 @@ const EditEventForm = ({ event, onClose, onEventUpdated, onEventDeleted }) => {
       );
     }
   };
+
   const filteredUsers = users.filter(
     (user) =>
       user.fullname?.rightapp === "Pracownik" ||
