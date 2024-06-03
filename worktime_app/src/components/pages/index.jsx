@@ -6,8 +6,6 @@ export * from "./Pracownicy";
 export * from "./Profil";
 export * from "./Administrator";
 export * from "./Formularz";
-export * from "./PokazWnioski";
-export * from "./PrzeslaneWnioski";
 export * from "./WnioskiPracownik";
 export * from "./NowyWniosek";
 export * from "../../components/Logowanie";
