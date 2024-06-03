@@ -83,19 +83,23 @@ const EditEventForm = ({ event, onClose, onEventUpdated, onEventDeleted }) => {
       );
     }
   };
-
+  const filteredUsers = users.filter(
+    (user) =>
+      user.fullname?.rightapp === "Pracownik" ||
+      user.fullname?.rightapp === "Menadżer"
+  );
   return (
     <div className="EdytujZmiane">
       <form onSubmit={handleSubmit}>
         <div>
-          <label className="WybierzUzytkownika">Edytuj zmianę:</label>
+          <label className="WybierzUzytkownika">Edytuj:</label>
           <select
             value={selectedUser}
             onChange={(e) => setSelectedUser(e.target.value)}
             required
           >
             <option value="">Wybierz użytkownika</option>
-            {users.map((user) => (
+            {filteredUsers.map((user) => (
               <option key={user.id} value={user.id}>
                 {user.fullname
                   ? `${user.fullname.firstname} ${user.fullname.lastname}`

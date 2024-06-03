@@ -4,7 +4,16 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import plLocale from "@fullcalendar/core/locales/pl";
-import { collection, getDocs, onSnapshot, addDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  addDoc,
+  query,
+  where,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 import { db } from "../../services/firebase";
 import AddEventForm from "./AddEventForm";
 import EditEventForm from "./EditEventForm";
@@ -14,8 +23,6 @@ const CalendarWithManagement = () => {
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [users, setUsers] = useState([]);
-  const [showAddForm, setShowAddForm] = useState(false);
-  const [showEditForm, setShowEditForm] = useState(false);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -49,7 +56,29 @@ const CalendarWithManagement = () => {
       setUsers(usersData);
     };
 
+    const unsubscribeUsers = onSnapshot(
+      collection(db, "users"),
+      async (snapshot) => {
+        const deletedUsers = snapshot
+          .docChanges()
+          .filter((change) => change.type === "removed")
+          .map((change) => change.doc.id);
+
+        if (deletedUsers.length > 0) {
+          const q = query(
+            collection(db, "events"),
+            where("user", "in", deletedUsers)
+          );
+          const querySnapshot = await getDocs(q);
+          querySnapshot.forEach(async (doc) => {
+            await deleteDoc(doc.ref);
+          });
+        }
+      }
+    );
+
     fetchUsers();
+    return () => unsubscribeUsers();
   }, []);
 
   const handleEventAdded = async (newEvent) => {
@@ -60,7 +89,6 @@ const CalendarWithManagement = () => {
     } catch (error) {
       console.error("Wystąpił błąd podczas dodawania zmiany: ", error);
     }
-    setShowAddForm(false);
   };
 
   const handleEventClick = (clickInfo) => {
@@ -68,8 +96,6 @@ const CalendarWithManagement = () => {
       (event) => event.id === clickInfo.event.id
     );
     setSelectedEvent(clickedEvent);
-    setShowAddForm(false);
-    setShowEditForm(true);
   };
 
   const handleEventUpdated = (updatedEvent) => {
@@ -78,18 +104,16 @@ const CalendarWithManagement = () => {
         event.id === updatedEvent.id ? updatedEvent : event
       )
     );
-    setShowEditForm(false);
   };
 
   const handleEventDeleted = (deletedEventId) => {
     setEvents(events.filter((event) => event.id !== deletedEventId));
-    setShowEditForm(false);
   };
 
   return (
     <div>
-      <AddEventForm onEventAdded={handleEventAdded} closeForm={!showAddForm} />
-      {showEditForm && selectedEvent && (
+      <AddEventForm onEventAdded={handleEventAdded} />
+      {selectedEvent && (
         <EditEventForm
           event={selectedEvent}
           onClose={() => setSelectedEvent(null)}
