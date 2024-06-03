@@ -44,12 +44,10 @@ export const EdycjaFormularz = () => {
           setTypeDeal(userData.fullname.typedeal || "");
           setIdWorker(userData.fullname.idworker || "");
           setRightApp(userData.fullname.rightapp || "");
-          
         }
       });
     }
   }, [userId]);
-
 
   const onFirstNameChanged = (e) => setFirstName(e.target.value);
   const onLastNameChanged = (e) => setLastName(e.target.value);
@@ -58,23 +56,29 @@ export const EdycjaFormularz = () => {
   const onRightAppChanged = (e) => setRightApp(e.target.value);
   const onIdWorkerChanged = (e) => setIdWorker(e.target.value);
 
+ 
+    // Tworzenie nowego obiektu użytkownika na podstawie obecnego stanu w bazie
+   
   async function handleSubmitForm(e) {
     e.preventDefault();
-  
-    // Tworzenie nowego obiektu użytkownika na podstawie obecnych stanów
+
     const updatedUser = {
-      firstname,
-      lastname,
-      birthdate,
-      typedeal,
-      rightapp,
-      idworker,
+      fullname: {
+        firstname,
+        lastname,
+        birthdate,
+        typedeal,
+        idworker,
+        rightapp,
+      }
     };
-    // Aktualizacja użytkownika w bazie danych
+
+    // Aktualizacja uzytkownika w bazie danych
     await updateUser(userId, updatedUser);
 
     navigate("/administrator");
   }
+
 
   return (
     <>
@@ -121,13 +125,14 @@ export const EdycjaFormularz = () => {
             onChange={onTypeDealChanged}
             className="pole"
             required
-            >
+          >
             <option value="">Wybierz...</option>
             <option value="Umowa o pracę">Umowa o pracę</option>
             <option value="Umowa zlecenie">Umowa zlecenie</option>
             <option value="Etat 1/2">Etat 1/2</option>
-            <option value="Etat 1/3">Etat 1/4</option>
-            <option value="Etat 1/4">Etat 3/4</option>
+            <option value="Etat 1/3">Etat 1/3</option>
+            <option value="Etat 1/4">Etat 1/4</option>
+            <option value="Etat 3/4">Etat 3/4</option>
           </select>
         </div>
         <div className="form-group">
