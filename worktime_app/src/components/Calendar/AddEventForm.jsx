@@ -53,6 +53,12 @@ const Grafik_formularz = ({ onEventAdded }) => {
     alert("Wydarzenie zostało pomyślnie dodane!");
   };
 
+  const filteredUsers = users.filter(
+    (user) =>
+      user.fullname?.rightapp === "Pracownik" ||
+      user.fullname?.rightapp === "Menadżer"
+  );
+
   return (
     <div>
       <button className="NowaZmiana" onClick={() => setShowForm(true)}>
@@ -72,7 +78,7 @@ const Grafik_formularz = ({ onEventAdded }) => {
                   required
                 >
                   <option value="">Wybierz użytkownika</option>
-                  {users.map((user) => (
+                  {filteredUsers.map((user) => (
                     <option key={user.id} value={user.id}>
                       {user.fullname
                         ? `${user.fullname.firstname} ${user.fullname.lastname}`
