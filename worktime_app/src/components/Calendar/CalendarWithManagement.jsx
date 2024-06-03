@@ -12,11 +12,11 @@ import {
   query,
   where,
   deleteDoc,
-  doc,
 } from "firebase/firestore";
 import { db } from "../../services/firebase";
 import AddEventForm from "./AddEventForm";
 import EditEventForm from "./EditEventForm";
+import { differenceInHours, parseISO } from "date-fns";
 import "./Calendar.css";
 
 const CalendarWithManagement = () => {
@@ -81,13 +81,38 @@ const CalendarWithManagement = () => {
     return () => unsubscribeUsers();
   }, []);
 
+  const checkUserAvailability = (newEvent) => {
+    const userEvents = events.filter((event) => event.user === newEvent.user);
+    for (let event of userEvents) {
+      const start = parseISO(event.start);
+      const end = parseISO(event.end);
+      const newStart = parseISO(newEvent.start);
+      const newEnd = parseISO(newEvent.end);
+
+      if (
+        (differenceInHours(newStart, end) < 11 && newStart > end) ||
+        (differenceInHours(start, newEnd) < 11 && newEnd < start)
+      ) {
+        return false;
+      }
+    }
+    return true;
+  };
   const handleEventAdded = async (newEvent) => {
+    if (!checkUserAvailability(newEvent)) {
+      alert(
+        "Pracownik musi mieć co najmniej 11 godzin przerwy między zmianami."
+      );
+      return false;
+    }
     try {
       const docRef = await addDoc(collection(db, "events"), newEvent);
       const addedEvent = { id: docRef.id, ...newEvent };
       setEvents([...events, addedEvent]);
+      alert("Zmiana została pomyślnie dodana!");
     } catch (error) {
       console.error("Wystąpił błąd podczas dodawania zmiany: ", error);
+      return false;
     }
   };
 
@@ -108,6 +133,7 @@ const CalendarWithManagement = () => {
 
   const handleEventDeleted = (deletedEventId) => {
     setEvents(events.filter((event) => event.id !== deletedEventId));
+    return false;
   };
 
   return (
