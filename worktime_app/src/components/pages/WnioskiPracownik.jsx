@@ -2,7 +2,7 @@ import {getAuth, onAuthStateChanged} from "firebase/auth";
 import { useState, useEffect } from "react";
 import {collection, query, orderBy, where, getDocs, doc, getDoc} from "firebase/firestore";
 import { db } from "../../services/firebase";
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import '../style/WnioskiPracownik.css'
 // import { ListaWnioskowPracownika } from "./ListaWnioskowPracownika";
 
@@ -11,6 +11,7 @@ export const WnioskiPracownik = () => {
 
   const [requests, setRequests] = useState([]);
   const [userInfo, setUserInfo] = useState({name:"", surname:""});
+  const navigate = useNavigate();
 
 
   useEffect(()=>{
@@ -76,22 +77,31 @@ export const WnioskiPracownik = () => {
 
 
 const WyswietlWnioski = requests.map(wniosek => (
-  <li key={wniosek.id}>
+  <li key={wniosek.id} className="wniosek-grid">
     <span className="name">{wniosek.type}</span>
-    <span className="dates">{`Początek: ${wniosek.beginningDate}, Koniec:${wniosek.endingDate}`}</span>
+    <span className="beginningDate">{`Początek: ${wniosek.beginningDate}`}<br/>{wniosek.beginningHour}</span>
+    <span className="endingDate">{` Koniec: ${wniosek.endingDate}`}<br/>{wniosek.endingHour}</span>
     <span className="comment">{wniosek.comment}</span>
     <span className="status">{getStatusLabel(wniosek.status)}</span>
   </li>
 ));
 
-
-
+const handleNewRequest = () => {
+  navigate('/wnioski/nowyWniosek', {state: {name: userInfo.name, surname:userInfo.surname}})
+}
 
   return(
-  <div className="pokazWnioski">
+  <div className="pokazWnioski wnioskiPracownika">
     <h1>{userInfo.name} {userInfo.surname}</h1>
-    <NavLink to='/wnioski/nowyWniosek'><button className="dodajWniosek">Nowy wniosek</button></NavLink>
+    <button className="dodajWniosek" onClick={handleNewRequest}>Nowy wniosek</button>
     <ul>
+      <div className="tytul-wniosek-grid">
+    <span className="name">Typ wniosku</span>
+    <span className="beginningDate">Początek</span>
+    <span className="endingDate">Koniec</span>
+    <span className="comment">Komentarz</span>
+    <span className="status">Status</span>
+    </div>
       {WyswietlWnioski}
     </ul>
   </div>

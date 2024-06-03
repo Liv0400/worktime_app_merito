@@ -7,6 +7,8 @@ import {
   collection,
 } from "firebase/firestore";
 import { db } from "../../services/firebase";
+import "./CalendarForms.css";
+import UserAvailabilityTable from "./UserAvailabilityTable";
 
 const EditEventForm = ({ event, onClose, onEventUpdated, onEventDeleted }) => {
   const [date, setDate] = useState("");
@@ -83,11 +85,10 @@ const EditEventForm = ({ event, onClose, onEventUpdated, onEventDeleted }) => {
   };
 
   return (
-    <div className="edit-event-form">
-      <h2>Edytuj wydarzenie</h2>
+    <div className="EdytujZmiane">
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Wybierz użytkownika:</label>
+          <label className="WybierzUzytkownika">Edytuj zmianę:</label>
           <select
             value={selectedUser}
             onChange={(e) => setSelectedUser(e.target.value)}
@@ -104,7 +105,7 @@ const EditEventForm = ({ event, onClose, onEventUpdated, onEventDeleted }) => {
           </select>
         </div>
         <div>
-          <label>Dzień:</label>
+          <label className="Dzien">Dzień:</label>
           <input
             type="date"
             value={date}
@@ -113,7 +114,7 @@ const EditEventForm = ({ event, onClose, onEventUpdated, onEventDeleted }) => {
           />
         </div>
         <div>
-          <label>Początek zmiany:</label>
+          <label className="PoczatekZmiany">Początek zmiany:</label>
           <input
             type="time"
             value={startTime}
@@ -122,7 +123,7 @@ const EditEventForm = ({ event, onClose, onEventUpdated, onEventDeleted }) => {
           />
         </div>
         <div>
-          <label>Koniec zmiany:</label>
+          <label className="KoniecZmiany">Koniec zmiany:</label>
           <input
             type="time"
             value={endTime}
@@ -130,14 +131,19 @@ const EditEventForm = ({ event, onClose, onEventUpdated, onEventDeleted }) => {
             required
           />
         </div>
-        <button type="submit">Zaktualizuj zmianę</button>
-        <button type="button" onClick={handleDelete}>
+        <button className="ZaktualizujZmiane" type="submit">
+          Zaktualizuj zmianę
+        </button>
+        <button className="UsunZmiane" type="button" onClick={handleDelete}>
           Usuń zmianę
         </button>
-        <button type="button" onClick={onClose}>
+        <button className="AnulujEdit" type="button" onClick={onClose}>
           Anuluj
         </button>
       </form>
+      <div className="UserAvailabilityTable">
+        <UserAvailabilityTable userId={selectedUser} />
+      </div>
     </div>
   );
 };

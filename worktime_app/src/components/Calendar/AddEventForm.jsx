@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../services/firebase";
+import "./CalendarForms.css";
+import UserAvailabilityTable from "./UserAvailabilityTable";
 
 const Grafik_formularz = ({ onEventAdded }) => {
   const [showForm, setShowForm] = useState(false);
@@ -53,58 +55,75 @@ const Grafik_formularz = ({ onEventAdded }) => {
 
   return (
     <div>
-      <button onClick={() => setShowForm(true)}>Nowa zmiana</button>
+      <button className="NowaZmiana" onClick={() => setShowForm(true)}>
+        Nowa zmiana
+      </button>
       {showForm && (
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label>Wybierz użytkownika:</label>
-            <select
-              value={selectedUser}
-              onChange={(e) => setSelectedUser(e.target.value)}
-              required
-            >
-              <option value="">Wybierz użytkownika</option>
-              {users.map((user) => (
-                <option key={user.id} value={user.id}>
-                  {user.fullname
-                    ? `${user.fullname.firstname} ${user.fullname.lastname}`
-                    : "Unknown Employee"}
-                </option>
-              ))}
-            </select>
+        <div className="AddEventContainer">
+          <div className="Formularz">
+            <form onSubmit={handleSubmit}>
+              <div>
+                <label className="WybierzUzytkownika">
+                  Wybierz użytkownika:
+                </label>
+                <select
+                  value={selectedUser}
+                  onChange={(e) => setSelectedUser(e.target.value)}
+                  required
+                >
+                  <option value="">Wybierz użytkownika</option>
+                  {users.map((user) => (
+                    <option key={user.id} value={user.id}>
+                      {user.fullname
+                        ? `${user.fullname.firstname} ${user.fullname.lastname}`
+                        : "Unknown Employee"}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="Dzien">Dzień:</label>
+                <input
+                  type="date"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <label className="PoczatekZmiany">Początek zmiany:</label>
+                <input
+                  type="time"
+                  value={startTime}
+                  onChange={(e) => setStartTime(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <label className="KoniecZmiany">Koniec zmiany:</label>
+                <input
+                  type="time"
+                  value={endTime}
+                  onChange={(e) => setEndTime(e.target.value)}
+                  required
+                />
+              </div>
+              <button className="DodajZmiane" type="submit">
+                Dodaj zmianę
+              </button>
+              <button
+                className="Anuluj"
+                type="button"
+                onClick={() => setShowForm(false)}
+              >
+                Anuluj
+              </button>
+            </form>
           </div>
-          <div>
-            <label>Dzień:</label>
-            <input
-              type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              required
-            />
+          <div className="UserAvailabilityTable">
+            <UserAvailabilityTable userId={selectedUser} />
           </div>
-          <div>
-            <label>Początek zmiany:</label>
-            <input
-              type="time"
-              value={startTime}
-              onChange={(e) => setStartTime(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label>Koniec zmiany:</label>
-            <input
-              type="time"
-              value={endTime}
-              onChange={(e) => setEndTime(e.target.value)}
-              required
-            />
-          </div>
-          <button type="submit">Dodaj zmianę</button>
-          <button type="button" onClick={() => setShowForm(false)}>
-            Anuluj
-          </button>
-        </form>
+        </div>
       )}
     </div>
   );

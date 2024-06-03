@@ -1,5 +1,32 @@
-.Kalendarz {
-  margin: 1rem auto;
+.fc-toolbar .fc-button {
+  background-color: #e6368e;
+  border: none;
+  color: white;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.fc-toolbar .fc-button:hover {
+  background-color: rgba(202, 114, 158, 0.685);
+}
+.fc-button-DayGridMonth {
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  font-size: 14px;
+  background-color: #e6368e;
+  color: #fff;
+  border: 1px solid #e6368e;
+  border-radius: 4px;
+  cursor: pointer;
+  line-height: 14px;
+}
+.fc-toolbar-title {
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  font-size: 14px;
+  background-color: transparent;
+  color: #fff;
+  border-radius: 4px;
+  line-height: 14px;
 }
 .tooltip {
   position: absolute;
@@ -57,4 +84,53 @@
   border-color: #00ced1;
   color: #fff;
   border-radius: 4px;
+}
+
+/*CSS dla tabeli*/
+.dyspoNaglowek {
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  text-align: center;
+  font-size: 14px;
+  background-color: #eb95c0;
+  color: #fff;
+  border: 1px solid #f3f3f3;
+  border-radius: 15px;
+  cursor: pointer;
+  line-height: 14px;
+}
+.tabela {
+  text-align: center;
+  border-radius: 5px;
+  background-color: #d3c5db;
+  padding: 20px;
+  width: 26%;
+  height: 25%;
+  margin-top: 10px;
+}
+
+.tabela td,
+.tabela th {
+  background-color: #f3f3f3;
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.tabela tr:nth-child(even) {
+  border-radius: 5px;
+  background-color: #d3c5db;
+  text-align: center;
+}
+
+.tabela tr:hover {
+  background-color: #ddd;
+}
+
+.tabela th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #eb95c0;
+  color: white;
+  border-radius: 5px;
 }
