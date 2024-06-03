@@ -99,8 +99,4 @@ export const updateUser = async (userId, userData) => {
 
 export const logout = async () => {
   await signOut(auth);
-<<<<<<< HEAD
-};
-=======
-};
->>>>>>> 3f3595fc7ccdee42196411bd2c1186c1dd552882
+}

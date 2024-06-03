@@ -13,9 +13,5 @@ export * from "./NowyWniosek";
 export * from "../../components/Logowanie";
 export * from "./Stworz_grafik";
 export * from "../Logowanie";
-export * from "./EdycjaFormularz";
-<<<<<<< HEAD
-export * from "./UserList";
-=======
-export * from "./UserList";
->>>>>>> 3f3595fc7ccdee42196411bd2c1186c1dd552882
+export * from "./EdycjaFormularz";export * from "./UserList";
+

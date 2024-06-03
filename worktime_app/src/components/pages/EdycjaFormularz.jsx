@@ -60,17 +60,18 @@ export const EdycjaFormularz = () => {
 
   async function handleSubmitForm(e) {
     e.preventDefault();
-   
-
-    await updateUser(userId, {
+  
+    // Tworzenie nowego obiektu użytkownika na podstawie obecnych stanów
+    const updatedUser = {
       firstname,
       lastname,
       birthdate,
       typedeal,
       rightapp,
       idworker,
-      
-    });
+    };
+    // Aktualizacja użytkownika w bazie danych
+    await updateUser(userId, updatedUser);
 
     navigate("/administrator");
   }
@@ -81,13 +82,79 @@ export const EdycjaFormularz = () => {
         <h1 className="tytulform">Edytuj pracownika</h1>
       </div>
       <form className="formularz" onSubmit={handleSubmitForm}>
-        <TextInput title="Imię" name="firstname" value={firstname} onChange={onFirstNameChanged} />
-        <TextInput title="Nazwisko" name="lastname" value={lastname} onChange={onLastNameChanged} />
-        <TextInput title="Data urodzenia" name="birthdate" type="date" value={birthdate} onChange={onBirthDateChanged} />
-        <TextInput title="Typ umowy" name="Type_deal" value={typedeal} onChange={onTypeDealChanged} />
-        <TextInput title="Id pracownika" name="ID" value={idworker} onChange={onIdWorkerChanged} />
-        <TextInput title="Uprawnienia" name="uprawnienia" value={rightapp} onChange={onRightAppChanged} />
-
+        <div className="form-group">
+          <label className="label" htmlFor="firstname">Imię</label>
+          <TextInput
+            name="firstname"
+            value={firstname}
+            onChange={onFirstNameChanged}
+            className="pole"
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label className="label" htmlFor="lastname">Nazwisko</label>
+          <TextInput
+            name="lastname"
+            value={lastname}
+            onChange={onLastNameChanged}
+            className="pole"
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label className="label" htmlFor="birthdate">Data urodzenia</label>
+          <input
+            type="date"
+            name="birthdate"
+            value={birthdate}
+            onChange={onBirthDateChanged}
+            className="pole"
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label className="label" htmlFor="typedeal">Typ umowy</label>
+          <select
+            name="typedeal"
+            value={typedeal}
+            onChange={onTypeDealChanged}
+            className="pole"
+            required
+            >
+            <option value="">Wybierz...</option>
+            <option value="Umowa o pracę">Umowa o pracę</option>
+            <option value="Umowa zlecenie">Umowa zlecenie</option>
+            <option value="Etat 1/2">Etat 1/2</option>
+            <option value="Etat 1/3">Etat 1/4</option>
+            <option value="Etat 1/4">Etat 3/4</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label className="label" htmlFor="idworker">Id pracownika</label>
+          <TextInput
+            name="idworker"
+            value={idworker}
+            onChange={onIdWorkerChanged}
+            className="pole"
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label className="label" htmlFor="rightapp">Uprawnienia</label>
+          <select
+            name="rightapp"
+            value={rightapp}
+            onChange={onRightAppChanged}
+            className="pole"
+            required
+          >
+            <option value="">Wybierz...</option>
+            <option value="Pracownik">Pracownik</option>
+            <option value="Manager">Menadżer</option>
+            <option value="Administrator">Administrator</option>
+          </select>
+        </div>
         <button type="submit" className="Dodaj">Zapisz</button>
       </form>
     </>
