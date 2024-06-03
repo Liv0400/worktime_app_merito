@@ -6,12 +6,10 @@ export * from "./Pracownicy";
 export * from "./Profil";
 export * from "./Administrator";
 export * from "./Formularz";
-export * from "./PokazWnioski";
-export * from "./PrzeslaneWnioski";
 export * from "./WnioskiPracownik";
 export * from "./NowyWniosek";
 export * from "../../components/Logowanie";
 export * from "./Stworz_grafik";
 export * from "../Logowanie";
-export * from "./EdycjaFormularz";
-export * from "./UserList";
+export * from "./EdycjaFormularz";export * from "./UserList";
+

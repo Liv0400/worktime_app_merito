@@ -8,8 +8,10 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { createUserData } from "./firestore";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc, setDoc} from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
+import { db } from './firebase';
+
 
 const firestore = getFirestore();
 
@@ -85,11 +87,8 @@ export const updateUserPassword = async (newPassword) => {
 
 export const updateUser = async (userId, userData) => {
   try {
-    // await firestore
-    //   .collection("users")
-    //   .doc(userId)
-    //   .set(userData, { merge: true });
-    await updateDoc(doc(firestore, "users", userId), userData);
+ 
+    await setDoc(doc(db, "users", userId), userData, { merge: false });
     return true;
   } catch (error) {
     console.error("Error updating user:", error);
@@ -99,4 +98,4 @@ export const updateUser = async (userId, userData) => {
 
 export const logout = async () => {
   await signOut(auth);
-};
+}

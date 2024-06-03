@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import './Administrator.css'
 import { UsersList } from "./UserList";
@@ -7,8 +6,6 @@ import { UsersList } from "./UserList";
 
  
 export const Administrator = () => {
- 
-    
 
   return (
   <main>
