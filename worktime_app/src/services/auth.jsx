@@ -1,66 +1,33 @@
-<<<<<<< HEAD
-import { auth, db } from "./firebase";
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
-import { createUserData } from "./firestore";
-import { updateDoc, doc } from "firebase/firestore";
-=======
 import { auth } from "./firebase";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  updatePassword,
   updateProfile,
 } from "firebase/auth";
 import { createUserData } from "./firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
->>>>>>> 4c956eb0adcd1ec4de995f3315ad912009d11f8c
 
+const firestore = getFirestore();
 
-//const firestore = getFirestore();
-
-export const getCurrentUser = () => {
+export const getCurrentUser = async () => {
   return new Promise((resolve, reject) => {
     const unsub = onAuthStateChanged(
       auth,
-      (user) => {
+      async (user) => {
         unsub();
         if (user) {
-          resolve(user);
+          const userDoc = await getDoc(doc(firestore, "users", user.uid));
+          if(userDoc.exists()){
+            resolve({uid: user.uid, ...userDoc.data()});
+          }else {
+            resolve(null);
+          }
         } else {
           resolve(null);
-<<<<<<< HEAD
-        }     }, reject)
-}
-)  
-}
-
-
-
-export const signUpUser = async ( { fullname, email, password, firstName, lastName }) => {
-    try {
-        const result = await createUserWithEmailAndPassword(auth, email, password );
-        const user = result.user;
-
-        if(user){
-            await updateProfile(user, {
-              displayName: `${firstName} ${lastName}`,
-        });
-            await createUserData({
-             uid: result.user.uid,
-
-             fullname, 
-
-         });
-         return user;
-        } else {
-            throw new Error("Użytkownik jest null lub undefined");
-        }
-    } catch (error) {
-        console.error('Error during sign up:', error);
-        return null;  }
-  } 
-=======
         }
       },
       reject
@@ -85,8 +52,8 @@ export const signUpUser = async ({
       });
       await createUserData({
         uid: result.user.uid,
-
-        fullname, //, typedeal
+        fullname,
+        passwordChanged:false, //, typedeal
       });
       return user;
     } else {
@@ -98,7 +65,6 @@ export const signUpUser = async ({
   }
 };
 
->>>>>>> 4c956eb0adcd1ec4de995f3315ad912009d11f8c
 export const signInUser = async ({ email, password }) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
@@ -108,37 +74,29 @@ export const signInUser = async ({ email, password }) => {
   }
 };
 
+export const updateUserPassword = async (newPassword) => {
+  const user = auth.currentUser;
+  if(user) {
+    await updatePassword(user, newPassword);
+    const userDocRef = doc(firestore, "users", user.uid);
+    await updateDoc(userDocRef, {passwordChanged: true});
+  }
+};
+
 export const updateUser = async (userId, userData) => {
-<<<<<<< HEAD
-   // try {
-      const userRef = doc(db, 'users', userId); // Tutaj używamy 'db' z 'firebaseConfig'
-      await updateDoc(userRef, userData);
-      console.log("User updated successfully");
-//     } catch (error) {
-//       console.error("Error updating user:", error);
-//     }
-//   };
-//   try {
-//     await firestore
-//       .collection("users")
-//       .doc(userId)
-//       .set(userData, { merge: true });
-    return true } 
-=======
   try {
-    await firestore
-      .collection("users")
-      .doc(userId)
-      .set(userData, { merge: true });
+    // await firestore
+    //   .collection("users")
+    //   .doc(userId)
+    //   .set(userData, { merge: true });
+    await updateDoc(doc(firestore, "users", userId), userData);
     return true;
   } catch (error) {
     console.error("Error updating user:", error);
     throw error;
   }
 };
->>>>>>> 4c956eb0adcd1ec4de995f3315ad912009d11f8c
 
-
- export const logout = async () => {
-   await signOut(auth);
- };
+export const logout = async () => {
+  await signOut(auth);
+};
