@@ -7,7 +7,7 @@ import {
   collection,
 } from "firebase/firestore";
 import { db } from "../../services/firebase";
-import { differenceInHours, parseISO } from "date-fns";
+import { differenceInHours, parseISO, startOfWeek, endOfWeek } from "date-fns";
 import "./CalendarForms.css";
 import UserAvailabilityTable from "./UserAvailabilityTable";
 
@@ -29,8 +29,8 @@ const EditEventForm = ({
       const [eventDate, eventStartTime] = event.start.split("T");
       const [, eventEndTime] = event.end.split("T");
       setDate(eventDate);
-      setStartTime(eventStartTime);
-      setEndTime(eventEndTime);
+      setStartTime(eventStartTime.substring(0, 5));
+      setEndTime(eventEndTime.substring(0, 5));
       setSelectedUser(event.user);
     }
   }, [event]);
@@ -48,9 +48,11 @@ const EditEventForm = ({
     fetchUsers();
   }, []);
 
+  // Sprawdź, czy użytkownik ma co najmniej 11 godzin przerwy między zmianami
   const checkUserAvailability = (updatedEvent) => {
     const userEvents = events.filter(
-      (event) => event.user === updatedEvent.user
+      (event) =>
+        event.user === updatedEvent.user && event.id !== updatedEvent.id
     );
     for (let event of userEvents) {
       const start = parseISO(event.start);
@@ -68,6 +70,34 @@ const EditEventForm = ({
     return true;
   };
 
+  // Sprawdź, czy użytkownik nie przekroczył 48 godzin w tygodniu
+  const checkWeeklyHoursLimit = (updatedEvent) => {
+    const newStart = parseISO(updatedEvent.start);
+    const newEnd = parseISO(updatedEvent.end);
+    const eventDuration = differenceInHours(newEnd, newStart);
+
+    const startOfWeekDate = startOfWeek(newStart, { weekStartsOn: 1 });
+    const endOfWeekDate = endOfWeek(newStart, { weekStartsOn: 1 });
+
+    const userEvents = events.filter((event) => {
+      const eventStart = parseISO(event.start);
+      return (
+        event.user === updatedEvent.user &&
+        eventStart >= startOfWeekDate &&
+        eventStart <= endOfWeekDate &&
+        event.id !== updatedEvent.id
+      );
+    });
+
+    const totalWeeklyHours = userEvents.reduce((sum, event) => {
+      const eventStart = parseISO(event.start);
+      const eventEnd = parseISO(event.end);
+      return sum + differenceInHours(eventEnd, eventStart);
+    }, 0);
+
+    return totalWeeklyHours + eventDuration <= 48;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!date || !startTime || !endTime || !selectedUser) {
@@ -75,10 +105,20 @@ const EditEventForm = ({
       return;
     }
 
+    const startDateTime = new Date(`${date}T${startTime}`);
+    const endDateTime = new Date(`${date}T${endTime}`);
+
+    // Sprawdź, czy zmiana nie przekracza 13 godzin
+    const hoursDifference = (endDateTime - startDateTime) / (1000 * 60 * 60);
+    if (hoursDifference > 13) {
+      alert("Zmiana nie może przekraczać 13 godzin.");
+      return;
+    }
+
     const updatedEvent = {
       ...event,
-      start: `${date}T${startTime}`,
-      end: `${date}T${endTime}`,
+      start: startDateTime.toISOString(),
+      end: endDateTime.toISOString(),
       user: selectedUser,
     };
 
@@ -86,6 +126,11 @@ const EditEventForm = ({
       alert(
         "Pracownik musi mieć co najmniej 11 godzin przerwy między zmianami."
       );
+      return;
+    }
+
+    if (!checkWeeklyHoursLimit(updatedEvent)) {
+      alert("Pracownik nie może pracować więcej niż 48 godzin w tygodniu.");
       return;
     }
 
