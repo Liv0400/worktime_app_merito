@@ -4,7 +4,7 @@ import { db } from "../../services/firebase";
 import "./CalendarForms.css";
 import UserAvailabilityTable from "./UserAvailabilityTable";
 
-const Grafik_formularz = ({ onEventAdded }) => {
+const AddEventForm = ({ onEventAdded }) => {
   const [showForm, setShowForm] = useState(false);
   const [date, setDate] = useState("");
   const [startTime, setStartTime] = useState("");
@@ -29,6 +29,15 @@ const Grafik_formularz = ({ onEventAdded }) => {
     e.preventDefault();
     if (!date || !startTime || !endTime || !selectedUser) {
       alert("Proszę wypełnić wszystkie pola.");
+      return;
+    }
+    const startDateTime = new Date(`${date}T${startTime}`);
+    const endDateTime = new Date(`${date}T${endTime}`);
+
+    // Sprawdź, czy zmiana nie przekracza 13 godzin
+    const hoursDifference = (endDateTime - startDateTime) / (1000 * 60 * 60);
+    if (hoursDifference > 13) {
+      alert("Zmiana nie może przekraczać 13 godzin.");
       return;
     }
 
@@ -134,4 +143,4 @@ const Grafik_formularz = ({ onEventAdded }) => {
   );
 };
 
-export default Grafik_formularz;
+export default AddEventForm;

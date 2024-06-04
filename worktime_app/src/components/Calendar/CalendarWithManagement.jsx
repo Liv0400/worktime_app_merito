@@ -16,7 +16,7 @@ import {
 import { db } from "../../services/firebase";
 import AddEventForm from "./AddEventForm";
 import EditEventForm from "./EditEventForm";
-import { differenceInHours, parseISO } from "date-fns";
+import { differenceInHours, parseISO, startOfWeek, endOfWeek } from "date-fns";
 import "./Calendar.css";
 
 const CalendarWithManagement = () => {
@@ -98,6 +98,33 @@ const CalendarWithManagement = () => {
     }
     return true;
   };
+
+  const checkWeeklyHoursLimit = (newEvent) => {
+    const newStart = parseISO(newEvent.start);
+    const newEnd = parseISO(newEvent.end);
+    const eventDuration = differenceInHours(newEnd, newStart);
+
+    const startOfWeekDate = startOfWeek(newStart, { weekStartsOn: 1 });
+    const endOfWeekDate = endOfWeek(newStart, { weekStartsOn: 1 });
+
+    const userEvents = events.filter((event) => {
+      const eventStart = parseISO(event.start);
+      return (
+        event.user === newEvent.user &&
+        eventStart >= startOfWeekDate &&
+        eventStart <= endOfWeekDate
+      );
+    });
+
+    const totalWeeklyHours = userEvents.reduce((sum, event) => {
+      const eventStart = parseISO(event.start);
+      const eventEnd = parseISO(event.end);
+      return sum + differenceInHours(eventEnd, eventStart);
+    }, 0);
+
+    return totalWeeklyHours + eventDuration <= 48;
+  };
+
   const handleEventAdded = async (newEvent) => {
     if (!checkUserAvailability(newEvent)) {
       alert(
@@ -105,6 +132,12 @@ const CalendarWithManagement = () => {
       );
       return false;
     }
+
+    if (!checkWeeklyHoursLimit(newEvent)) {
+      alert("Pracownik nie może pracować więcej niż 48 godzin w tygodniu.");
+      return false;
+    }
+
     try {
       const docRef = await addDoc(collection(db, "events"), newEvent);
       const addedEvent = { id: docRef.id, ...newEvent };
