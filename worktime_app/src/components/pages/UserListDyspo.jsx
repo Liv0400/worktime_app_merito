@@ -14,10 +14,12 @@ export const UsersListDyspo = () => {
     fetchUsers();
   }, []);
 
+const filteredUsers = users.filter(user => user.fullname?.rightapp === 'Pracownik' || user.fullname?.rightapp === 'Menadżer');
+
   return (
     <div className="users-list">
       <ul>
-        {users.map(user => (
+        {filteredUsers.map(user => (
           <li key={user.id} className="user-item">
             <div className={`user-status ${user.status}`}></div>
             <Link to={`/dyspozycja/${user.id}`}>
@@ -28,4 +30,4 @@ export const UsersListDyspo = () => {
       </ul>
     </div>
   );
-};
+}; 

@@ -8,7 +8,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { createUserData } from "./firestore";
-import { doc, getDoc, updateDoc, setDoc} from "firebase/firestore";
+import { doc, getDoc, updateDoc, setDoc, deleteDoc} from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import { db } from './firebase';
 
@@ -93,6 +93,15 @@ export const updateUser = async (userId, userData) => {
   } catch (error) {
     console.error("Error updating user:", error);
     throw error;
+  }
+};
+
+export const deleteUser = async (userId) => {
+  try {
+    await deleteDoc(doc(db, 'users', userId));
+    console.log(`User with ID ${userId} has been deleted`);
+  } catch (error) {
+    console.error('Error deleting user:', error);
   }
 };
 
