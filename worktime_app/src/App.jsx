@@ -1,35 +1,26 @@
-// App.js
-import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { UserProvider } from "./services/UserContext";
-<<<<<<< HEAD
-=======
 import ProtectedRoute from "./ProtectedRoute";
 //import { Logowanie } from "./components/pages/Logowanie";
->>>>>>> 70ab759603c68d0d6746b642d88c488993cc9c4e
 import {
   Logowanie,
   Home,
   Grafik,
-  Dyspozycja,
+  // Dyspozycja,
   Wnioski,
   WnioskiPracownik,
   Pracownicy,
   Profil,
-  // PokazWnioski,
-  // PrzeslaneWnioski,
   NowyWniosek,
   Administrator,
   Formularz,
   Stworz_grafik,
-<<<<<<< HEAD
-  EdycjaFormularz, UsersDetailPage, 
-  WeekListManager,
-=======
   // UsersList,
   EdycjaFormularz, 
->>>>>>> 70ab759603c68d0d6746b642d88c488993cc9c4e
+  UsersDetailPage,
+  UsersListDyspo,
+  // WeekListManager,
 } from "./components/pages";
 import BaseLayout from "./components/BaseLayout";
 import CalendarWithManagement from "./components/Calendar/CalendarWithManagement";
@@ -80,15 +71,38 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+
           <Route
             path="/dyspozycja"
             element={
-              <ProtectedRoute requiredRoles={["Pracownik", "Administrator"]}>
+              <ProtectedRoute requiredRoles={["Menadżer", "Administrator"]}>
               <BaseLayout>
-                <Dyspozycja />
+                <UsersListDyspo />
               </BaseLayout>
               </ProtectedRoute>
             }/>
+
+            <Route
+            path="/dyspozycja/:userId"
+            element={
+              <ProtectedRoute requiredRoles={["Menadżer", "Administrator"]}>
+              <BaseLayout>
+                <UsersDetailPage />
+              </BaseLayout>
+              </ProtectedRoute>
+            }/>
+
+          <Route
+            path="/dyspozycjapracownik"
+            element={
+              <ProtectedRoute requiredRoles={["Pracownik", "Administrator"]}>
+              <BaseLayout>
+                <WeekList />
+              </BaseLayout>
+              </ProtectedRoute>
+            }/>
+
+
 
           <Route
             path="/wnioski"
@@ -142,40 +156,6 @@ const App = () => {
             }
           />
 
-<<<<<<< HEAD
-          <Route 
-          path="/formularz" 
-          element={<Formularz />} />
-
-          <Route 
-          path="/edycja/:userId" 
-          element=
-          {   <BaseLayout>
-          <EdycjaFormularz />
-          </BaseLayout>} 
-          />
-
-          <Route 
-          path="/dyspozycja"
-          element=
-          {<WeekListManager />} /> 
-          
-          <Route 
-          path="/dyspozycjapracownik" 
-          element={
-          <BaseLayout>
-          <WeekList/>
-          </BaseLayout>}
-           /> 
-
-          <Route 
-          path="/dyspozycjamenager/:userId" 
-          element={ 
-          <BaseLayout>
-          <UsersDetailPage /> 
-           </BaseLayout> } 
-           />
-=======
           {/* <Route path="/" element={<UsersList />} /> */}
           {/* <Route path="/formularz" element={<Formularz />} /> */}
           <Route 
@@ -186,7 +166,6 @@ const App = () => {
           </ProtectedRoute>
           }
         />
->>>>>>> 70ab759603c68d0d6746b642d88c488993cc9c4e
 
          
           <Route
@@ -209,23 +188,6 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-          {/* <Route
-            path="/wnioski/pokazWnioski"
-            element={
-              <BaseLayout>
-                <PokazWnioski />
-              </BaseLayout>
-            }
-          /> */}
-          {/* <Route
-            path="/wnioski/przeslaneWnioski"
-            element={
-              <BaseLayout>
-                <PrzeslaneWnioski />
-              </BaseLayout>
-            }
-          />
-        */}
         </Routes>
       </div>
     </UserProvider>

@@ -1,12 +1,10 @@
-import React from 'react';
 import './Administrator.css';
-import { UsersListDyspo } from './UserListDyspozycja';
+import { UsersListDyspo } from './UserListDyspo';
 
 export const Dyspozycja = () => {
   return (
     <div>
-     
-    
+  
         <UsersListDyspo />
      
     </div>

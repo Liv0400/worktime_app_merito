@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './Dyspozycja.css';
 
-const CalendarForm = ({ onClose, week, timesFrom, timesTo, readOnly }) => {
+const CalendarFormManager = ({ onClose, week, timesFrom, timesTo, readOnly }) => {
   const [dates, setDates] = useState([]);
   const [timesFromState, setTimesFromState] = useState(new Array(7).fill(''));
   const [timesToState, setTimesToState] = useState(new Array(7).fill(''));
@@ -48,4 +48,4 @@ const CalendarForm = ({ onClose, week, timesFrom, timesTo, readOnly }) => {
   );
 };
 
-export default CalendarForm;
+export default CalendarFormManager;
