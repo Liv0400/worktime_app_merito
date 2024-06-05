@@ -225,8 +225,10 @@ const EditEventForm = ({
           Anuluj
         </button>
       </form>
-      <div className="UserAvailabilityTable">
-        <UserAvailabilityTable userId={selectedUser} />
+      <div>
+        <div className="EditUserAvailabilityTable">
+          <UserAvailabilityTable userId={selectedUser} />
+        </div>
       </div>
     </div>
   );
