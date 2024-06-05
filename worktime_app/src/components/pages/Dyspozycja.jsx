@@ -1,6 +1,5 @@
-import React from 'react';
 import './Administrator.css';
-import { UsersListDyspo } from './UserListDyspozycja';
+import { UsersListDyspo } from './UsersListDyspo';
 
 export const Dyspozycja = () => {
   return (

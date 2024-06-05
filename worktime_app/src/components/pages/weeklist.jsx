@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import CalendarForm from './KalendarzDyspozycja';
+import CalendarForm from './CalendarForm';
 import './Dyspozycja.css';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { collection, query, onSnapshot, doc, getDoc } from 'firebase/firestore';
@@ -80,8 +80,25 @@ const WeekList = () => {
 
   const weeks = getWeeksInMonth(currentYear, currentMonth);
 
+  const setTimesFromState = (newTimesFrom) => {
+    setTimesFrom(newTimesFrom);
+  };
+
+  const setTimesToState = (newTimesTo) => {
+    setTimesTo(newTimesTo);
+  };
+
   const handleOpenForm = (week) => {
+    const weekStart = week[0].toLocaleDateString();
+    const weekData = weeksData.find(w => w.week.startsWith(weekStart));
     setSelectedWeek(week);
+    if (weekData) {
+      setTimesFrom(weekData.entries.map(entry => entry.timeFrom));
+      setTimesTo(weekData.entries.map(entry => entry.timeTo));
+    } else {
+      setTimesFrom(new Array(7).fill(''));
+      setTimesTo(new Array(7).fill(''));
+    }
   };
 
   const handleCloseForm = () => {
@@ -109,7 +126,7 @@ const WeekList = () => {
   const getWeekStatus = (week) => {
     const weekStart = week[0].toLocaleDateString();
     const weekData = weeksData.find(w => w.week && w.week.startsWith(weekStart));
-    return weekData && weekData.entries.every(entry => entry.timeFrom && entry.timeTo) ? 'success' : 'fail';
+    return weekData && weekData.entries.some(entry => entry.timeFrom && entry.timeTo) ? 'success' : 'fail';
   };
 
   const displayWeekDays = (week) => {
@@ -133,6 +150,8 @@ const WeekList = () => {
           week={selectedWeek}
           timesFrom={timesFrom}
           timesTo={timesTo}
+          setTimesFrom={setTimesFromState}
+          setTimesTo={setTimesToState}
           user={user}
         />
       )}
@@ -145,7 +164,7 @@ const WeekList = () => {
           <div className={`week-status ${getWeekStatus(week)}`}>
             {getWeekStatus(week) === 'success' ? '✔️' : '❌'}
           </div>
-          <button className='uzupelnij' onClick={() => handleOpenForm(week)}>Uzupełnij</button>
+          <button className='otworz' onClick={() => handleOpenForm(week)}>Otwórz</button>
         </div>
       ))}
     </div>

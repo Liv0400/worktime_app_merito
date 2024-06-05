@@ -1,39 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import './Dyspozycja.css';
-import { collection, addDoc, doc, updateDoc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '../../services/firebase';
 
-const CalendarForm = ({ onClose, onSubmit, week, timesFrom, timesTo, user }) => {
+const CalendarForm = ({ onClose, onSubmit, week, timesFrom, timesTo, user, setTimesFrom, setTimesTo }) => {
   const [dates, setDates] = useState([]);
   const [timesFromState, setTimesFromState] = useState(new Array(7).fill(''));
   const [timesToState, setTimesToState] = useState(new Array(7).fill(''));
-  const [existingData, setExistingData] = useState(null);
 
   useEffect(() => {
     if (week) {
       setDates(week.map(date => date.toLocaleDateString()));
       setTimesFromState(timesFrom);
       setTimesToState(timesTo);
-      const weekStart = week[0].toLocaleDateString();
-      const fetchWeekData = async () => {
-        const weekDoc = await getDoc(doc(db, 'calendarEntries', `${user.uid}_${weekStart}`));
-        if (weekDoc.exists()) {
-          const data = weekDoc.data();
-          setExistingData(data);
-          setTimesFromState(data.entries.map(entry => entry.timeFrom));
-          setTimesToState(data.entries.map(entry => entry.timeTo));
-        } else {
-          setTimesFromState(new Array(7).fill(''));
-          setTimesToState(new Array(7).fill(''));
-        }
-      };
-      fetchWeekData();
     }
-  }, [week, timesFrom, timesTo, user.uid]);
+  }, [week, timesFrom, timesTo]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const entries = dates.map((date, index) => ({
         date,
@@ -47,28 +31,25 @@ const CalendarForm = ({ onClose, onSubmit, week, timesFrom, timesTo, user }) => 
         entries
       };
 
-      if (existingData) {
-        await updateDoc(doc(db, 'calendarEntries', `${user.uid}_${dates[0]}`), weekData);
-      } else {
-        await addDoc(collection(db, 'calendarEntries'), weekData);
-      }
+      const weekDocId = `${user.uid}_${dates[0].replaceAll('/', '.')}`;
+      const weekDocRef = doc(db, 'calendarEntries', weekDocId);
+      await setDoc(weekDocRef, weekData, { merge: true }); // Używamy setDoc z opcją merge aby zaktualizować istniejący dokument lub utworzyć nowy
 
-      console.log('Document written with ID: ', dates[0]);
       onSubmit(entries);
     } catch (e) {
-      console.error('Error adding document: ', e);
+      console.error('Error adding/updating document: ', e);
     }
   };
 
-  const handleTimeChange = (index, type, value) => {
+ const handleTimeChange = (index, type, value) => {
     if (type === 'from') {
       const newTimesFrom = [...timesFromState];
       newTimesFrom[index] = value;
-      setTimesFromState(newTimesFrom);
+      setTimesFrom(newTimesFrom);
     } else if (type === 'to') {
       const newTimesTo = [...timesToState];
       newTimesTo[index] = value;
-      setTimesToState(newTimesTo);
+      setTimesTo(newTimesTo);
     }
   };
 
@@ -82,7 +63,7 @@ const CalendarForm = ({ onClose, onSubmit, week, timesFrom, timesTo, user }) => 
   return (
     <form className="calendar-form" onSubmit={handleSubmit}>
       <div className="form-header">
-        <h2>Uzupełnij godziny pracy</h2>
+        <h2>{week ? 'Edytuj dyspozycję' : 'Utwórz nową dyspozycję'}</h2>
       </div>
       <div className="form-content">
         {dates.map((date, index) => (
@@ -92,13 +73,11 @@ const CalendarForm = ({ onClose, onSubmit, week, timesFrom, timesTo, user }) => 
               type="time"
               value={timesFromState[index]}
               onChange={(e) => handleTimeChange(index, 'from', e.target.value)}
-             //jesli chcemy pole obligatoryjne uzywamy required
             />
             <input
               type="time"
               value={timesToState[index]}
               onChange={(e) => handleTimeChange(index, 'to', e.target.value)}
-         
             />
           </div>
         ))}
@@ -110,3 +89,4 @@ const CalendarForm = ({ onClose, onSubmit, week, timesFrom, timesTo, user }) => 
 };
 
 export default CalendarForm;
+

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { collection, query, where, getDocs, doc, getDoc } from 'firebase/firestore';
 import { db } from '../../services/firebase';
-import CalendarForm from './KalendarzDyspozycjaMenager';
+import CalendarFormManager from './CalendarFormManager';
 
 const getWeeksInMonth = (year, month) => {
   const date = new Date(year, month, 1);
@@ -143,7 +143,7 @@ export const WeekListManager = () => {
         <button className='nastepnyMiesiac' onClick={() => handleMonthChange(1)}>Następny miesiąc</button>
       </div>
       {selectedWeek && (
-        <CalendarForm
+        <CalendarFormManager
           onClose={handleCloseForm}
           week={selectedWeek}
           timesFrom={timesFrom}
