@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getUsers } from '../../services/firestore'; 
 import './Administrator.css';
@@ -20,7 +20,7 @@ export const UsersListDyspo = () => {
         {users.map(user => (
           <li key={user.id} className="user-item">
             <div className={`user-status ${user.status}`}></div>
-            <Link to={`/dyspozycjamenager/${user.id}`}>
+            <Link to={`/dyspozycja/${user.id}`}>
               {user.fullname ? `${user.fullname.firstname} ${user.fullname.lastname}` : 'No Name'}
             </Link>
           </li>

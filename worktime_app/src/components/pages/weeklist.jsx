@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import CalendarForm from './KalendarzDyspozycja';
+import { useState, useEffect } from 'react';
+import CalendarForm from './CalendarForm';
 import './Dyspozycja.css';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { collection, query, onSnapshot, doc, getDoc } from 'firebase/firestore';
