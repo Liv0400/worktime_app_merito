@@ -1,13 +1,9 @@
-<<<<<<< HEAD
-import React, { useState, useEffect } from 'react';
-=======
-import { useState, useEffect } from 'react';
->>>>>>> 2d92be8263a84610cae53f646f771642e5a25e8f
-import CalendarForm from './CalendarForm';
-import './Dyspozycja.css';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { collection, query, onSnapshot, doc, getDoc } from 'firebase/firestore';
-import { db } from '../../services/firebase';
+import { useState, useEffect } from "react";
+import CalendarForm from "./CalendarForm";
+import "./Dyspozycja.css";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { collection, query, onSnapshot, doc, getDoc } from "firebase/firestore";
+import { db } from "../../services/firebase";
 
 const getWeeksInMonth = (year, month) => {
   const date = new Date(year, month, 1);
@@ -31,10 +27,10 @@ const WeekList = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [user, setUser] = useState(null);
-  const [userName, setUserName] = useState('');
+  const [userName, setUserName] = useState("");
   const [weeksData, setWeeksData] = useState([]);
-  const [timesFrom, setTimesFrom] = useState(new Array(7).fill(''));
-  const [timesTo, setTimesTo] = useState(new Array(7).fill(''));
+  const [timesFrom, setTimesFrom] = useState(new Array(7).fill(""));
+  const [timesTo, setTimesTo] = useState(new Array(7).fill(""));
 
   const fetchUserInfo = async (user) => {
     try {
@@ -64,18 +60,18 @@ const WeekList = () => {
         fetchUserInfo(user);
       } else {
         setUser(null);
-        setUserName('');
+        setUserName("");
       }
     });
   }, []);
 
   useEffect(() => {
     if (user) {
-      const q = query(collection(db, 'calendarEntries'));
+      const q = query(collection(db, "calendarEntries"));
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
         const data = querySnapshot.docs
-          .filter(doc => doc.data().userId === user.uid)
-          .map(doc => ({ id: doc.id, ...doc.data() }));
+          .filter((doc) => doc.data().userId === user.uid)
+          .map((doc) => ({ id: doc.id, ...doc.data() }));
         setWeeksData(data);
       });
       return () => unsubscribe();
@@ -94,14 +90,14 @@ const WeekList = () => {
 
   const handleOpenForm = (week) => {
     const weekStart = week[0].toLocaleDateString();
-    const weekData = weeksData.find(w => w.week.startsWith(weekStart));
+    const weekData = weeksData.find((w) => w.week.startsWith(weekStart));
     setSelectedWeek(week);
     if (weekData) {
-      setTimesFrom(weekData.entries.map(entry => entry.timeFrom));
-      setTimesTo(weekData.entries.map(entry => entry.timeTo));
+      setTimesFrom(weekData.entries.map((entry) => entry.timeFrom));
+      setTimesTo(weekData.entries.map((entry) => entry.timeTo));
     } else {
-      setTimesFrom(new Array(7).fill(''));
-      setTimesTo(new Array(7).fill(''));
+      setTimesFrom(new Array(7).fill(""));
+      setTimesTo(new Array(7).fill(""));
     }
   };
 
@@ -110,7 +106,7 @@ const WeekList = () => {
   };
 
   const handleFormSubmit = (data) => {
-    console.log('Submitted data:', data);
+    console.log("Submitted data:", data);
     handleCloseForm();
   };
 
@@ -129,8 +125,13 @@ const WeekList = () => {
 
   const getWeekStatus = (week) => {
     const weekStart = week[0].toLocaleDateString();
-    const weekData = weeksData.find(w => w.week && w.week.startsWith(weekStart));
-    return weekData && weekData.entries.some(entry => entry.timeFrom && entry.timeTo) ? 'success' : 'fail';
+    const weekData = weeksData.find(
+      (w) => w.week && w.week.startsWith(weekStart)
+    );
+    return weekData &&
+      weekData.entries.some((entry) => entry.timeFrom && entry.timeTo)
+      ? "success"
+      : "fail";
   };
 
   const displayWeekDays = (week) => {
@@ -141,11 +142,28 @@ const WeekList = () => {
 
   return (
     <div className="week-list">
-      <h2 className='dyspozycja'>Dyspozycja: {userName.name} {userName.surname}</h2>
+      <h2 className="dyspozycja">
+        Dyspozycja: {userName.name} {userName.surname}
+      </h2>
       <div className="month-controls">
-        <button className="poprzedniMiesiac" onClick={() => handleMonthChange(-1)}>Poprzedni miesiąc</button>
-        <span className='miesiac'>{new Date(currentYear, currentMonth).toLocaleString('default', { month: 'long', year: 'numeric' })}</span>
-        <button className='nastepnyMiesiac' onClick={() => handleMonthChange(1)}>Następny miesiąc</button>
+        <button
+          className="poprzedniMiesiac"
+          onClick={() => handleMonthChange(-1)}
+        >
+          Poprzedni miesiąc
+        </button>
+        <span className="miesiac">
+          {new Date(currentYear, currentMonth).toLocaleString("default", {
+            month: "long",
+            year: "numeric",
+          })}
+        </span>
+        <button
+          className="nastepnyMiesiac"
+          onClick={() => handleMonthChange(1)}
+        >
+          Następny miesiąc
+        </button>
       </div>
       {selectedWeek && (
         <CalendarForm
@@ -162,13 +180,13 @@ const WeekList = () => {
       {weeks.map((week, index) => (
         <div key={index} className="week-item">
           <div className="week-number">{index + 1} tydzień</div>
-          <div className="week-date">
-            {displayWeekDays(week)}
-          </div>
+          <div className="week-date">{displayWeekDays(week)}</div>
           <div className={`week-status ${getWeekStatus(week)}`}>
-            {getWeekStatus(week) === 'success' ? '✔️' : '❌'}
+            {getWeekStatus(week) === "success" ? "✔️" : "❌"}
           </div>
-          <button className='otworz' onClick={() => handleOpenForm(week)}>Otwórz</button>
+          <button className="otworz" onClick={() => handleOpenForm(week)}>
+            Otwórz
+          </button>
         </div>
       ))}
     </div>

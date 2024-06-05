@@ -1,12 +1,15 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { collection, query, where, getDocs, doc, getDoc } from 'firebase/firestore';
-import { db } from '../../services/firebase';
-<<<<<<< HEAD
-import CalendarFormManager from './CalendarFormManager';
-=======
-import CalendarForm from './CalendarFormManager';
->>>>>>> 2d92be8263a84610cae53f646f771642e5a25e8f
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  getDoc,
+} from "firebase/firestore";
+import { db } from "../../services/firebase";
+import CalendarFormManager from "./CalendarFormManager";
 
 const getWeeksInMonth = (year, month) => {
   const date = new Date(year, month, 1);
@@ -30,35 +33,41 @@ export const WeekListManager = () => {
   const [selectedWeek, setSelectedWeek] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-  const [userName, setUserName] = useState({ firstname: '', lastname: '' });
+  const [userName, setUserName] = useState({ firstname: "", lastname: "" });
   const [weeksData, setWeeksData] = useState([]);
-  const [timesFrom, setTimesFrom] = useState(new Array(7).fill(''));
-  const [timesTo, setTimesTo] = useState(new Array(7).fill(''));
+  const [timesFrom, setTimesFrom] = useState(new Array(7).fill(""));
+  const [timesTo, setTimesTo] = useState(new Array(7).fill(""));
 
   useEffect(() => {
     const fetchUserData = async () => {
-      console.log('Fetching user data for userId:', userId);
+      console.log("Fetching user data for userId:", userId);
       try {
-        const userDoc = doc(db, 'users', userId);
+        const userDoc = doc(db, "users", userId);
         const docSnap = await getDoc(userDoc);
         if (docSnap.exists()) {
           const userData = docSnap.data();
-          console.log('Fetched user data:', userData); // Debugging line
+          console.log("Fetched user data:", userData); // Debugging line
 
           // Check if the fields exist
           if (userData.firstname && userData.lastname) {
-            setUserName({ firstname: userData.firstname, lastname: userData.lastname });
+            setUserName({
+              firstname: userData.firstname,
+              lastname: userData.lastname,
+            });
           } else if (userData.fullname) {
             // If the fullname field is a map, extract firstname and lastname
-            setUserName({ firstname: userData.fullname.firstname, lastname: userData.fullname.lastname });
+            setUserName({
+              firstname: userData.fullname.firstname,
+              lastname: userData.fullname.lastname,
+            });
           } else {
-            console.error('User data does not contain firstname and lastname');
+            console.error("User data does not contain firstname and lastname");
           }
         } else {
-          console.error('No such document!');
+          console.error("No such document!");
         }
       } catch (error) {
-        console.error('Error fetching user info:', error);
+        console.error("Error fetching user info:", error);
       }
     };
 
@@ -69,18 +78,18 @@ export const WeekListManager = () => {
 
   useEffect(() => {
     const fetchWeeksData = async () => {
-      console.log('Fetching weeks data for userId:', userId);
+      console.log("Fetching weeks data for userId:", userId);
       try {
         const q = query(
-          collection(db, 'calendarEntries'),
-          where('userId', '==', userId)
+          collection(db, "calendarEntries"),
+          where("userId", "==", userId)
         );
         const querySnapshot = await getDocs(q);
-        const data = querySnapshot.docs.map(doc => doc.data());
-        console.log('Fetched weeks data:', data); // Debugging line
+        const data = querySnapshot.docs.map((doc) => doc.data());
+        console.log("Fetched weeks data:", data); // Debugging line
         setWeeksData(data);
       } catch (error) {
-        console.error('Error fetching weeks data:', error);
+        console.error("Error fetching weeks data:", error);
       }
     };
 
@@ -93,11 +102,11 @@ export const WeekListManager = () => {
 
   const handleOpenForm = (week) => {
     const weekStart = week[0].toLocaleDateString();
-    const weekData = weeksData.find(w => w.week.startsWith(weekStart));
+    const weekData = weeksData.find((w) => w.week.startsWith(weekStart));
     if (weekData) {
       setSelectedWeek(week);
-      setTimesFrom(weekData.entries.map(entry => entry.timeFrom));
-      setTimesTo(weekData.entries.map(entry => entry.timeTo));
+      setTimesFrom(weekData.entries.map((entry) => entry.timeFrom));
+      setTimesTo(weekData.entries.map((entry) => entry.timeTo));
     }
   };
 
@@ -119,17 +128,29 @@ export const WeekListManager = () => {
   };
 
   const displayWeekDays = (week) => {
-    const days = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
+    const days = [
+      "Poniedziałek",
+      "Wtorek",
+      "Środa",
+      "Czwartek",
+      "Piątek",
+      "Sobota",
+      "Niedziela",
+    ];
     return week.map((day, index) => (
-      <div key={index}>{days[day.getDay()]} - {day.toLocaleDateString()}</div>
+      <div key={index}>
+        {days[day.getDay()]} - {day.toLocaleDateString()}
+      </div>
     ));
   };
 
   const isWeekFilled = (week) => {
     const weekStart = week[0].toLocaleDateString();
-    const weekData = weeksData.find(w => w.week.startsWith(weekStart));
+    const weekData = weeksData.find((w) => w.week.startsWith(weekStart));
     if (weekData) {
-      const filled = weekData.entries.some(entry => entry.timeFrom || entry.timeTo);
+      const filled = weekData.entries.some(
+        (entry) => entry.timeFrom || entry.timeTo
+      );
       console.log(`Week ${weekStart} filled:`, filled); // Debugging line
       return filled;
     }
@@ -138,13 +159,31 @@ export const WeekListManager = () => {
 
   return (
     <div className="week-list">
-      <h2 className='dyspozycja'>
-        Dyspozycja: {userName.firstname && userName.lastname ? `${userName.firstname} ${userName.lastname}` : 'Loading...'}
+      <h2 className="dyspozycja">
+        Dyspozycja:{" "}
+        {userName.firstname && userName.lastname
+          ? `${userName.firstname} ${userName.lastname}`
+          : "Loading..."}
       </h2>
       <div className="month-controls">
-        <button className="poprzedniMiesiac" onClick={() => handleMonthChange(-1)}>Poprzedni miesiąc</button>
-        <span className='miesiac'>{new Date(currentYear, currentMonth).toLocaleString('default', { month: 'long', year: 'numeric' })}</span>
-        <button className='nastepnyMiesiac' onClick={() => handleMonthChange(1)}>Następny miesiąc</button>
+        <button
+          className="poprzedniMiesiac"
+          onClick={() => handleMonthChange(-1)}
+        >
+          Poprzedni miesiąc
+        </button>
+        <span className="miesiac">
+          {new Date(currentYear, currentMonth).toLocaleString("default", {
+            month: "long",
+            year: "numeric",
+          })}
+        </span>
+        <button
+          className="nastepnyMiesiac"
+          onClick={() => handleMonthChange(1)}
+        >
+          Następny miesiąc
+        </button>
       </div>
       {selectedWeek && (
         <CalendarFormManager
@@ -158,11 +197,9 @@ export const WeekListManager = () => {
       {weeks.map((week, index) => (
         <div key={index} className="week-item">
           <div className="week-number">{index + 1} tydzień</div>
-          <div className="week-date">
-            {displayWeekDays(week)}
-          </div>
-          <button 
-            className={`uzupelnij ${isWeekFilled(week) ? 'highlight' : ''}`} 
+          <div className="week-date">{displayWeekDays(week)}</div>
+          <button
+            className={`uzupelnij ${isWeekFilled(week) ? "highlight" : ""}`}
             onClick={() => handleOpenForm(week)}
             disabled={!isWeekFilled(week)}
           >
