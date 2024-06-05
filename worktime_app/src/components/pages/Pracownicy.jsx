@@ -38,11 +38,14 @@ export const Pracownicy = () => {
     setSelectedUser(null);
   };
 
+  const filteredUsers = users.filter(user => user.fullname?.rightapp === 'Pracownik' || user.fullname?.rightapp === 'Menadżer');
+
+
   return (
     <div className="pracownicy">
       <h1>Lista pracowników:</h1>
       <ul>
-        {users.map((user) => (
+        {filteredUsers.map((user) => (
           <li key={user.id}>
             <span className="fullName" onClick={() => showMore(user)}>
               {user.fullname.firstname} {user.fullname.lastname}

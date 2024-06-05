@@ -92,7 +92,7 @@ export const Logowanie = () => {
       setShowChangePasswordPopup(false);
       setChangePasswordSuccess(true);
       await auth.signOut();
-      navigate("/zaloguj")
+      navigate("/")
     } catch (error) {
       console.error("Failed to change password:", error);
     }

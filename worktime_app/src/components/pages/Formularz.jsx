@@ -123,7 +123,7 @@ export const Formularz = () => {
           >
             <option value="">Wybierz...</option>
             <option value="Pracownik">Pracownik</option>
-            <option value="Manager">Menadżer</option>
+            <option value="Menadżer">Menadżer</option>
             <option value="Administrator">Administrator</option>
           </select>
         </div>
