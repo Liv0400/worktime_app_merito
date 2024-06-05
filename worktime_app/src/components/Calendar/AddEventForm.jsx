@@ -4,7 +4,7 @@ import { db } from "../../services/firebase";
 import "./CalendarForms.css";
 import UserAvailabilityTable from "./UserAvailabilityTable";
 
-const Grafik_formularz = ({ onEventAdded }) => {
+const AddEventForm = ({ onEventAdded }) => {
   const [showForm, setShowForm] = useState(false);
   const [date, setDate] = useState("");
   const [startTime, setStartTime] = useState("");
@@ -31,6 +31,15 @@ const Grafik_formularz = ({ onEventAdded }) => {
       alert("Proszę wypełnić wszystkie pola.");
       return;
     }
+    const startDateTime = new Date(`${date}T${startTime}`);
+    const endDateTime = new Date(`${date}T${endTime}`);
+
+    // Sprawdź, czy zmiana nie przekracza 13 godzin
+    const hoursDifference = (endDateTime - startDateTime) / (1000 * 60 * 60);
+    if (hoursDifference > 13) {
+      alert("Zmiana nie może przekraczać 13 godzin.");
+      return;
+    }
 
     const selectedUserData = users.find((user) => user.id === selectedUser);
     const userFullName = selectedUserData
@@ -50,8 +59,13 @@ const Grafik_formularz = ({ onEventAdded }) => {
     setEndTime("");
     setSelectedUser("");
     setShowForm(false);
-    alert("Wydarzenie zostało pomyślnie dodane!");
   };
+
+  const filteredUsers = users.filter(
+    (user) =>
+      user.fullname?.rightapp === "Pracownik" ||
+      user.fullname?.rightapp === "Menadżer"
+  );
 
   return (
     <div>
@@ -72,7 +86,7 @@ const Grafik_formularz = ({ onEventAdded }) => {
                   required
                 >
                   <option value="">Wybierz użytkownika</option>
-                  {users.map((user) => (
+                  {filteredUsers.map((user) => (
                     <option key={user.id} value={user.id}>
                       {user.fullname
                         ? `${user.fullname.firstname} ${user.fullname.lastname}`
@@ -129,4 +143,4 @@ const Grafik_formularz = ({ onEventAdded }) => {
   );
 };
 
-export default Grafik_formularz;
+export default AddEventForm;
