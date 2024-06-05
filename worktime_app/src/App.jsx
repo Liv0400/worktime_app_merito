@@ -127,7 +127,7 @@ const App = () => {
              <Route
             path="/wnioskiPracownik/nowyWniosek"
             element={
-              <ProtectedRoute requiredRoles={["Pracownik", "Administrator"]}>
+              <ProtectedRoute requiredRoles={["Pracownik", "Menadżer", "Administrator"]}>
               <BaseLayout>
                 <NowyWniosek />
               </BaseLayout>
