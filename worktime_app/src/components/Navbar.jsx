@@ -34,7 +34,16 @@ export const Navbar = () => {
             <NavLink to="/grafik">Grafik</NavLink>
           </li>
           <li>
-            <NavLink to="/dyspozycja">Dyspozycja</NavLink>
+            {user && user.rightapp === "Menadżer" ? (
+              <NavLink to="/dyspozycja">Dyspozycja</NavLink>
+            ) : user && user.rightapp === "Pracownik" ? (
+              <NavLink to="/dyspozycjapracownik">Dyspozycja</NavLink>
+            ) : user && user.rightapp === "Administrator" ? (
+              <>
+                <NavLink to="/dyspozycja">Dyspozycja Menadżer</NavLink>
+                <NavLink to="/dyspozycjapracownik">Dyspozycja Pracownik</NavLink>
+              </>
+            ) : null}
           </li>
           <li>
             {user && user.rightapp === "Menadżer" ? (
@@ -43,8 +52,9 @@ export const Navbar = () => {
               <NavLink to="/wnioskiPracownik">Wnioski</NavLink>
             ) : user && user.rightapp === "Administrator" ? (
               <>
-                <NavLink to="/wnioskiPracownik">Wnioski Pracownik</NavLink>
                 <NavLink to="/wnioski">Wnioski Menadżer</NavLink>
+                <NavLink to="/wnioskiPracownik">Wnioski Pracownik</NavLink>
+
               </>
             ) : null}
           </li>

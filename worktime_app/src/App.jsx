@@ -7,25 +7,27 @@ import {
   Logowanie,
   Home,
   Grafik,
-  Dyspozycja,
+  // Dyspozycja,
   Wnioski,
   WnioskiPracownik,
   Pracownicy,
   Profil,
-  // PokazWnioski,
-  // PrzeslaneWnioski,
   NowyWniosek,
   Administrator,
   Formularz,
   Stworz_grafik,
   // UsersList,
   EdycjaFormularz, 
+  UsersDetailPage,
+  UsersListDyspo,
+  // WeekListManager,
 } from "./components/pages";
 import BaseLayout from "./components/BaseLayout";
 import CalendarWithManagement from "./components/Calendar/CalendarWithManagement";
 import CalendarViewOnly from "./components/Calendar/CalendarViewOnly";
 import CalendarLongTermEventView from "./components/Calendar/CalendarLongTermEventView";
 import { loader as homeLoader } from "./components/pages";
+import WeekList from "./components/pages/weeklist";
 
 const App = () => {
   
@@ -69,15 +71,38 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+
           <Route
             path="/dyspozycja"
             element={
-              <ProtectedRoute requiredRoles={["Pracownik", "Administrator"]}>
+              <ProtectedRoute requiredRoles={["Menadżer", "Administrator"]}>
               <BaseLayout>
-                <Dyspozycja />
+                <UsersListDyspo />
               </BaseLayout>
               </ProtectedRoute>
             }/>
+
+            <Route
+            path="/dyspozycja/:userId"
+            element={
+              <ProtectedRoute requiredRoles={["Menadżer", "Administrator"]}>
+              <BaseLayout>
+                <UsersDetailPage />
+              </BaseLayout>
+              </ProtectedRoute>
+            }/>
+
+          <Route
+            path="/dyspozycjapracownik"
+            element={
+              <ProtectedRoute requiredRoles={["Pracownik", "Administrator"]}>
+              <BaseLayout>
+                <WeekList />
+              </BaseLayout>
+              </ProtectedRoute>
+            }/>
+
+
 
           <Route
             path="/wnioski"
@@ -102,7 +127,7 @@ const App = () => {
              <Route
             path="/wnioskiPracownik/nowyWniosek"
             element={
-              <ProtectedRoute requiredRoles={["Pracownik", "Administrator"]}>
+              <ProtectedRoute requiredRoles={["Pracownik", "Menadżer", "Administrator"]}>
               <BaseLayout>
                 <NowyWniosek />
               </BaseLayout>
@@ -163,23 +188,6 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-          {/* <Route
-            path="/wnioski/pokazWnioski"
-            element={
-              <BaseLayout>
-                <PokazWnioski />
-              </BaseLayout>
-            }
-          /> */}
-          {/* <Route
-            path="/wnioski/przeslaneWnioski"
-            element={
-              <BaseLayout>
-                <PrzeslaneWnioski />
-              </BaseLayout>
-            }
-          />
-        */}
         </Routes>
       </div>
     </UserProvider>

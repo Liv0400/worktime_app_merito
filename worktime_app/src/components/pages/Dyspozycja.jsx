@@ -1,12 +1,10 @@
-import React from 'react';
-import './Administrator.css';
-import WeekList from './weeklist'; // Importujemy komponent WeekList
+import "./Administrator.css";
+import { UsersListDyspo } from "./UserListDyspo";
 
 export const Dyspozycja = () => {
   return (
-    <div className="App">
-    
-      <WeekList />
+    <div>
+      <UsersListDyspo />
     </div>
   );
 };

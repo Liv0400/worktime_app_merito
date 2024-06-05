@@ -11,5 +11,9 @@ export * from "./NowyWniosek";
 export * from "../../components/Logowanie";
 export * from "./Stworz_grafik";
 export * from "../Logowanie";
-export * from "./EdycjaFormularz";export * from "./UserList";
-
+export * from "./EdycjaFormularz";
+export * from "./UserList";
+export * from "./WeekListMenager";
+export * from "./DyspozycjaPracownik";
+export { default as UsersDetailPage } from "./UsersDetailPage";
+export * from "./UserListDyspo";

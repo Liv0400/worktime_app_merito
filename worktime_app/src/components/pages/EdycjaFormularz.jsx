@@ -1,6 +1,6 @@
 import './Administrator.css';
-import React, { useEffect, useState } from 'react';
-import { updateUser } from '../../services/auth';
+import { useEffect, useState } from 'react';
+import { updateUser, deleteUser} from '../../services/auth';
 import TextInput from './Textinput';
 import { useNavigate, useParams } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
@@ -13,7 +13,7 @@ export const EdycjaFormularz = () => {
   const [typedeal, setTypeDeal] = useState("");
   const [idworker, setIdWorker] = useState("");
   const [rightapp, setRightApp] = useState("");
-  const [errors, setErrors] = useState({});
+  // const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const { userId } = useParams();
 
@@ -79,6 +79,14 @@ export const EdycjaFormularz = () => {
     navigate("/administrator");
   }
 
+  async function handleDeleteUser() {
+    const confirmDelete = window.confirm('Czy na pewno chcesz usunąć tego pracownika?');
+    if (confirmDelete) {
+      await deleteUser(userId);
+      navigate("/administrator");
+    }
+  }
+
 
   return (
     <>
@@ -89,6 +97,7 @@ export const EdycjaFormularz = () => {
         <div className="form-group">
           <label className="label" htmlFor="firstname">Imię</label>
           <TextInput
+            id="firstname"
             name="firstname"
             value={firstname}
             onChange={onFirstNameChanged}
@@ -99,6 +108,7 @@ export const EdycjaFormularz = () => {
         <div className="form-group">
           <label className="label" htmlFor="lastname">Nazwisko</label>
           <TextInput
+            id="lastname"
             name="lastname"
             value={lastname}
             onChange={onLastNameChanged}
@@ -110,6 +120,7 @@ export const EdycjaFormularz = () => {
           <label className="label" htmlFor="birthdate">Data urodzenia</label>
           <input
             type="date"
+            id="birthdate"
             name="birthdate"
             value={birthdate}
             onChange={onBirthDateChanged}
@@ -120,6 +131,7 @@ export const EdycjaFormularz = () => {
         <div className="form-group">
           <label className="label" htmlFor="typedeal">Typ umowy</label>
           <select
+            id="typedeal"
             name="typedeal"
             value={typedeal}
             onChange={onTypeDealChanged}
@@ -138,6 +150,7 @@ export const EdycjaFormularz = () => {
         <div className="form-group">
           <label className="label" htmlFor="idworker">Id pracownika</label>
           <TextInput
+            id="idworker"
             name="idworker"
             value={idworker}
             onChange={onIdWorkerChanged}
@@ -148,6 +161,7 @@ export const EdycjaFormularz = () => {
         <div className="form-group">
           <label className="label" htmlFor="rightapp">Uprawnienia</label>
           <select
+            id="rightapp"
             name="rightapp"
             value={rightapp}
             onChange={onRightAppChanged}
@@ -161,6 +175,7 @@ export const EdycjaFormularz = () => {
           </select>
         </div>
         <button type="submit" className="Dodaj">Zapisz</button>
+        <button type="button" className="Usun" onClick={handleDeleteUser}>Usuń pracownika</button>
       </form>
     </>
   );

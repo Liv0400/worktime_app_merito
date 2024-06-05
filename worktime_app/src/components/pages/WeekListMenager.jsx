@@ -1,9 +1,15 @@
 import { useState, useEffect } from "react";
-import CalendarForm from "./CalendarForm";
-import "./Dyspozycja.css";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { collection, query, onSnapshot, doc, getDoc } from "firebase/firestore";
+import { useParams } from "react-router-dom";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  getDoc,
+} from "firebase/firestore";
 import { db } from "../../services/firebase";
+import CalendarFormManager from "./CalendarFormManager";
 
 const getWeeksInMonth = (year, month) => {
   const date = new Date(year, month, 1);
@@ -22,92 +28,90 @@ const getWeeksInMonth = (year, month) => {
   return weeks;
 };
 
-const WeekList = () => {
+export const WeekListManager = () => {
+  const { userId } = useParams();
   const [selectedWeek, setSelectedWeek] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-  const [user, setUser] = useState(null);
-  const [userName, setUserName] = useState("");
+  const [userName, setUserName] = useState({ firstname: "", lastname: "" });
   const [weeksData, setWeeksData] = useState([]);
   const [timesFrom, setTimesFrom] = useState(new Array(7).fill(""));
   const [timesTo, setTimesTo] = useState(new Array(7).fill(""));
 
-  const fetchUserInfo = async (user) => {
-    try {
-      if (user.displayName) {
-        const [name, surname] = user.displayName.split(" ");
-        setUserName({ name, surname });
-      } else {
-        const userDoc = doc(db, "users", user.uid);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      console.log("Fetching user data for userId:", userId);
+      try {
+        const userDoc = doc(db, "users", userId);
         const docSnap = await getDoc(userDoc);
         if (docSnap.exists()) {
           const userData = docSnap.data();
-          setUserName({ name: userData.name, surname: userData.surname });
+          console.log("Fetched user data:", userData); // Debugging line
+
+          // Check if the fields exist
+          if (userData.firstname && userData.lastname) {
+            setUserName({
+              firstname: userData.firstname,
+              lastname: userData.lastname,
+            });
+          } else if (userData.fullname) {
+            // If the fullname field is a map, extract firstname and lastname
+            setUserName({
+              firstname: userData.fullname.firstname,
+              lastname: userData.fullname.lastname,
+            });
+          } else {
+            console.error("User data does not contain firstname and lastname");
+          }
         } else {
           console.error("No such document!");
         }
+      } catch (error) {
+        console.error("Error fetching user info:", error);
       }
-    } catch (error) {
-      console.error("Error fetching user info: ", error);
+    };
+
+    if (userId) {
+      fetchUserData();
     }
-  };
+  }, [userId]);
 
   useEffect(() => {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-        fetchUserInfo(user);
-      } else {
-        setUser(null);
-        setUserName("");
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    if (user) {
-      const q = query(collection(db, "calendarEntries"));
-      const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        const data = querySnapshot.docs
-          .filter((doc) => doc.data().userId === user.uid)
-          .map((doc) => ({ id: doc.id, ...doc.data() }));
+    const fetchWeeksData = async () => {
+      console.log("Fetching weeks data for userId:", userId);
+      try {
+        const q = query(
+          collection(db, "calendarEntries"),
+          where("userId", "==", userId)
+        );
+        const querySnapshot = await getDocs(q);
+        const data = querySnapshot.docs.map((doc) => doc.data());
+        console.log("Fetched weeks data:", data); // Debugging line
         setWeeksData(data);
-      });
-      return () => unsubscribe();
+      } catch (error) {
+        console.error("Error fetching weeks data:", error);
+      }
+    };
+
+    if (userId) {
+      fetchWeeksData();
     }
-  }, [user]);
+  }, [userId]);
 
   const weeks = getWeeksInMonth(currentYear, currentMonth);
-
-  const setTimesFromState = (newTimesFrom) => {
-    setTimesFrom(newTimesFrom);
-  };
-
-  const setTimesToState = (newTimesTo) => {
-    setTimesTo(newTimesTo);
-  };
 
   const handleOpenForm = (week) => {
     const weekStart = week[0].toLocaleDateString();
     const weekData = weeksData.find((w) => w.week.startsWith(weekStart));
-    setSelectedWeek(week);
     if (weekData) {
+      setSelectedWeek(week);
       setTimesFrom(weekData.entries.map((entry) => entry.timeFrom));
       setTimesTo(weekData.entries.map((entry) => entry.timeTo));
-    } else {
-      setTimesFrom(new Array(7).fill(""));
-      setTimesTo(new Array(7).fill(""));
     }
   };
 
   const handleCloseForm = () => {
     setSelectedWeek(null);
-  };
-
-  const handleFormSubmit = (data) => {
-    console.log("Submitted data:", data);
-    handleCloseForm();
   };
 
   const handleMonthChange = (offset) => {
@@ -123,27 +127,43 @@ const WeekList = () => {
     }
   };
 
-  const getWeekStatus = (week) => {
-    const weekStart = week[0].toLocaleDateString();
-    const weekData = weeksData.find(
-      (w) => w.week && w.week.startsWith(weekStart)
-    );
-    return weekData &&
-      weekData.entries.some((entry) => entry.timeFrom && entry.timeTo)
-      ? "success"
-      : "fail";
+  const displayWeekDays = (week) => {
+    const days = [
+      "Poniedziałek",
+      "Wtorek",
+      "Środa",
+      "Czwartek",
+      "Piątek",
+      "Sobota",
+      "Niedziela",
+    ];
+    return week.map((day, index) => (
+      <div key={index}>
+        {days[day.getDay()]} - {day.toLocaleDateString()}
+      </div>
+    ));
   };
 
-  const displayWeekDays = (week) => {
-    return week.map((day, index) => (
-      <div key={index}>{day.toLocaleDateString()}</div>
-    ));
+  const isWeekFilled = (week) => {
+    const weekStart = week[0].toLocaleDateString();
+    const weekData = weeksData.find((w) => w.week.startsWith(weekStart));
+    if (weekData) {
+      const filled = weekData.entries.some(
+        (entry) => entry.timeFrom || entry.timeTo
+      );
+      console.log(`Week ${weekStart} filled:`, filled); // Debugging line
+      return filled;
+    }
+    return false;
   };
 
   return (
     <div className="week-list">
       <h2 className="dyspozycja">
-        Dyspozycja: {userName.name} {userName.surname}
+        Dyspozycja:{" "}
+        {userName.firstname && userName.lastname
+          ? `${userName.firstname} ${userName.lastname}`
+          : "Loading..."}
       </h2>
       <div className="month-controls">
         <button
@@ -166,25 +186,23 @@ const WeekList = () => {
         </button>
       </div>
       {selectedWeek && (
-        <CalendarForm
+        <CalendarFormManager
           onClose={handleCloseForm}
-          onSubmit={handleFormSubmit}
           week={selectedWeek}
           timesFrom={timesFrom}
           timesTo={timesTo}
-          setTimesFrom={setTimesFromState}
-          setTimesTo={setTimesToState}
-          user={user}
+          readOnly={true}
         />
       )}
       {weeks.map((week, index) => (
         <div key={index} className="week-item">
           <div className="week-number">{index + 1} tydzień</div>
           <div className="week-date">{displayWeekDays(week)}</div>
-          <div className={`week-status ${getWeekStatus(week)}`}>
-            {getWeekStatus(week) === "success" ? "✔️" : "❌"}
-          </div>
-          <button className="otworz" onClick={() => handleOpenForm(week)}>
+          <button
+            className={`uzupelnij ${isWeekFilled(week) ? "highlight" : ""}`}
+            onClick={() => handleOpenForm(week)}
+            disabled={!isWeekFilled(week)}
+          >
             Otwórz
           </button>
         </div>
@@ -192,5 +210,3 @@ const WeekList = () => {
     </div>
   );
 };
-
-export default WeekList;

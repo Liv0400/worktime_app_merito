@@ -127,3 +127,22 @@ h2.dyspozycja {
   color: azure;
   cursor: pointer;
 }
+/*weeklistmenager*/
+.otworz {
+  width: 150px;
+  font-size: 15px;
+  border: 2px solid azure;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.otworz.success {
+  background-color: rgb(146, 60, 118); /* Kolor tła dla przycisków z danymi */
+  color: white; /* Kolor tekstu dla przycisków z danymi */
+}
+
+.otworz.fail {
+  background-color: #ddd; /* Kolor tła dla przycisków bez danych */
+  color: #333; /* Kolor tekstu dla przycisków bez danych */
+}
