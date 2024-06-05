@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
+=======
+import { useState, useEffect } from 'react';
+>>>>>>> 2d92be8263a84610cae53f646f771642e5a25e8f
 import CalendarForm from './CalendarForm';
 import './Dyspozycja.css';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';

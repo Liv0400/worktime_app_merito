@@ -7,33 +7,10 @@ export const ListaWnioskow = (props) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [status, setStatus] = useState(props.status);
   const [comment, setComment] = useState(props.comment || "");
-  // let stateArray = useState(false);
-  // let isExpanded = stateArray[0];
-  // let setIsExpanded = stateArray[1];
-  // const [status, setStatus] = useState(props.status);
-  // const [comment, setComment] = useState(props.comment || "");
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
-
-  // const rozwin = 
-  // <button 
-  // className='rozwin'
-  // onClick={()=>{
-  //   setIsExpanded(!isExpanded);
-  // }}>
-  //   {isExpanded ? "▲":"▼"}
-  // </button>
-
-  // const anuluj = <button
-  // className='tbCancel'
-  // onClick={()=>{
-  //   setIsExpanded(!isExpanded)
-  // }}>
-  //   Anuluj
-  // </button>
-
   const updateStatus = async (newStatus) => {
     try {
       const docRef = doc(db, "applications", props.id);

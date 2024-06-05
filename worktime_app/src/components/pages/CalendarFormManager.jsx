@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './Dyspozycja.css';
 
 const CalendarFormManager = ({ onClose, week, timesFrom, timesTo, readOnly }) => {

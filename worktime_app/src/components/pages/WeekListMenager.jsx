@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { collection, query, where, getDocs, doc, getDoc } from 'firebase/firestore';
 import { db } from '../../services/firebase';
+<<<<<<< HEAD
 import CalendarFormManager from './CalendarFormManager';
+=======
+import CalendarForm from './CalendarFormManager';
+>>>>>>> 2d92be8263a84610cae53f646f771642e5a25e8f
 
 const getWeeksInMonth = (year, month) => {
   const date = new Date(year, month, 1);

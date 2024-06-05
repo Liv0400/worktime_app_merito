@@ -16,5 +16,9 @@ export * from "./UserList";
 export * from "./WeekListMenager";
 export * from "./DyspozycjaPracownik";
 export { default as UsersDetailPage } from "./UsersDetailPage";
+<<<<<<< HEAD
 export * from "./UsersListDyspo";
+=======
+export * from "./UserListDyspo";
+>>>>>>> 2d92be8263a84610cae53f646f771642e5a25e8f
 

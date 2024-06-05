@@ -26,20 +26,26 @@ export const NowyWniosek = () => {
     fetchCurrentUser();
   }, []);
 
-  const formatDate = (date) => {
-  const d = new Date(date);
-  const day = String(d.getDate()).padStart(2, '0');
-  const month = String(d.getMonth() + 1).padStart(2, '0'); // Miesiące są indeksowane od 0
-  const year = d.getFullYear();
-  return `${day}/${month}/${year}`;
-};
+//   const formatDate = (date) => {
+//   const d = new Date(date);
+//   const day = String(d.getDate()).padStart(2, '0');
+//   const month = String(d.getMonth() + 1).padStart(2, '0'); // Miesiące są indeksowane od 0
+//   const year = d.getFullYear();
+//   return `${day}/${month}/${year}`;
+// };
 
   const handleSubmit = async (e) => {
       e.preventDefault();
       console.log('Wysłano pomyślnie');
       console.log('Current user:', currentUser);
     
-      try{
+
+      if (new Date(endingDate) < new Date(beginningDate)) {
+      setMessage('Data końca nie może być wcześniejsza niż data początku.');
+      return;
+    }
+
+    try{
         if (!currentUser) {
         setMessage('Brak zalogowanego użytkownika.');
         return;
@@ -53,8 +59,8 @@ export const NowyWniosek = () => {
           userId:currentUserData?.uid || 'ID pracownika',
           name:displayName,
           type: type,
-          beginningDate: formatDate(beginningDate),
-          endingDate: formatDate(endingDate),
+          beginningDate: beginningDate,
+          endingDate: endingDate,
           beginningHour: beginningHour,
           endingHour: endingHour,
           status: 'oczekujący',
@@ -94,6 +100,9 @@ export const NowyWniosek = () => {
           <option value="Na dziecko">Urlop na dziecko</option>
           <option value="Opiekunczy">Urlop opiekuńczy</option>
           <option value="Zwolnienie lekarskie">Zwolnienie lekarskie</option>
+          <option value="Szkolenie">Szkolenie</option>
+          <option value="Nadgodziny">Odbiór nadgodzin</option>
+
         </select>
       </label>
       <label className='dataWniosku'>
@@ -110,7 +119,14 @@ export const NowyWniosek = () => {
         type="date" 
         id="endingDate"
         value={endingDate}
-        onChange={(e) => setEndingDate(e.target.value)}
+        onChange={(e) => {
+        setEndingDate(e.target.value);
+        if (new Date(e.target.value) < new Date(beginningDate)) {
+                setMessage('Data końca nie może być wcześniejsza niż data początku.');
+              } else {
+                setMessage('');
+              }
+            }}
         required
         />
       </label>

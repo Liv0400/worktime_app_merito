@@ -1,4 +1,3 @@
-import React from 'react';
 import { WeekListManager } from './WeekListMenager'; 
 
 const UsersDetailPage = ({ userId }) => {
