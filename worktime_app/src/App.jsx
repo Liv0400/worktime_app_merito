@@ -1,7 +1,8 @@
+// App.js
+import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { UserProvider } from "./services/UserContext";
-//import { Logowanie } from "./components/pages/Logowanie";
 import {
   Logowanie,
   Home,
@@ -17,14 +18,15 @@ import {
   Administrator,
   Formularz,
   Stworz_grafik,
-  UsersList,
-  EdycjaFormularz, 
+  EdycjaFormularz, UsersDetailPage, 
+  WeekListManager,
 } from "./components/pages";
 import BaseLayout from "./components/BaseLayout";
 import CalendarWithManagement from "./components/Calendar/CalendarWithManagement";
 import CalendarViewOnly from "./components/Calendar/CalendarViewOnly";
 import CalendarLongTermEventView from "./components/Calendar/CalendarLongTermEventView";
 import { loader as homeLoader } from "./components/pages";
+import WeekList from "./components/pages/weeklist";
 
 const App = () => {
   
@@ -93,9 +95,38 @@ const App = () => {
             }
           />
 
-          <Route path="/" element={<UsersList />} />
-          <Route path="/formularz" element={<Formularz />} />
-          <Route path="/edycja/:userId" element={<EdycjaFormularz />} />
+          <Route 
+          path="/formularz" 
+          element={<Formularz />} />
+
+          <Route 
+          path="/edycja/:userId" 
+          element=
+          {   <BaseLayout>
+          <EdycjaFormularz />
+          </BaseLayout>} 
+          />
+
+          <Route 
+          path="/dyspozycja"
+          element=
+          {<WeekListManager />} /> 
+          
+          <Route 
+          path="/dyspozycjapracownik" 
+          element={
+          <BaseLayout>
+          <WeekList/>
+          </BaseLayout>}
+           /> 
+
+          <Route 
+          path="/dyspozycjamenager/:userId" 
+          element={ 
+          <BaseLayout>
+          <UsersDetailPage /> 
+           </BaseLayout> } 
+           />
 
           <Route
             path="/wnioskiPracownik"
