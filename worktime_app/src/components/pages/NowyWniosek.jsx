@@ -39,7 +39,13 @@ export const NowyWniosek = () => {
       console.log('Wysłano pomyślnie');
       console.log('Current user:', currentUser);
     
-      try{
+
+      if (new Date(endingDate) < new Date(beginningDate)) {
+      setMessage('Data końca nie może być wcześniejsza niż data początku.');
+      return;
+    }
+
+    try{
         if (!currentUser) {
         setMessage('Brak zalogowanego użytkownika.');
         return;
@@ -94,6 +100,9 @@ export const NowyWniosek = () => {
           <option value="Na dziecko">Urlop na dziecko</option>
           <option value="Opiekunczy">Urlop opiekuńczy</option>
           <option value="Zwolnienie lekarskie">Zwolnienie lekarskie</option>
+          <option value="Szkolenie">Szkolenie</option>
+          <option value="Nadgodziny">Odbiór nadgodzin</option>
+
         </select>
       </label>
       <label className='dataWniosku'>
@@ -110,7 +119,14 @@ export const NowyWniosek = () => {
         type="date" 
         id="endingDate"
         value={endingDate}
-        onChange={(e) => setEndingDate(e.target.value)}
+        onChange={(e) => {
+        setEndingDate(e.target.value);
+        if (new Date(e.target.value) < new Date(beginningDate)) {
+                setMessage('Data końca nie może być wcześniejsza niż data początku.');
+              } else {
+                setMessage('');
+              }
+            }}
         required
         />
       </label>
