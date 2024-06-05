@@ -4,6 +4,7 @@ const TextInput = ({ title, name, value, onChange, type = 'text' , isError, erro
   <div >
     <label  htmlFor={name}>{title}</label>
     <input className="pole"
+      id={name}
       name={name}
       value={value || ""}
       onChange={onChange}
