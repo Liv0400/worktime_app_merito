@@ -5,6 +5,7 @@ import "./CalendarForms.css";
 
 const UserAvailabilityTable = ({ userId }) => {
   const [availability, setAvailability] = useState([]);
+  const [searchWeek, setSearchWeek] = useState("");
 
   useEffect(() => {
     const fetchAvailability = async () => {
@@ -26,6 +27,15 @@ const UserAvailabilityTable = ({ userId }) => {
 
     fetchAvailability();
   }, [userId]);
+
+  const handleSearchChange = (e) => {
+    setSearchWeek(e.target.value);
+  };
+
+  const filteredAvailability = availability.filter((entry) =>
+    entry.week.toString().includes(searchWeek)
+  );
+
   if (!userId) {
     return (
       <p className="dyspoKomunikat">
@@ -35,28 +45,37 @@ const UserAvailabilityTable = ({ userId }) => {
   }
 
   return (
-    <table className="tabela">
-      <thead>
-        <tr>
-          <th>Tydzień</th>
-          <th>Data</th>
-          <th>Od</th>
-          <th>Do</th>
-        </tr>
-      </thead>
-      <tbody>
-        {availability.map((entry) =>
-          entry.entries.map((subEntry, index) => (
-            <tr key={`${entry.id}-${index}`}>
-              <td>{entry.week}</td>
-              <td>{subEntry.date}</td>
-              <td>{subEntry.timeFrom}</td>
-              <td>{subEntry.timeTo}</td>
-            </tr>
-          ))
-        )}
-      </tbody>
-    </table>
+    <div>
+      <input
+        type="text"
+        placeholder="Szukaj wg tygodnia"
+        value={searchWeek}
+        onChange={handleSearchChange}
+        className="searchInput"
+      />
+      <table className="tabela">
+        <thead>
+          <tr>
+            <th>Tydzień</th>
+            <th>Data</th>
+            <th>Od</th>
+            <th>Do</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredAvailability.map((entry) =>
+            entry.entries.map((subEntry, index) => (
+              <tr key={`${entry.id}-${index}`}>
+                <td>{entry.week}</td>
+                <td>{subEntry.date}</td>
+                <td>{subEntry.timeFrom}</td>
+                <td>{subEntry.timeTo}</td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

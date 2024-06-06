@@ -6,6 +6,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import plLocale from "@fullcalendar/core/locales/pl";
 import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import { db } from "../../services/firebase";
+import { format } from "date-fns";
 
 const CalendarViewOnly = () => {
   const [events, setEvents] = useState([]);
@@ -39,6 +40,7 @@ const CalendarViewOnly = () => {
       const usersData = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
+        color: getRandomColor(),
       }));
       setUsers(usersData);
     };
@@ -46,32 +48,48 @@ const CalendarViewOnly = () => {
     fetchUsers();
   }, []);
 
+  const getRandomColor = () => {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
+
+  const updateTooltipPosition = (event, tooltip) => {
+    tooltip.style.left = `${event.pageX + 10}px`;
+    tooltip.style.top = `${event.pageY + 10}px`;
+  };
+
   const handleEventMouseEnter = (info) => {
+    const startTime = format(info.event.start, "HH:mm");
+    const endTime = format(info.event.end, "HH:mm");
+
     const tooltip = document.createElement("div");
     tooltip.className = "tooltip top";
     tooltip.innerHTML = `
-      <strong>Title:</strong> ${info.event.title}<br>
-      <strong>Start:</strong> ${info.event.start}<br>
-      <strong>End:</strong> ${info.event.end}
+      <strong>Pracownik:</strong> ${info.event.title}<br>
+      <strong>Początek:</strong> ${startTime}<br>
+      <strong>Koniec:</strong> ${endTime}
     `;
     document.body.appendChild(tooltip);
 
-    const updateTooltipPosition = (event) => {
-      tooltip.style.left = `${event.pageX + 10}px`;
-      tooltip.style.top = `${event.pageY + 10}px`;
-    };
+    const updatePosition = (event) => updateTooltipPosition(event, tooltip);
 
-    updateTooltipPosition(info.jsEvent);
-    info.el.addEventListener("mousemove", updateTooltipPosition);
+    updateTooltipPosition(info.jsEvent, tooltip);
+    info.el.addEventListener("mousemove", updatePosition);
 
     info.el.tooltip = tooltip;
+    info.el.updatePosition = updatePosition; // Save the function reference
   };
 
   const handleEventMouseLeave = (info) => {
     if (info.el.tooltip) {
       document.body.removeChild(info.el.tooltip);
-      info.el.removeEventListener("mousemove", updateTooltipPosition);
+      info.el.removeEventListener("mousemove", info.el.updatePosition); // Use the saved reference
       info.el.tooltip = null;
+      info.el.updatePosition = null;
     }
   };
 
@@ -93,6 +111,7 @@ const CalendarViewOnly = () => {
           title: user
             ? `${user.fullname.firstname} ${user.fullname.lastname}`
             : "Unknown Employee",
+          backgroundColor: user ? user.color : "#ccc",
         };
       })}
       eventMouseEnter={handleEventMouseEnter}

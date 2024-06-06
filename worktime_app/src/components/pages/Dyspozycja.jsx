@@ -35,14 +35,12 @@ export const Dyspozycja = () => {
     });
   };
 
-  //Pobieranie i filtrowanie użytkowników: Używając getUsers, pobieramy listę użytkowników i filtrujemy ich według roli (Pracownik lub Menadżer).
   useEffect(() => {
     const fetchUsers = async () => {
       const usersList = await getUsers();
       setUsers(usersList);
     };
 
-    //Funkcja fetchUserWeeks: Pobiera dane z calendarEntries i aktualizuje status każdego użytkownika na podstawie obecności wszystkich tygodni.
     const fetchUserWeeks = () => {
       const q = query(collection(db, 'calendarEntries'));
       onSnapshot(q, (querySnapshot) => {
@@ -64,7 +62,6 @@ export const Dyspozycja = () => {
 
   const filteredUsers = users.filter(user => user.fullname?.rightapp === 'Pracownik' || user.fullname?.rightapp === 'Menadżer');
 
-  //getUserStatusIcon zwraca odpowiednie ikony w zależności od statusu użytkownika.
   const getUserStatusIcon = (userId) => {
     const status = userStatuses[userId];
     return status === 'fail' ? '❌' : status === 'success' ? '✔️' : '❓';

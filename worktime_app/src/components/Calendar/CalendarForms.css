@@ -202,6 +202,13 @@ input[type="time"] {
   overflow-y: auto;
   margin-right: 10px;
 }
+.EditUserAvailabilityTable {
+  flex-direction: row;
+  max-height: 480px;
+  overflow-y: auto;
+  margin-left: 30px;
+  min-width: 250%;
+}
 .tabela {
   text-align: center;
   border-radius: 5px;
@@ -232,4 +239,10 @@ input[type="time"] {
   background-color: #eb95c0;
   color: white;
   border-radius: 5px;
+}
+.searchInput {
+  background-color: #f3f3f3;
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
 }

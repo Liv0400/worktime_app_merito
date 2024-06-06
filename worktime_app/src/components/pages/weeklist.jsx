@@ -5,7 +5,6 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { collection, query, onSnapshot, doc, getDoc } from 'firebase/firestore';
 import { db } from '../../services/firebase';
 
-//Funkcja getWeeksInMonth: Generuje listę tygodni dla danego miesiąca i roku.
 const getWeeksInMonth = (year, month) => {
   const date = new Date(year, month, 1);
   const weeks = [];
@@ -54,7 +53,6 @@ const WeekList = () => {
     }
   };
 
-  //Funkcja checkAllWeeksPresent: Sprawdza, czy wszystkie tygodnie danego miesiąca są obecne w bazie danych
   const checkAllWeeksPresent = (weeks, data) => {
     return weeks.every(week => {
       const weekStart = week[0].toLocaleDateString();
@@ -85,7 +83,6 @@ const WeekList = () => {
         setWeeksData(data);
 
         const weeks = getWeeksInMonth(currentYear, currentMonth);
-        //Aktualizacja stanu allWeeksPresent: Używając useEffect, monitorujemy zmiany w calendarEntries i aktualizujemy stan allWeeksPresent, aby odzwierciedlał, czy wszystkie tygodnie są obecne.
         setAllWeeksPresent(checkAllWeeksPresent(weeks, data));
       });
       return () => unsubscribe();
