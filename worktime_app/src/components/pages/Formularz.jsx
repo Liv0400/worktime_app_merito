@@ -2,7 +2,7 @@ import './Administrator.css';
 import { useState } from 'react';
 import { signUpUser } from '../../services/auth';
 import TextInput from './Textinput';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export const Formularz = () => {
   const [firstname, setFirstName] = useState("");
@@ -150,6 +150,7 @@ export const Formularz = () => {
           />
         </div>
         <button type="submit" className="Dodaj">Dodaj</button>
+        <Link to='/administrator'><button type="button" className="PrzyciskDodaj anuluj">Anuluj</button></Link>
       </form>
     </>
   );

@@ -1,5 +1,5 @@
 import './Administrator.css';
-import WeekList from './weeklist'; // importujemy domyślny eksport
+import WeekList from './weeklist'; 
 
 export const DyspozycjaPracownik = () => {
   return (

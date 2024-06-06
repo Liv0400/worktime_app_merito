@@ -1,11 +1,13 @@
 import { WeekListManager } from './WeekListMenager'; 
-
+import { Link } from 'react-router-dom';
 const UsersDetailPage = ({ userId }) => {
-  return (
+  return (<>
+    
     <div>
       {userId} 
       <WeekListManager />
     </div>
+    </>
   );
 };
 

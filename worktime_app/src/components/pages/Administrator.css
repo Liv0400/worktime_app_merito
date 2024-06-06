@@ -1,4 +1,4 @@
-/* Przycisk dodawania */
+/* Przycisk dodawania pracownika*/
 .PrzyciskDodaj {
   display: inline-block;
   padding: 10px 20px;
@@ -20,7 +20,20 @@
 }
 
 /* Przycisk "Dodaj" */
-.Dodaj,
+.Dodaj
+  .anuluj {
+    
+      font-size: 16px;
+      font-weight: bold;
+      padding: 10px 20px;
+      background-color: rgb(146, 60, 118);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+  }
+
 .Usun {
   display: inline-block;
   padding: 10px 20px;
@@ -105,12 +118,16 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease; /* Efekt przejścia */
-    grid-column: span 2;
+    grid-column: span 1;
     justify-self: center;
   }
   
   button:hover {
     background-color: rgba(255, 255, 255, 0.5); /* Kolor tła przycisku po najechaniu myszką */
+  }
+
+  .anuluj {
+    margin-right: 10px; /* Dodajemy margines z prawej strony, aby oddzielić przyciski */
   }
   
 /*lista pracownikow*/
@@ -149,20 +166,14 @@ ul {
   margin-right: 10px;
 }
 
-.user-status.online {
-  background-color: #4CAF50; /* zielony */
-}
-
-.user-status.pending {
-  background-color: #FFC107; /* żółty */
-}
-
-.user-status.offline {
-  background-color: #F44336; /* czerwony */
-}
-
 a {
   color: white;
   text-decoration: none;
 }
+.success-icon {
+  color: green; /* Kolor dla udanego statusu */
+}
 
+.fail-icon {
+  color: red; /* Kolor dla nieudanego statusu */
+}

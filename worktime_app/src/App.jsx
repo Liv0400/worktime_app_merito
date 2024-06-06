@@ -7,7 +7,7 @@ import {
   Logowanie,
   Home,
   Grafik,
-  // Dyspozycja,
+  Dyspozycja,
   Wnioski,
   WnioskiPracownik,
   Pracownicy,
@@ -19,7 +19,7 @@ import {
   // UsersList,
   EdycjaFormularz, 
   UsersDetailPage,
-  UsersListDyspo,
+ //UsersListDyspo,
   // WeekListManager,
 } from "./components/pages";
 import BaseLayout from "./components/BaseLayout";
@@ -77,7 +77,7 @@ const App = () => {
             element={
               <ProtectedRoute requiredRoles={["Menadżer", "Administrator"]}>
               <BaseLayout>
-                <UsersListDyspo />
+                <Dyspozycja />
               </BaseLayout>
               </ProtectedRoute>
             }/>
@@ -88,6 +88,7 @@ const App = () => {
               <ProtectedRoute requiredRoles={["Menadżer", "Administrator"]}>
               <BaseLayout>
                 <UsersDetailPage />
+                
               </BaseLayout>
               </ProtectedRoute>
             }/>

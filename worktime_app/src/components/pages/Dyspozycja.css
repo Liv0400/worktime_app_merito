@@ -134,7 +134,7 @@ h2.dyspozycja {
   border: 2px solid azure;
   border-radius: 30px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+
 }
 
 .otworz.success {
