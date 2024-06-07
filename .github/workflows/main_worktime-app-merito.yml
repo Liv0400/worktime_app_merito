@@ -18,13 +18,13 @@ jobs:
 
       - name: Check for package.json
         run: |
-          dir
-          if exist package.json (
-            echo "package.json exists"
-          ) else (
-            echo "package.json does not exist"
+          if (Test-Path -Path "package.json") {
+            Write-Output "package.json exists"
+          } else {
+            Write-Error "package.json does not exist"
             exit 1
-          )
+          }
+        shell: pwsh
 
       - name: Set up Node.js version
         uses: actions/setup-node@v3
