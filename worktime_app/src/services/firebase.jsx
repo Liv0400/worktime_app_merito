@@ -20,6 +20,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
  const app = initializeApp(firebaseConfig);
+ const secondaryApp = initializeApp(firebaseConfig, "Secondary");
 //const analytics = getAnalytics(app);
 //  const auth = getAuth(app);
 // const db = getFirestore(app);
@@ -31,3 +32,4 @@ const firebaseConfig = {
 
 export const db = getFirestore(app);
 export const auth = getAuth(app);
+export const secondaryAuth = getAuth(secondaryApp);
