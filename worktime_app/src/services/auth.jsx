@@ -1,4 +1,4 @@
-import { auth } from "./firebase";
+import { auth, secondaryAuth } from "./firebase";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -45,7 +45,7 @@ export const signUpUser = async ({
   lastName, //,typedeal
 }) => {
   try {
-    const result = await createUserWithEmailAndPassword(auth, email, password);
+    const result = await createUserWithEmailAndPassword(secondaryAuth, email, password);
     const user = result.user;
 
     if (user) {
@@ -57,6 +57,7 @@ export const signUpUser = async ({
         fullname,
         passwordChanged:false, //, typedeal
       });
+      await signOut(secondaryAuth);
       return user;
     } else {
       throw new Error("Użytkownik jest null lub undefined");
