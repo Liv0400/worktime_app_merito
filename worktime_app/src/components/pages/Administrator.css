@@ -1,0 +1,179 @@
+/* Przycisk dodawania pracownika*/
+.PrzyciskDodaj {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-right: 110px;
+  float: right;
+  font-size: 15px;
+  border: 2px solid azure;
+  border-radius: 30px;
+  background-color: transparent;
+  color: azure;
+  cursor: pointer;
+}
+
+/* Tytuł */
+.tytul {
+  padding: 1rem 2rem;
+  color: #eee;
+  text-align: center;
+}
+
+/* Przycisk "Dodaj" */
+.Dodaj
+  .anuluj {
+    
+      font-size: 16px;
+      font-weight: bold;
+      padding: 10px 20px;
+      background-color: rgb(146, 60, 118);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+  }
+
+.Usun {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 15px;
+  border: 2px solid azure;
+  border-radius: 30px;
+  background-color: transparent;
+  color: azure;
+  cursor: pointer;
+}
+
+/* Tytuł formularza */
+.tytulform {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  color: #eee;
+}
+   /*formularz*/
+   .formularz {
+    display: grid;
+    grid-template-columns: auto 1fr; /* Pierwsza kolumna dla etykiet, druga dla pól wejściowych */
+    gap: 10px; /* Odstęp między wierszami */
+    background-color: rgba(255, 255, 255, 0.5); /* Lekko przezroczyste tło */
+    width: 400px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 15px;
+  }
+  
+  /* Nowe style dla etykiet */
+  .label {
+    font-weight: bold;
+    align-self: center;
+  }
+  
+  /* Nowe style dla pól wejściowych */
+  .pole {
+    font-size: 15px;
+    font-weight: bold;
+    background-color: #f9f8f8;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%; /* Szerokość 100% */
+    box-sizing: border-box; 
+  }
+  
+  .form-group {
+    display: contents; /* Kontener dla etykiety i pola wyboru */
+  }
+  
+  .form-group label {
+    grid-column: 1;
+    align-self: center;
+  }
+  
+  .form-group input[type="date"],
+  .form-group select,
+  .form-group input,
+  .form-group .pole {
+    grid-column: 2;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: #f9f8f8;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box; 
+  }
+  
+  /* Styl dla przycisku */
+  button {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    background-color: rgb(146, 60, 118); /* Kolor tła przycisku */
+    color: white; /* Kolor tekstu */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Efekt przejścia */
+    grid-column: span 1;
+    justify-self: center;
+  }
+  
+  button:hover {
+    background-color: rgba(255, 255, 255, 0.5); /* Kolor tła przycisku po najechaniu myszką */
+  }
+
+  .anuluj {
+    margin-right: 10px; /* Dodajemy margines z prawej strony, aby oddzielić przyciski */
+  }
+  
+/*lista pracownikow*/
+
+.users-list {
+  margin: 70px;
+  font-size: 20px;
+}
+
+.tytulform {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.user-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+
+}
+
+.user-item:last-child {
+  border-bottom: none;
+}
+
+.user-status {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+.success-icon {
+  color: green; /* Kolor dla udanego statusu */
+}
+
+.fail-icon {
+  color: red; /* Kolor dla nieudanego statusu */
+}

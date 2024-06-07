@@ -1,0 +1,48 @@
+.profil{
+  display: block;
+  text-align: center;
+  width: 40%;
+  background-color: rgba(255,255,255,.4);
+  padding: 2rem;
+  margin: 5rem auto 2rem;
+  border-radius: 30px;
+}
+.profil .photo{
+  border: 2px solid #333;
+  width: 9rem;
+  height: 9rem;
+  margin: 1rem auto; 
+  padding: .2rem;
+  border-radius: 50%;
+}
+.profil p {
+  display: inline-block;
+  font-size: 18px;
+  margin: .2rem;
+  padding: .4rem;
+}
+.profil span {
+  display: block;
+  width: 70%;
+  margin: 0 auto;
+  padding: .5rem;
+  line-height: 1rem;
+  background-color: #eee;
+  border-radius: 10px;
+}
+
+.profilButton{
+  margin: 2rem 0 0 2rem;
+  padding: .8rem 1.2rem .8rem 1.2rem;
+  font-size: 14px;
+  border: 2px solid #f27fdd;
+  border-radius: 25px;
+  background-color: #f27fdd;
+  color:#eee;
+  cursor: pointer;
+}
+
+.profilButton:hover {
+  background-color: #f0e4f3;
+  color: #f27fdd;
+}

@@ -1,0 +1,67 @@
+.pracownicy{
+    padding: 5rem 2rem 0 5rem;
+}
+
+.pracownicy h1 {
+  color: #eee;
+}
+
+.pracownicy ul{
+  display: block;
+  margin: 2rem 0 0 5rem;
+  padding: 2rem;  
+  list-style: none;
+  width: 60%;
+}
+.pracownicy li {
+  position: relative;
+  min-width: 20rem;
+  height: 50px;
+  font-size: 20px;
+  color: #eee;
+  cursor: pointer;
+}
+
+.pracownicy .popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pracownicy .popup-content {
+  background-color: rgb(214, 129, 188);
+  padding: 20px;
+  border-radius: 5px;
+  position: relative;
+  width: 300px;
+}
+
+.pracownicy .popup-content p {
+  display: inline-block;
+    font-size: 18px;
+    margin: .2rem;
+    padding: .4rem;
+}
+.pracownicy .popup-content span {
+display: block;
+  width: 70%;
+  margin: 0 auto;
+  padding: .5rem;
+  line-height: 1rem;
+  background-color: #eee;
+  border-radius: 10px;
+}
+
+.pracownicy .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 25px;
+}
