@@ -1,0 +1,107 @@
+body {
+  background-image: url(../img/pexels-codioful-7130536.jpg);
+}
+.logoName {
+  display: block;
+  width: 100%;
+  padding: 2rem 2rem 0 2rem;
+}
+
+.logowanie {
+  display: flex;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 35vw;
+  min-height: 40vh;
+  margin: 5rem auto;
+  border-radius: 15px;
+}
+.logowanie form {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  text-align: center;
+  color:rgb(193, 27, 135);
+}
+.logowanie form .label {
+  display: inline-block;
+  /* margin-bottom: 1rem; */
+}
+.logowanie .pole {
+  display: flex;
+  padding: 1rem 1.5rem;
+  width: 60%;
+  margin: .5rem auto;
+  min-width: 40%;
+  padding: 0.4rem;
+  background-color: transparent;
+  border: 2px solid #fff;
+  border-radius: 20px;
+  color: rgb(193, 27, 135);
+}
+.buttonLogowanie {
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  margin-top: 10px;
+  font-size: 14px;
+  background-color: #f164aa;
+  color: #fff;
+  border: 2px solid #f164aa;
+  border-radius: 15px;
+  cursor: pointer;
+  line-height: 14px;
+}
+
+.buttonLogowanie:hover {
+  background: rgba(255, 255, 255, 0.3);
+  color: #f164aa;
+}
+
+.zaloguj .popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ed99c8;
+  /* Różowy kolor tła */
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.zaloguj .popup-content {
+  text-align: center;
+  color: #eee;
+}
+
+.zaloguj .popup h2 {
+  margin-bottom: 10px;
+  color: #ff337e;
+  /* Różowy kolor nagłówka */
+}
+
+.zaloguj .popup button {
+  background-color: #ff337e;
+  /* Różowy kolor przycisku */
+  color: white;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.zaloguj .popup button:hover {
+  background-color: #eee;
+  color: #ff337e;
+}
+
+.zaloguj .popup button:focus {
+  outline: none;
+  /* Usunięcie obramowania po kliknięciu */
+}
+
+.zaloguj .popup .error {
+  color: #ff337e;
+  /* Różowy kolor błędu */
+  font-size: 14px;
+}

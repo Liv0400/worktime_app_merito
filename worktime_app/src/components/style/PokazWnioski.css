@@ -1,0 +1,50 @@
+.pokazWnioski h1 {
+  padding: 1.5rem;
+  margin-bottom: 3rem;
+  color: #eee;
+}
+
+.pokazWnioski ul{
+  list-style: none;
+  min-width: 90%
+
+}
+ .pokazWnioski li {
+  margin: 0 auto;
+  padding: 1.5rem;
+  font-size: 17px;
+  width: 80%;
+  background-color: #999;
+  color: #eee;
+ }
+ .pokazWnioski li:nth-child(odd){
+  background-color: rgba(177, 52, 108, 0.412);
+ }
+.pokazWnioski li:nth-child(even) {
+   background-color: rgba(239, 127, 192, 0.299);
+  }
+.pokazWnioski li span {
+  display: inline-block;
+  min-width: 25%;
+ }
+ .pokazWnioski span.type{
+  cursor: pointer;
+ }
+
+
+ .pokazWnioski .lista {
+  margin: 0 auto;
+ }
+
+ .pokazWnioski .lista .rozwin {
+  background-color: transparent;
+  border: none;
+  color: rgb(103, 7, 42);
+  float: right;
+  font-size: 18px;
+  cursor: pointer;
+ }
+ 
+
+ 
+
