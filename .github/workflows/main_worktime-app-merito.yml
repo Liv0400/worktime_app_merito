@@ -14,7 +14,17 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v2
+
+      - name: Check for package.json
+        run: |
+          dir
+          if exist package.json (
+            echo "package.json exists"
+          ) else (
+            echo "package.json does not exist"
+            exit 1
+          )
 
       - name: Set up Node.js version
         uses: actions/setup-node@v3
