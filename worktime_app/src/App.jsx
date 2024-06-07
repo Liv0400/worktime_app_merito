@@ -96,7 +96,7 @@ const App = () => {
           <Route
             path="/dyspozycjapracownik"
             element={
-              <ProtectedRoute requiredRoles={["Pracownik", "Administrator"]}>
+              <ProtectedRoute requiredRoles={["Pracownik", "Menadżer", "Administrator"]}>
               <BaseLayout>
                 <WeekList />
               </BaseLayout>

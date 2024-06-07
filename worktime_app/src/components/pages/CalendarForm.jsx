@@ -89,4 +89,3 @@ const CalendarForm = ({ onClose, onSubmit, week, timesFrom, timesTo, user, setTi
 };
 
 export default CalendarForm;
-

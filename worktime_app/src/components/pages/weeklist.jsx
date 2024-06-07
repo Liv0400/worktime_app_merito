@@ -31,7 +31,6 @@ const WeekList = () => {
   const [weeksData, setWeeksData] = useState([]);
   const [timesFrom, setTimesFrom] = useState(new Array(7).fill(''));
   const [timesTo, setTimesTo] = useState(new Array(7).fill(''));
-  const [allWeeksPresent, setAllWeeksPresent] = useState(false);
 
   const fetchUserInfo = async (user) => {
     try {
@@ -51,13 +50,6 @@ const WeekList = () => {
     } catch (error) {
       console.error("Error fetching user info: ", error);
     }
-  };
-
-  const checkAllWeeksPresent = (weeks, data) => {
-    return weeks.every(week => {
-      const weekStart = week[0].toLocaleDateString();
-      return data.some(entry => entry.week.startsWith(weekStart));
-    });
   };
 
   useEffect(() => {
@@ -81,13 +73,10 @@ const WeekList = () => {
           .filter(doc => doc.data().userId === user.uid)
           .map(doc => ({ id: doc.id, ...doc.data() }));
         setWeeksData(data);
-
-        const weeks = getWeeksInMonth(currentYear, currentMonth);
-        setAllWeeksPresent(checkAllWeeksPresent(weeks, data));
       });
       return () => unsubscribe();
     }
-  }, [user, currentMonth, currentYear]);
+  }, [user]);
 
   const weeks = getWeeksInMonth(currentYear, currentMonth);
 
@@ -148,7 +137,7 @@ const WeekList = () => {
 
   return (
     <div className="week-list">
-      <h2 className='dyspozycja'>Dyspozycja: {userName.name} {userName.surname} {allWeeksPresent ? '✔️' : '❌'}</h2>
+      <h2 className='dyspozycja'>Dyspozycja: {userName.name} {userName.surname}</h2>
       <div className="month-controls">
         <button className="poprzedniMiesiac" onClick={() => handleMonthChange(-1)}>Poprzedni miesiąc</button>
         <span className='miesiac'>{new Date(currentYear, currentMonth).toLocaleString('default', { month: 'long', year: 'numeric' })}</span>
